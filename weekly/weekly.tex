@@ -4,6 +4,7 @@
 %% ADDITIONAL NICOLÁS
 \usepackage{ragged2e}
 \usepackage{amssymb}
+\usefonttheme{serif}
 %% ADDITIONAL NICOLÁS
 
 
@@ -192,7 +193,7 @@
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	
-	\subsection{Report Sep 16 - 2021}
+	\subsection{Report Sep 30 - 2021}
 	\justifying
 		\begin{frame}
 			\textbf{Report Sep 30 - 2021}\\~\\
@@ -270,31 +271,192 @@
 			\frametitle{Actions}
 			\begin{itemize}
 				\item Advance in the code and prepare presentation with governing equations for Dr. Mehmani
-				\item Send Fluid mechanics book1
+				\item Send Fluid mechanics book
+				
+				\item Week ideas: validation cases can be found in the Paper 005.
 			\end{itemize}
 		\end{frame}
 		%---------------------------------------------------------
 		%---------------------------------------------------------
 		
-		\subsection{Report Sep 16 - 2021}
+		
+		\subsection{Meeting Nicolas - Dr. Mehmani - 2021}
+		\justifying
+		\begin{frame}
+			\textbf{Meeting Nicolas - Dr. Mehmani - 2021}\\~\\
+			Main discussion points:
+			\begin{itemize}
+				\item Governing equations
+				\item Results with current model
+				\item State of new version
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}
+			\frametitle{Governing equations}
+			
+			The Lattice Boltzmann Method is based on kinetic theory, that states:
+			
+			\begin{equation}\label{eq:LBPDE}
+			\underbrace{\frac{\partial f_i(x,t)}{\partial t} + \mathbf{c}_i \frac{\partial f_i(x,t)}{\partial x}}_{\text{Streaming - DF Advection}} = \underbrace{\mathbf{\Omega}}_{\text{Collision}} 
+			\end{equation}
+			
+			What in its discretized form\footnote{Going from \ref{eq:LBPDE} to \ref{eq:LBE}, what about spatial derivative?} becomes:
+			\begin{equation}\label{eq:LBE}
+				f_i(x+ \mathbf{c}_i \Delta t, t+\Delta t) - f_i(x, t) = - \mathbf{M}^{-1} \mathbf{S} [\mathbf{m}(x,t) - \mathbf{m}^{\text{eq}}]  + \hat{F}_i
+			\end{equation}
+			where $\mathbf{m}$ are vectors of moments, $\mathbf{S}$ is a relaxation diagonal matrix, and $\mathbf{M}$ is a fixed matrix depending on DnQm. $ \mathbf{m}^{\text{eq}} = f(f_i^{\text{eq}}, \mathbf{F})$.
+		\end{frame}
+		
+		
+		\begin{frame}
+			\frametitle{Macroscopic variables}
+			Density and velocity are computed as follows:
+			\begin{equation}
+				\rho = \sum_i f_i \, \, \, \, \, \, \, \,  \mathbf{u} = \sum_i \mathbf{c}_i f_i
+			\end{equation}
+			Two important constitutive equations:
+			\begin{equation*}
+				f_i^{\text{eq}} = \rho \omega_i \left[ 1 + \frac{\vec{u}\cdot \vec{\mathbf{c}_i}}{c^2_s} + \frac{(\vec{u}\cdot \vec{\mathbf{c}_i})^2}{2c^4_s}-  \frac{\vec{u}\cdot \vec{u}}{2c^2_s} \right]
+			\end{equation*}
+			
+			\begin{equation*}
+			\hat{F}_i = \frac{\mathbf{F}}{\rho} \frac{\vec{u} - \vec{\mathbf{c}_i}}{c^2_s} f_i^{\text{eq}}  
+			\end{equation*}
+			
+			where $\mathbf{F}$ is defined in the multiphase problem, as the Shan Cheng force:
+			\begin{equation}
+				\mathbf{F} = -G \psi(x) \sum_i \omega_i \psi(x+\mathbf{c}_i \delta t) \mathbf{c}_i \, \, \, \, \, \psi := \sqrt{\frac{2(P^{\text{\tiny EoS}}-c_s^2\rho)}{G \delta t c_s^2}}
+			\end{equation}
+		\end{frame}
+		\begin{frame}
+			\frametitle{Droplet impacting on a surface - Immiscible}
+			\begin{figure}
+				\includegraphics[scale=0.4]{pics/impactingDroplet.pdf}
+			\end{figure}
+		\end{frame}
+		
+		\begin{frame}
+			\frametitle{Droplet impacting on a surface - Miscible}
+			\begin{figure}
+				\includegraphics[scale=0.4]{pics/impactingDropletMCMP.pdf}
+			\end{figure}
+		\end{frame}
+		
+		\begin{frame}
+			\frametitle{Rotating droplet}
+			\begin{figure}
+				\includegraphics[scale=0.3]{pics/rotatingDroplet.pdf}
+			\end{figure}
+		\end{frame}
+		
+	
+		\begin{frame}
+			\frametitle{State of new version}
+			\begin{itemize}
+				\item Object oriented Fortran code
+				\item VTK-format printing to visualize with Paraview
+				\item EoS completely detached from LBM: using inheritance for classes\footnote{Developed in international system of units}
+				\item Tools being used:
+				\begin{itemize}
+					\item Visual Studio Code as interface. Compiler: gfortran
+					\item Visualization: ParaView. Not using VTK libraries yet
+					\item Makefiles. Not CMake yet
+				\end{itemize}
+			\end{itemize}
+			\begin{alertblock}{Philosophy}
+				Decouple physical concepts from numerical concepts\\
+				Flexible code for future implementations
+			\end{alertblock}
+		\end{frame}
+		
+		\begin{frame}
+			\frametitle{Questions}
+			Clarification. I am attempting to finish the code for 3 reasons: unify versions and capabilities, having fun, and: materialize on my code the possible PhD projects. Should I attempt to take advantage of this stage to program in parallel other methods?
+			
+			My concerns: should I start now in C++? Should I start with OF as well? What about other modern/promising methods? Will this be my entry point to the academia?
+		\end{frame}
+		
+		\begin{frame}
+			\frametitle{Questions}
+			\begin{itemize}
+				\item If you were to start your PhD again, which topic/method/language/project would you start? 
+				\item Pore-scale phenomenology, most relevant set of equations and ideal solutions for pore-scale modeling, origin of Young Laplace equation, assumptions, etc...
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}
+			End...
+		\end{frame}
+		
+		%---------------------------------------------------------
+		%---------------------------------------------------------
+		
+		\subsection{Report Oct 7 - 2021}
 		\justifying
 		\begin{frame}
 			\textbf{Report Oct 7 - 2021}\\~\\
 			Main discussion points:
 			\begin{itemize}
 				\item Generalities
+				\item Code state
+			\end{itemize}
+		\end{frame}
+			
+		\begin{frame}{Generalities}
+			\begin{itemize}
+				\item<1-> New machine status: 
+				\begin{itemize}
+					\item Working as expected (really well!)
+					\item Need to contact John: installation in limited/storage disk (remote)
+					\item Need permissions to set up my Google Drive account
+					\item Compilers working well! gfortran and g++
+				\end{itemize}
+				\item<2-> Question: without having to solve two distribution functions per component, can we solve an isochoric version of the EoS for every node? 
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}{Code state}
+			Show code status and results connected to ParaView.
+		\end{frame}
+		
+		\begin{frame}{Comparison of EoS Results}
+			
+			
+			\begin{table}
+				\centering
+				\begin{tabular}{cccc}
+					Variable & Old & New & Decimal Pos. Diff\\
+					\hline
+					$P$ scale & 2987.2198 & 2987.2707 & 2\\
+					$T$ scale & 1146.9220 & 1146.9129 & 2\\
+					$a_1$ scale & 0.18367 & 0.18367 & 14\\
+					$b_2$ scale & 0.28177 & 0.28177 & 6\\
+					$Z$ liquid & 0.438672 & 0.438672 & 9\\
+					$Z$ gas & 0.59443 & 0.59443 & 10					
+				\end{tabular}
+				\label{table-P1i}
+				\caption{The results related to a thermodynamic conditions, were evaluated at 1888.2 psi}
+			\end{table}
+		\end{frame}
+	
+		%\begin{frame}{Code state} \includegraphics[width=0.4\textwidth]{pics/eosNew.png} \includegraphics[width=0.6\textwidth]{pics/eosOld.png} \end{frame}
+		
+		\begin{frame}{Validation of the code}
+			\justifying
+			\begin{itemize}
+				\item Cheng's version and William's version
+				\item Closed tube to see linearity of capillary pressure and contact angle
+				\item Evaporation from a channel (analytical solution)
 			\end{itemize}
 		\end{frame}
 	
-		\begin{frame}{EoS Results}
-			\centering
-			\begin{figure}
-				%\includegraphics[scale=0.2]{pics/eosNew.png}
-				\includegraphics[width=0.4\textwidth]{pics/eosNew.png}
-				\hfill
-				\includegraphics[width=0.7\textwidth]{pics/eosOld.png}
-			\end{figure}
-		
+		\begin{frame}{How to keep the momentum?}
+			Should I...
+			\begin{itemize}
+				\item Start visualizing a particular method as potential for us? How to approach to it?
+				\item Accelerate any process in which I am being slow?
+			\end{itemize}
 		\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
@@ -320,7 +482,18 @@
 	\end{frame}
 	%---------------------------------------------------------
 
-	
+	%---------------------------------------------------------
+	\begin{frame}
+	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\begin{frame}
+	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\begin{frame}
+	\end{frame}
+	%---------------------------------------------------------
 		%---------------------------------------------------------
 	%Changing visivility of the text
 	\begin{frame}
