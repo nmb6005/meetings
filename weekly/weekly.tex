@@ -642,6 +642,81 @@
 			\item Check Cheng's corner implementation and validate against tutorial
 		\end{itemize}
 	\end{frame}
+
+%---------------------------------------------------------
+%---------------------------------------------------------
+
+	\subsection{Report Nov 4 - 2021}
+	\justifying
+	\begin{frame}
+		\textbf{Report Nov 4 - 2021}\\~\\
+		Main discussion points:
+		\begin{itemize}
+			\item Courses
+			\item Code state
+			\item Research collaboration 
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Courses}
+		\begin{itemize}
+			\item Adv. Programming: Midterm done.
+			\item Data mining: Final project in one weeks.
+			\item Stat. Thermo: Midterm done. Kinetic theory called my attention to understand the connection with LBM or limitations (such as that Boltzmann proposed a collision operator more complex than BGK. How it relates to MRT?). Kruger's book mention that LBM can handle incompressible NS, but I haven't read it in detail.
+			\item Found. Fluids M: Reference for analytical solutions.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Code state}
+		I realized that Cheng handles the boundary conditions at corners depending on the application. See diagrams I draw.\\~\\
+		The corners were corrected, but something is missing that makes the density to diverge. I had to implement forcing schemes, as the channel works with imposed force.
+		\begin{figure}
+			\includegraphics[scale=0.1]{pics/firstRunChannel.png}
+		\end{figure}
+		Missing: periodic boundary conditions, which Cheng uses in channel. Scaling for the basic LBM. 
+	\end{frame}
+
+	\begin{frame}{Code state}
+		What I still have to understand better before implementation:
+		\begin{itemize}
+			\item Should we use the concept of phase inside the code? Two components with different $f_i$, should they move at the same bulk velocity? I think so, but which density should enter to calculate $f^{\text{eq}}$? Never two components move at different $\vec{u}$? If they move together, force correction must use total force. 
+			\item Viscosity-time relationship, constant for all components (phases?) 
+			\item I recall that some simulations have different weighting factors for the force. What should we implement?
+			\item Mastering Chapman-Enskog will be the key to understand consequences of each approach.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Research collaboration}
+		
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			Physics
+			\begin{itemize}
+				\item Single component with customized EoS (Xenon) 
+				\item Solid attraction (no fixed density, depends on local values and thermodynamics. Solid can not ask for more than is available)
+			\end{itemize}
+			
+			\column{0.5\textwidth}
+			Computational implications:
+			\begin{itemize}
+				\item 3D model. Currently, the code has a 70\% 3D implementation
+				\item What are the geometries of the experiment and its boundary conditions?
+				\item Include simple validation cases in 3D (No surface tension)
+			\end{itemize}
+		\end{columns}
+		~\\
+		We receive data for validation, but, what are we validating/representing? How can we give back? What I propose to do next:
+		\begin{itemize}
+			\item Rethink the scaling for generalized $\Delta x, \Delta t$
+			\item Establish the main dimensionless numbers for experiments and suggest a scaling procedure
+		\end{itemize}
+		
+	\end{frame}
+
+
+	\begin{frame}{Actions}
+	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 
