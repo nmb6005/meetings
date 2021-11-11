@@ -714,12 +714,104 @@
 		
 	\end{frame}
 
-
 	\begin{frame}{Actions}
 	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
+	
+	\subsection{Report Nov 11 - 2021}
+	\justifying
+	\begin{frame}
+		\textbf{Report Nov 11 - 2021}\\~\\
+		Main discussion points:
+		\begin{itemize}
+			\item Courses
+			\item Code state
+			\item Others
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Courses}
+		\begin{itemize}
+			\item Adv. Programming: \alert{C++ Project: How to make it useful for us?}.
+			\item Data mining: \alert{I'd explore ML for solving PDEs}.
+			\item Stat. Thermo: physical models of matter. Equations of state.
+			\item Found. Fluids M: Keep going?
+		\end{itemize}
+	\end{frame}
 
+	\begin{frame}{Code state}
+		We have a LBM code that aims to handle arbitrary 2D shapes, generalizing the handling of boundary conditions, force types, and number of components. 
+		\begin{columns}
+			\column{0.5\textwidth}
+			BC
+			\begin{itemize}
+				\item Wall (stationary or moving)
+				\item Periodic
+				\item \alert{Pressure, outflow (2), velocity}
+			\end{itemize}
+			
+			\column{0.5\textwidth}
+			Scaling
+			I have solved the scaling for two cases: EoS constrained, and Re constrained, giving freedom to $\Delta x$. $\Delta \rho$ and $\nu$ are given by $\rho_0$=1 and relaxation time.
+		\end{columns}
+		~\\~\\
+		I have been reading Kruger mostly. The model is a combination between Cheng's ideas and Krugers suggestions. Still, no one talks about corners for general BC. BC is the critical part now along with the solid boundaries \alert{inside} the domain.\\
+		Let's have a look on the cases I have run.
+	\end{frame}
+
+	\begin{frame}{Code state: validation cases}
+		\begin{itemize}
+			\item \alert{Channel flow (Cheng's tutorial case)}
+			\item Channel flow (Pressure driven/velocity-outflow BC)
+			\item \alert{Couette flow (Flow between plates)}
+			\item Flow around cylinder (laminar flow)
+			\item \alert{Flow around cylinder (turbulent flow)}
+			\item \alert{Cavity flow}
+			\item Final case: porous medium
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Validation cases: Channel flow}
+		\begin{figure}
+			\includegraphics[scale=0.3]{pics/channelForceDriven.png}
+		\end{figure}
+	I am one order of magnitude below from Cheng's solution. But still I want to compare with analytical solution and my scaling.
+	\end{frame}
+	
+	\begin{frame}{Validation cases: Couette flow}
+		\begin{figure}
+			\includegraphics[scale=0.3]{pics/couetteFlow.png}
+		\end{figure}
+	This is giving me the imposed velocity at the wall: 0.1 LBM units. I need to compare this solution during transient.
+	\end{frame}
+
+	\begin{frame}{Validation cases: Cavity flow}
+		\begin{figure}
+			\includegraphics[scale=0.18]{pics/cavity.png}
+		\end{figure}
+	I need to check the results from papers at different Reynolds numbers.
+	\end{frame}
+
+	\begin{frame}{Validation cases: Cylinder (turbulent)}
+		
+	\end{frame}
+
+	\begin{frame}{Others}
+		If we were to stop coding, what should you study?\\
+		Chapman-Enskog expansion? Machine Learning for CFD? Boundary conditions?\\
+		Should I meet again with Dr. Mehmani and show partial results?\\
+		C++ project: Automatic Diff. EoS implementation?\\
+		Thanksgiving.
+	\end{frame}
+
+	\begin{frame}{Actions}
+		
+	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	
+	
+	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	%---------------------------------------------------------
