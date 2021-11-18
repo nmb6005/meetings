@@ -1,16 +1,20 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 
+\usetheme{Madrid}
+
 %% ADDITIONAL NICOLÁS
 \usepackage{ragged2e}
 \usepackage{amssymb}
 \usefonttheme{serif}
+
+\definecolor{UBCblue}{rgb}{0.01569, 0.11765, 0.25882} % PSU Blue
+\usecolortheme[named=UBCblue]{structure}
+
 %% ADDITIONAL NICOLÁS
 
 
 
-\usetheme{Madrid}
-\usecolortheme{default}
 
 %------------------------------------------------------------
 %This block of code defines the information to appear in the
@@ -807,6 +811,78 @@
 	\begin{frame}{Actions}
 		
 	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	
+	\subsection{Report Nov 18 - 2021}
+	\justifying
+	\begin{frame}
+		\textbf{Report Nov 18 - 2021}\\~\\
+		Main discussion points:
+		\begin{itemize}
+			\item C++ Project
+			\item Code state
+			\item Others
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Advanced Programming Project}
+		Submit project proposal:
+		\begin{itemize}
+			\item Object oriented programming. Deadline (flexible): Dec 14th. External library.
+			\item External libraries: VTK (visualization), Automatic Diff (?), JSON (reading). 
+			\item Capabilities:
+			\begin{itemize}
+				\item Arbitrary $N_c$ (no spend time in reading routines)
+				\item Stability test
+				\item Two-phase flash
+				\item Arbitrary number of conditions (to build envelope)
+				\item Too much? Enough at no extra cost?
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Code state}
+		We have a LBM code that aims to handle arbitrary 2D shapes, generalizing the handling of boundary conditions, force types, and number of components.\\
+		\begin{columns}
+			\column{0.5\textwidth}
+			Bound. Conditions:
+			\begin{itemize}
+				\item Wall (stationary or moving), periodic
+				\item \alert{Velocity, outflow, pressure}
+			\end{itemize}
+			
+			\column{0.5\textwidth}
+			Validation steps:
+			\begin{itemize}
+				\item General Couette Flow (two parallel plates)
+				\item Poiseuille Flow (pressure/force driven)
+				\item Boundary layer profile
+			\end{itemize}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Code state}
+		\begin{figure}
+			\includegraphics[scale=0.16]{pics/bcCorrected.png}
+			\caption{$\rho$ at boundaries have to be carefully specified. Local $\rho$ does not work for open boundaries. Here, corners do not affect too much $\bar{u}$, but $\rho^{\text{ave}}$.}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Implementation difficulties}
+		\begin{itemize}
+			\item Treating boundary conditions at corners
+			\item Definition of density at boundaries
+			\item 3D unseen hurdles
+			\item Some methods (books/papers) present to me as aiming too much to 'pure' mixtures.
+			\item \alert{Limited documentation for Fortran OOP}\footnote{\tiny Yesterday, I found a really good book and a presentation, that explain Fortran in a parallel way to C++, so showing the same tools I have in C++, but in Fortran.}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Others}
+		Spaced repetition methodology.\\
+		Use Winter break for reading. Plan a reading schedule: CE Expansion. Parallel Programming. Fortran OOP. 
+	\end{frame}
+	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	
