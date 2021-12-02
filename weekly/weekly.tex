@@ -6,8 +6,9 @@
 %% ADDITIONAL NICOLÁS
 \usepackage{ragged2e}
 \usepackage{amssymb}
-\usefonttheme{serif}
+\usepackage{subcaption}
 
+\usefonttheme{serif}
 \definecolor{UBCblue}{rgb}{0.01569, 0.11765, 0.25882} % PSU Blue
 \usecolortheme[named=UBCblue]{structure}
 
@@ -907,16 +908,133 @@
 		\end{itemize}
 	\end{frame}
 	\begin{frame}{LBM Concepts}
-		Wrote the derivation of the new equation using Crank-Nicholson that I hadn't understood before. Ready for CE expansion.\\
+		\begin{itemize}
+			\item Wrote the derivation of the new equation using Crank-Nicholson that I hadn't understood before. Ready for CE expansion.\\
 		
-		I have wrote ideas in the new ideas Vault: Obsidian. This is updated in GitHub.\\
+			\item I have wrote ideas in the new ideas Vault: Obsidian. This is updated in GitHub.\\
 		
-		I read a Kruguer's paper, where he explains the effect of increasing density when imposing velocity and outflow. He suggests to change conditions or add a correction term in the equation. So, our results are not necessary a mistake.
+			\item I read a Kruguer's \href{https://journals.aps.org/pre/abstract/10.1103/PhysRevE.79.046704}{\color{red} paper}, where he explains the effect of mass increasing for velocity-outflow BC. He suggests to change conditions or add a correction term in the equation. So, our results are not necessary a mistake.
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{Code state}
-		Show run in porous medium\\
-		Still have to test the symmetric conditions. 
+		I corrected the pressure BC and tested in the channel and in a porous medium. \alert{Symmetric BC was programmed but tests are not showing good results. Maybe I have to redisign test cases.}
+		
+	\end{frame}
+
+	\begin{frame}{Testing BC in a rectangle}
+		Velocity and pressure profiles.\\
+		Check pressProfVideo.avi - velProfVideo.avi.
+		\begin{columns}
+			\column{0.5\textwidth}
+			\begin{figure}
+				\centering
+				
+				\centering
+				\includegraphics[width=\textwidth]{pics/pressDropBox.png}
+				%\caption[]{}    
+				\label{}
+			\end{figure}
+		
+			\column{0.5\textwidth}
+			
+			\begin{figure}
+				\centering
+				
+				\includegraphics[width=0.8\textwidth]{pics/velDropBox.png}
+				%\caption[]{}   
+				\label{}
+			\end{figure}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\textwidth]{pics/globalDenBox.png}
+		\end{figure}
+	\end{frame}
+	
+	
+	\begin{frame}{First attempt of running in a porous medium}
+		\begin{columns}
+			\column{0.5\textwidth}
+			Bounday conditions:
+			\begin{itemize}
+				\item Known velocity at the inlet (left).
+				\item Known pressure at the outlet (right).
+				\item Closed boundaries at top and bottom sides. 
+			\end{itemize}
+			
+			Ideal equation of state $P = c^2_s \rho$.\\
+			
+			Results can not be shown in this PC (\~~30 GB of data).\\
+			Check pm.avi - pmPressDrop.avi
+			\column{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.7\textwidth]{pics/porousMedia.jpg}
+				\caption[]{{\small Downloaded from: \href{https://www.digitalrocksportal.org/}{https://www.digitalrocksportal.org/}}}   
+			\end{figure}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Velocity map}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{pics/pmVelWhole.png}  
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Velocity map}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{pics/pmVelUpperRight.png}  
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Velocity map}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{pics/pmVelLowerRight.png}  
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Density evolution}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{pics/pmVelLowerRight.png}  
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{PBM}
+		Approach:
+		\begin{itemize}
+			\item OOP Approach: Component, Phase, Mixture, EoS classes.
+			\item Component and Phases are independent classes (this is somehow wrong) and contains different properties.
+			\item Mixture is composed by components, a thermodynamic state (P,T) and phases that will be filled with its methods.
+			\item Mixture contains methods with EoS as parameter to specific expressions.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{PBM}
+		Where I am?
+		\begin{itemize}
+			\item Coupled with plotting library to create any type of plot (heat map, linear plot, scatter,...).
+			\item Classes defined. Constructor allows to add any number of components easily.
+			\item EoS methos for: $A,B$ of mixture. Fugacity coefficient (Gibbs energy). Polynomial ensemble and solving (minimizing Gibbs).
+			\item Solving Z for a homogeneous phase.
+		\end{itemize}
+		Next step is to validate the current implementation (Z is not matching) and then implement the stability algorithm.
+		\begin{block}{References:}
+			\textbf{Michelsen}: Explains math. Does not explain algorithm clearly.
+			\textbf{Withson}: Explains algorithm clearly.  Introduce some not explicit physics-related terms. 
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Others}
+		
+		Dr. Mehmani website.\\
+		Graders in Spring. Do they need this during the period we don't receive a monthly payment?\\
 	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
