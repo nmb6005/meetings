@@ -1002,7 +1002,7 @@
 	\begin{frame}{Density evolution}
 		\begin{figure}
 			\centering
-			\includegraphics[width=0.7\textwidth]{pics/pmVelLowerRight.png}  
+			\includegraphics[width=0.5\textwidth]{pics/pmDenAve.png}  
 		\end{figure}
 	\end{frame}
 
@@ -1035,6 +1035,24 @@
 		
 		Dr. Mehmani website.\\
 		Graders in Spring. Do they need this during the period we don't receive a monthly payment?\\
+	\end{frame}
+
+	\begin{frame}{Actions}
+		\begin{itemize}
+			\item Comparison of the two forms (wall vs solving for $\rho$) of velocity BC: in math and results.
+			\item Limit the extent of PBM: Compressibility factor and stability test.
+			\item Code the printing and reading of a restart file.
+			\item Code the prescription of density when velocity at the inlet.
+			\item Run a case with pressure at inlet and velocity at outlet.
+			\item Conversation with Prof. Orlando:
+			\begin{itemize}
+				\item Prescribing velocity and density in a single component system: over-constraining the proble vs. imposing more information to solve outflow increasing density?
+				\item Implications of outflow BC. We believe better results if more layers taken into account.
+				\item Oscillations in density obeying numerical error.
+				\item Corner treatments. Does the treatment depend on the type of boundaries?
+				\item Is outflow the way to go with multiphase? How to correct then the mass increase.
+			\end{itemize}
+		\end{itemize}
 	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
