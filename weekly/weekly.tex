@@ -286,6 +286,7 @@
 		
 		
 		\subsection{Meeting Nicolas - Dr. Mehmani - 2021}
+		\label{sec:mehmaniOct21}
 		\justifying
 		\begin{frame}
 			\textbf{Meeting Nicolas - Dr. Mehmani - 2021}\\~\\
@@ -1073,10 +1074,11 @@
 	
 	
 	\subsection{Dr. Mehmani Meeting Dec 10 - 2021}
+	\label{sec:mehmaniDec21}
 	\justifying
 	\begin{frame}
 		\textbf{Dr. Mehmani Meeting Dec 10 - 2021}\\~\\
-		Main discussion points:
+		From past meeting (go to \ref{sec:mehmaniOct21}), the main discussion points are:
 		\begin{itemize}
 			\item LBM Formulation
 			\begin{itemize}
@@ -1091,13 +1093,165 @@
 
 	
 	\begin{frame}{LBM Formulation - MRT}
-		In our last meeting, we ended with the discussion of the nature of the MRT model.
-		Notation: $$
-		\begin{equation}
-			\rho = \sum_i f_i = \vec{1} \cdot \vec{f} = \
-		\end{equation}
+		In our last meeting, we ended up with the discussion of the nature of the MRT, D2Q9 model. The MRT matrix needs:
+		\begin{itemize}
+			\item Transform back and forth from $f_i$ to moments.
+			\item Be orthogonal, to ensure independence between relaxation times.
+		\end{itemize}
+		Zero-order and first-order moments are orthogonal:
+		\begin{equation*}
+			M_0 = \rho = \sum_i f_i = \mathbf{1} \cdot \mathbf{f} = |\mathbf{c}|^{0} \cdot \mathbf{f}
+		\end{equation*}
+		\begin{equation*}
+		 M_1 =\mathbf{u} = \sum_i \mathbf{c}_i f_i  = \mathbf{c} \cdot \mathbf{f} =  \mathbf{c}^1 \cdot \mathbf{f}; \, \, \, \, \dim(\mathbf{c}) = 3*Q
+		\end{equation*}
+		\begin{equation*}
+		M_1 =\mathbf{u} = \sum_i \mathbf{c}_i f_i  = \mathbf{c} \cdot \mathbf{f} =  \mathbf{c}^1 \cdot \mathbf{f}; \, \, \, \, \dim(\mathbf{c}) = 3*Q
+		\end{equation*}
+	\end{frame}
+	
+	\begin{frame}{LBM Formulation - MRT}
+		
+		\begin{columns}
+		\column{0.5\textwidth}
+		Gram-Schmidt procedure to get orthogonal vectors, for moments referring to kinetic energy, normal and shear viscous stresses.
+		
+		\begin{equation*}
+			M_2 = e = \sum_i f_i (3 |\mathbf{c}_i|^2-4)
+		\end{equation*}
+		\begin{equation*}
+			M_2 = p_{xx} = \sum_i f_i (\mathbf{c}_{i,x}^2 - \mathbf{c}_{i,y}^2)
+		\end{equation*}
+		\begin{equation*}
+			M_2 = p_{xy} = \sum_i f_i (\mathbf{c}_{i,x}  \mathbf{c}_{i,y})
+		\end{equation*}
+		
+		\column{0.5\textwidth}
+		Third order moments (kinetic energy flux) and one fourth moment:
+		\begin{equation*}
+		M_3 = q_x = \sum_i f_i (3 |\mathbf{c}_i|^2-5|\mathbf{c}_i|^0) \mathbf{c}_{i,x}
+		\end{equation*}
+		\begin{equation*}
+		M_3 = q_y = \sum_i f_i (3 |\mathbf{c}_i|^2-5|\mathbf{c}_i|^0) \mathbf{c}_{i,y}
+		\end{equation*}
+		\begin{multline*}
+		M_4 = e = \\
+		\sum_i f_i (\frac{9}{2} (|\mathbf{c}_i|^2) ^2- \frac{21}{2}|\mathbf{c}_i|^2+ 4 |\mathbf{c}_i|^0)
+		\end{multline*}
+	\end{columns}
 	\end{frame}
 
+	\begin{frame}{Shan-Chen force and interfacial tension}
+		\begin{equation*}
+		\mathbf{F} = -G \psi(x) \sum_i \omega_i \psi(x+\mathbf{c}_i \delta t) \mathbf{c}_i \, \, \, \, \, \psi := \sqrt{\frac{2(P^{\text{\tiny EoS}}-c_s^2\rho)}{G \delta t c_s^2}}
+		\end{equation*}
+		\begin{multline*}
+		\mathbf{F}(\mathbf{x}) = -G \psi (\mathbf{x}) \big[ \big.  \delta t \sum_{l}^{N} \frac{\partial \psi}{\partial \mathbf{x}^l} \sum_\alpha w_\alpha \mathbf{e}_\alpha \mathbf{e}_\alpha^l \\ + \frac{\delta t^3}{6} \sum_{l}^{N} \sum_{m}^{N} \sum_{n}^{N} \frac{\partial^3 \psi}{\partial \mathbf{x}^l \partial \mathbf{x}^m \partial \mathbf{x}^n} \sum_\alpha w_\alpha \mathbf{e}_\alpha \mathbf{e}_\alpha^l \mathbf{e}_\alpha^m \mathbf{e}_\alpha^n  \big. \big]
+		\end{multline*}
+		\begin{equation*}
+		\mathbf{F}(\mathbf{x}) = -G \big[ \big.  \delta t c^2_s   \psi (\mathbf{x}) \nabla \psi + \frac{\delta t^3}{2} c^4_s \psi (\mathbf{x}) \nabla (\nabla^2\psi)  \big. \big]
+		\end{equation*}
+		The Taylor expansion of Shan-Chen force shows similar characteristics to the usual surface tension force.
+	\end{frame}
+
+	\begin{frame}{Boundary conditions}
+	\end{frame}
+
+	\begin{frame}{Fortran LBM Code}
+	\end{frame}
+
+	\begin{frame}{Validations}
+		\begin{itemize}
+			\item Channel flow (force-driven)
+			\item Channel flow (pressure-gradient driven)
+			\item Couette flow (Flow between plates)
+			\item Flow around a cylinder (laminar flow)
+			\item Flow around a cylinder (turbulent flow)
+			\item Cavity flow
+			\item Final case: porous medium
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Validation 1}
+	\end{frame}
+	
+	\begin{frame}{Testing generality: arbitrary porous medium}
+		\begin{columns}
+			\column{0.5\textwidth}
+			Bounday conditions:
+			\begin{itemize}
+				\item Known velocity at the inlet (left).
+				\item Known pressure at the outlet (right).
+				\item Closed boundaries at top and bottom sides. 
+			\end{itemize}
+			
+			Ideal equation of state $P = c^2_s \rho$.\\
+			
+			1 million timesteps \\
+			Check pm.avi - pmPressDrop.avi
+			\column{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.7\textwidth]{pics/porousMedia.jpg}
+				\caption[]{{\small Downloaded from: \href{https://www.digitalrocksportal.org/}{https://www.digitalrocksportal.org/}}}   
+			\end{figure}
+		\end{columns}
+		Computing time: 30 hours, 30 min. \\Percentages: Frcn: 23.\%. Clls: 29.\%. Strm: 17.\%. Bndr:  0.\%. Mcrs: 30.\%. Prnt:  0.\%
+		
+	\end{frame}
+
+	\begin{frame}{Testing generality: arbitrary porous medium}
+		\begin{columns}
+			\column{0.7\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.7\textwidth]{pics/pmVelLowV.png}
+				\caption{General picture of the arbitrary porous medium.}   
+			\end{figure}
+			\column{0.3\textwidth}
+			The entry velocity was corrected to avoid high velocities at pore-throats ($>0.1$).
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Testing generality: arbitrary porous medium}
+		\begin{columns}
+			\column{0.7\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.7\textwidth]{pics/pmVelCorrZoom.pdf}
+				\caption{Zoom that captures the flow in narrow sections of the domain and the convergence of fluxes.}   
+			\end{figure}
+			\column{0.3\textwidth}
+			 
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Testing generality: arbitrary porous medium}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.8\textwidth]{pics/pmDrops.png}
+				\caption{Pressure drop and velocity profiles at inlet and outlet.}   
+			\end{figure}
+			Permeability: 300 D. Pore throat around 6 voxels (6* 9 $\mu m$). Rule of thumb 1/7, pore size of 500 $\mu m$.
+	\end{frame}
+	
+	\begin{frame}{Testing generality: arbitrary porous medium}
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.4\textwidth]{pics/pmGlobal.png}
+			\caption{Pressure and density global averages}   
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Pressure-Velocity}
+		
+	\end{frame}
+		
+	\begin{frame}{Research and applications}
+		
+	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	
