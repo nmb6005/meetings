@@ -785,6 +785,7 @@
 	\end{frame}
 	
 	\begin{frame}{Validation cases: Couette flow}
+		\label{sec:CouetteFlowChannel}
 		\begin{figure}
 			\includegraphics[scale=0.3]{pics/couetteFlow.png}
 		\end{figure}
@@ -792,6 +793,7 @@
 	\end{frame}
 
 	\begin{frame}{Validation cases: Cavity flow}
+		\label{sec:CavityFlow}
 		\begin{figure}
 			\includegraphics[scale=0.18]{pics/cavity.png}
 		\end{figure}
@@ -923,7 +925,8 @@
 		
 	\end{frame}
 
-	\begin{frame}{Testing BC in a rectangle}
+	\begin{frame}{Testing BC in a rectangle}\label{sec:pressBCRectangle}
+		
 		Velocity and pressure profiles.\\
 		Check pressProfVideo.avi - velProfVideo.avi.
 		\begin{columns}
@@ -1086,7 +1089,7 @@
 				\item MRT: Calculation of orthogonal moments
 				\item Boundary conditions
 			\end{itemize}
-			\item Fortran LBM Code (Structure and validations)
+			\item Fortran LBM Code (structure and validations)
 			\item Research and applications
 		\end{itemize}
 	\end{frame}
@@ -1122,9 +1125,6 @@
 		\begin{equation*}
 			M_2 = p_{xx} = \sum_i f_i (\mathbf{c}_{i,x}^2 - \mathbf{c}_{i,y}^2)
 		\end{equation*}
-		\begin{equation*}
-			M_2 = p_{xy} = \sum_i f_i (\mathbf{c}_{i,x}  \mathbf{c}_{i,y})
-		\end{equation*}
 		
 		\column{0.5\textwidth}
 		Third order moments (kinetic energy flux) and one fourth moment:
@@ -1151,30 +1151,80 @@
 		\begin{equation*}
 		\mathbf{F}(\mathbf{x}) = -G \big[ \big.  \delta t c^2_s   \psi (\mathbf{x}) \nabla \psi + \frac{\delta t^3}{2} c^4_s \psi (\mathbf{x}) \nabla (\nabla^2\psi)  \big. \big]
 		\end{equation*}
-		The Taylor expansion of Shan-Chen force shows similar characteristics to the usual surface tension force.
+		The Taylor expansion of Shan-Chen force shows similar characteristics to the usual surface tension force. Left: Pressure correction. Right: interfacial tension force.
 	\end{frame}
 
 	\begin{frame}{Boundary conditions}
+		High degree of freedom: more unknowns ($f_i$) than macroscopic variables.\\
+		Moving wall (using average density)/ Velocity BC:
+		\begin{equation*}
+			f_{i}(\mathbf{x}_b,t+\delta t) = f^*_{i^-}(\mathbf{x}_b,t) - 2 w_i \rho_w \frac{\mathbf{c}_{i^-} \cdot \mathbf{u}_w}{c_s^2}
+		\end{equation*}
+		Pressure condition (interpolating velocity):
+		\begin{equation*}
+			f_{i}(\mathbf{x}_b,t + \delta t) = - f^*_{i^-}(\mathbf{x}_b,t) + 2 w_i \rho_w \left[1+\frac{(\mathbf{c}_{i^-} \cdot \mathbf{u}_w)^2}{2c_s^4} - \frac{\mathbf{u}^2_w}{2c^2_s} \right]
+		\end{equation*}
+		Periodic (copying post-collision):
+		\begin{equation*}
+			f_{i}(\mathbf{x},t + \delta t) = f^*_{i}(\mathbf{x+L-c_i}\delta t,t) 
+		\end{equation*}
+		Outflow (1): Interpolating velocity from adjacent layer and impose velocity BC.\\
+		Outflow (2): Copying distribution functions from adjacent layer. 
 	\end{frame}
 
 	\begin{frame}{Fortran LBM Code}
+		Object oriented code, aiming to:
+		\begin{itemize}
+			\item Coupling of thermodynamic information
+			\item 3D simulations
+			\item Parallel computing
+		\end{itemize}
+		First goal: validate Cheng's results to complete a draft of a paper Cheng did. Main classes:
+		\begin{itemize}
+			\item Component, phase, mixture, and equation of state
+			\item Domain, global properties
+			\item LBM Parameters, numerical parameters, scaling
+			\item Forces and boundaries 
+			\item LBM Functions and VTKObjects
+		\end{itemize}
+		\alert{Current state: ideal EoS, arbitrary domain and any combination of BC}
+	\end{frame}
+
+	\begin{frame}{Input}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\textwidth]{pics/modelInput.png}
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}{Validations}
+		The following are results that were already run in the model.
 		\begin{itemize}
 			\item Channel flow (force-driven)
-			\item Channel flow (pressure-gradient driven)
-			\item Couette flow (Flow between plates)
-			\item Flow around a cylinder (laminar flow)
+			\item Channel flow (pressure-gradient driven) (see slide \ref{sec:pressBCRectangle})
+			\item Couette flow (Flow between plates) (see slide 	\ref{sec:CouetteFlowChannel})
 			\item Flow around a cylinder (turbulent flow)
-			\item Cavity flow
+			\item Cavity flow (see slide \ref{sec:CavityFlow})
 			\item Final case: porous medium
 		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}{Validation 1}
+	\begin{frame}{Channel flow (force driven)}
+		The analytical solution was computed for every time step using a scaling process. The proportion between them is about 0.999 in the center, and about 0.987 close to the corners.
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\textwidth]{pics/channelForceDrivenValidation.png}
+		\end{figure}
 	\end{frame}
-	
+
+	\begin{frame}{Flow around cylinder (turbulent flow)}
+		This is a benchmark of a Python code from University of Geneva. 
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\textwidth]{pics/cylinderTurbulent.png}
+		\end{figure}
+	\end{frame}
+
 	\begin{frame}{Testing generality: arbitrary porous medium}
 		\begin{columns}
 			\column{0.5\textwidth}
@@ -1205,7 +1255,7 @@
 			\column{0.7\textwidth}
 			\begin{figure}
 				\centering
-				\includegraphics[width=0.7\textwidth]{pics/pmVelLowV.png}
+				\includegraphics[width=0.8\textwidth]{pics/pmVelLowV.png}
 				\caption{General picture of the arbitrary porous medium.}   
 			\end{figure}
 			\column{0.3\textwidth}
@@ -1215,15 +1265,26 @@
 	
 	\begin{frame}{Testing generality: arbitrary porous medium}
 		\begin{columns}
-			\column{0.7\textwidth}
+			\column{0.6\textwidth}
 			\begin{figure}
 				\centering
-				\includegraphics[width=0.7\textwidth]{pics/pmVelCorrZoom.pdf}
+				\includegraphics[width=0.7\textwidth]{pics/pmVelLowVRed}
 				\caption{Zoom that captures the flow in narrow sections of the domain and the convergence of fluxes.}   
 			\end{figure}
-			\column{0.3\textwidth}
-			 
+			\column{0.4\textwidth}
+			 \begin{figure}
+			 	\centering
+			 	\includegraphics[width=0.9\textwidth]{pics/pmGlobal.png}
+			 \end{figure}
 		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Testing generality: arbitrary porous medium}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{pics/pmVelLowV2.png}
+			\caption{Zoom that captures the flow in narrow sections of the domain and the convergence of fluxes.}   
+		\end{figure}
 	\end{frame}
 	
 	\begin{frame}{Testing generality: arbitrary porous medium}
@@ -1235,22 +1296,9 @@
 			\end{figure}
 			Permeability: 300 D. Pore throat around 6 voxels (6* 9 $\mu m$). Rule of thumb 1/7, pore size of 500 $\mu m$.
 	\end{frame}
-	
-	\begin{frame}{Testing generality: arbitrary porous medium}
-		
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.4\textwidth]{pics/pmGlobal.png}
-			\caption{Pressure and density global averages}   
-		\end{figure}
-	\end{frame}
-	
-	\begin{frame}{Pressure-Velocity}
-		
-	\end{frame}
 		
 	\begin{frame}{Research and applications}
-		
+		I would like to know your thoughts about things we could do with the software, during short and long terms. I want to be close to industry with the gas condensate perspective, and to the $CO_2$ sequestration topic.
 	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
