@@ -77,6 +77,71 @@
 	\justifying
 	\section{Spring 2022}
 	
+	\subsection{Report Jan 24 - 2022}
+	\label{}
+	\justifying
+	\begin{frame}
+		\textbf{Report Jan 24 - 2022}\\~\\
+		Main discussion points:
+		\begin{itemize}
+			\item Cheng's paper
+			\item LBM Code state
+			\item Short-term Medium-term objectives
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Cheng's paper}
+		Bulk equation for the Shan-Chen force:
+		\begin{equation*}
+		\mathbf{F} = -G \psi(x) \sum_i \omega_i \psi(x+\mathbf{c}_i \delta t) \mathbf{c}_i \, \, \, \, \, \psi := \sqrt{\frac{2(P^{\text{\tiny EoS}}-c_s^2\rho)}{G \delta t c_s^2}}
+		\end{equation*}
+		\begin{itemize}
+			\item MRT model
+			\item Multi-component partially miscible
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{LBM state}
+		This I advanced before last state:
+		\begin{itemize}
+			\item Tried the binary printing (unsuccessful)
+			\item Run the single component multi-phase model (successful)
+			\item Equation to count the number of molecules in a lattice. 
+			\item Short-term mid-term objectives
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{van der Waals validation}
+		\begin{figure}
+			\includegraphics[scale=0.2]{pics/vdwValidation.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Peng Robinson validation}
+		\begin{columns}
+			\column{0.4\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.12]{pics/prValidation.png}
+				\caption{}   
+			\end{figure}
+			\column{0.4\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.15]{pics/prValidation2.png}
+			\end{figure}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Where I am going?}
+		I was rediscovering the concept of $\psi$ that now belongs to the bulk (phase) entity. In Kruger's book is assigned to each component, so each components computes its own SC force. Other forces split according to $\rho_i$.\\
+		Two components structure is ready to start building the 2-component case that Cheng uses for validation. 
+	\end{frame}
+	\begin{frame}{Courses}
+	\end{frame}
+	
+	%---------------------------------------------------------
+	%---------------------------------------------------------
 	\subsection{Meeting with LBM questions}
 	\label{}
 	\justifying
@@ -94,7 +159,6 @@
 			\end{itemize}
 		\end{itemize}
 	\end{frame}
-	
 	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
