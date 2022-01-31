@@ -154,15 +154,62 @@
 	\begin{frame}
 		\textbf{Report Jan 31 - 2022}\\~\\
 		\begin{itemize}
-			\item Peng-Robinson caveat
-			\item SPH
-			\item Italian
+			\item Code and Cheng's paper
+			\item SPH for EME 521
+			\item Time demand
+			\item Others
 			\begin{itemize}
-				\item A
+				\item Dr. Mehmani meetings (I'll start slow). 
+				\item Summer 2022
+				\item Almost null offer research-related. Italian courses.
+				\item STAP (Summer Tuition Assistance Program)
+				\item Penn State Vita (Taxes)
+				\item 2022 Fuel Science Graduate Awards
+				\item Own website
 			\end{itemize}
+			\item Lost.
 		\end{itemize}
 	\end{frame}
-
+	
+	\begin{frame}{Code}
+		Multiphase validations: van der Waals (flat interface, droplet), Peng-Robinson (making use of velocity redefinition and $\beta$ parameter).\\
+		Cheng redefined the velocity for the Guo's scheme as:
+		
+		\begin{equation}
+			\mathbf{u}^{mod} = \mathbf{u} + \frac{\beta \mathbf{F}}{(\tau - 0.5)\psi^2}
+		\end{equation}
+		
+		The other velocity definitions remain. Without this term, the PR case diverges.
+		
+	\end{frame}
+	
+	\begin{frame}{Code}
+		Can the pressure of the gas be higher than the liquid? What if we initialize a bubble instead of a droplet?\\
+		Validate Young-Laplace?\\
+		I am now setting a 2C 2P problem to validate the code. I can try both, immiscible and miscible, as both implementations are there and the only change is the $\psi$ definition.\\~\\
+		Ready for meeting with Pr. Orlando for program. language discussions, questions about implementations, and possible feedback (I need the time to compile the material).
+	\end{frame}
+	
+	\begin{frame}{Code - PBM}
+		RR procedure. I'll program the minimization algorithm, but try to implement Eigen, a library to solve $\mathbf{A \cdot x} = \mathbf{b}$.
+	\end{frame}
+	
+	\begin{frame}{}
+		
+	\end{frame}
+	
+	\begin{frame}{Research}
+		I definitely want to use my research for applying the LBM to a particular field. In contrast, my Master's Thesis was only computational, with validations, but did not include any experimental/real data of any type. Questions I have:
+		\begin{itemize}
+			\item Bubbles, coalescence, and their viscosity effect
+			\item CO$_2$ plume generation
+			\item Interaction between fluids and rock (swelling, mineralization, adsorption)
+			\item Rock deformation? Does imply FEM? Too complicated? 
+			\item Questions about $\sigma$ in 3-P systems. I don't know? Nobody knows? Film drainage. Oil spills. Receding / advancing $\theta$ 
+		\end{itemize}
+		
+	\end{frame}
+	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\subsection{Meeting with LBM questions}
@@ -202,7 +249,7 @@
 	\subsection{template}
 	\label{}
 	\justifying
-	\begin{frame}
+	\begin{frame}{template}
 		\textbf{a}\\~\\
 		\begin{itemize}
 			\item A
