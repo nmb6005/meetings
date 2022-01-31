@@ -179,37 +179,84 @@
 			\mathbf{u}^{mod} = \mathbf{u} + \frac{\beta \mathbf{F}}{(\tau - 0.5)\psi^2}
 		\end{equation}
 		
-		The other velocity definitions remain. Without this term, the PR case diverges.
+		The other velocity definitions remain. Without this term, the PR case diverges. Also $G$ affects stability.
 		
+	\end{frame}
+	
+	\begin{frame}{Code - Peng Robinson validation}
+		\begin{columns}
+			\column{0.4\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.12]{pics/prDroplet1C.png}
+				\caption{}   
+			\end{figure}
+			\column{0.4\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.15]{pics/prDroplet1C_2.png}
+			\end{figure}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Code - New features}
+		\begin{itemize}
+			\item Now we can have $N_F$ forces of different nature. All are grouped and discretized in the velocity space together.
+			\item We have now a new force to compute $\psi^i$ and thus calculate a force per component.
+			\item Each component relaxes with its own $\tau^i$, allowing different viscosities.
+			\item Reading density/pressure fields for every component, and a common velocity field.
+		\end{itemize}
+		Current problems:
+		\begin{itemize}
+			\item Force only working for periodic BC.
+			\item Still not implemented the force fluid/solid
+			\item Instability (due to BGK)
+		\end{itemize}
+		 
 	\end{frame}
 	
 	\begin{frame}{Code}
-		Can the pressure of the gas be higher than the liquid? What if we initialize a bubble instead of a droplet?\\
-		Validate Young-Laplace?\\
-		I am now setting a 2C 2P problem to validate the code. I can try both, immiscible and miscible, as both implementations are there and the only change is the $\psi$ definition.\\~\\
-		Ready for meeting with Pr. Orlando for program. language discussions, questions about implementations, and possible feedback (I need the time to compile the material).
-	\end{frame}
-	
-	\begin{frame}{Code - PBM}
-		RR procedure. I'll program the minimization algorithm, but try to implement Eigen, a library to solve $\mathbf{A \cdot x} = \mathbf{b}$.
-	\end{frame}
-	
-	\begin{frame}{}
+		\begin{itemize}
+		\item Can the pressure of the gas be higher than the liquid? What if we initialize a bubble instead of a droplet?
+		\item Validate Young-Laplace?
+		\item I am now setting a 2C 2P problem to validate the code. I can try both, immiscible and miscible, as both implementations are there and the only change is the $\psi$ definition.
+		\item Injecting A into a system full of B. How does it look like?
+		\item What 1C complex systems can we simulate? Water hammer effect?
+		\end{itemize}
+		Ready for meeting with Pr. Orlando for program. language discussions, questions about implementations, and possible feedback (I need the time to compile the material).\\~\\
 		
+		PBM: RR procedure. I'll program the minimization algorithm, but try to implement Eigen, a library to solve $\mathbf{A \cdot x} = \mathbf{b}$.
 	\end{frame}
 	
 	\begin{frame}{Research}
 		I definitely want to use my research for applying the LBM to a particular field. In contrast, my Master's Thesis was only computational, with validations, but did not include any experimental/real data of any type. Questions I have:
 		\begin{itemize}
 			\item Bubbles, coalescence, and their viscosity effect
-			\item CO$_2$ plume generation
+			\item CO$_2$ plume generation.
 			\item Interaction between fluids and rock (swelling, mineralization, adsorption)
 			\item Rock deformation? Does imply FEM? Too complicated? 
 			\item Questions about $\sigma$ in 3-P systems. I don't know? Nobody knows? Film drainage. Oil spills. Receding / advancing $\theta$ 
+			\item Can we derive a $k_r$ label-blind with hysteresis, based on 3P simulations?
 		\end{itemize}
 		
 	\end{frame}
+
+	\begin{frame}{Actions}
+		\begin{itemize}
+			\item Yes, start learning SPH. 
+			\item Look for internships in companies and research labs in the US. In Summer, if nothing appears, we will focus on research. Do not lose contacts and willingness to participate in new things.
+			\item Apply to Fuel Award and Nico SPE Awards
+			\item Go for MRT. Write equations. Pr. Orlando presentation. Think in 2C cases that validates our understanding. 2 non interacting components (miscible). Then partially miscible. 
+			\item Bubbles as an interesting topic to work with in LBM. There may be other options.
+		\end{itemize}
+	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
 	
+	\begin{frame}{Discussion}
+		Discussion...
+	\end{frame}
+
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\subsection{Meeting with LBM questions}
@@ -240,15 +287,13 @@
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	
-	\begin{frame}{Present}
-		Present...
+	\begin{frame}{Discussion}
+		Discussion...
 	\end{frame}
 	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
-	\subsection{template}
-	\label{}
-	\justifying
+
 	\begin{frame}{template}
 		\textbf{a}\\~\\
 		\begin{itemize}
@@ -258,10 +303,15 @@
 			\end{itemize}
 		\end{itemize}
 	\end{frame}
+	\begin{frame}{}
+		
+	\end{frame}
 	
-	
-	\section*{Useful frame options}
+
 	%---------------------------------------------------------
+	\section*{Useful frame options}
+	\label{}
+	\justifying
 	\begin{frame}
 		\textbf{Report XXX XX - 202X}\\~\\
 		Main discussion points:
