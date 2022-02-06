@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Allows you to insert figures
+\usepackage{amsmath} % Allows you to do equations
+\usepackage{fancyhdr} % Formats the header
+\usepackage{geometry} % Formats the paper size, orientation, and margins
+\usepackage[style=authoryear-ibid,backend=biber]{biblatex} % Allows you to do citations - does Harvard style and compatible with Zotero
+\addbibresource{Example.bib} % Tells LaTeX where the citations are coming from. This is imported from Zotero
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\renewcommand*{\nameyeardelim}{\addcomma\space} % Adds comma in in-text citations
+\linespread{1.25} % About 1.5 spacing in Word
+\setlength{\parindent}{0pt} % No paragraph indents
+\setlength{\parskip}{1em} % Paragraphs separated by one line
+\renewcommand{\headrulewidth}{0pt} % Removes line in header
+\geometry{a4paper, portrait, margin=1in}
+\setlength{\headheight}{14.49998pt}
+
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{5cm}
+			
+			\Huge{Weekly Reports}
+			
+			\vspace{0.5cm}
+			\LARGE{Mehmani Research Group}
+			
+			\vspace{3 cm}
+			\Large{}
+			
+			\vspace{0.25cm}
+			\large{Nicolás Bueno Zapata}
+			
+			\vspace{3 cm}
+			\Large{Spring 2022}
+			
+			\vspace{0.25 cm}
+			\Large{Pennsylvania State University}
+			
+			
+			\vfill
+		\end{center}
+	\end{titlepage}
+	
+	\setcounter{page}{2}
+	\pagestyle{fancy}
+	\fancyhf{}
+	\rhead{\thepage}
+	\lhead{Nicolas's Reports}
+	
+	\section*{Jan 30, 2022}
+	 During this week I was focoused on testing my LBM code for a single component and multiphase conditions. For validation, I looked for other available codes from the postdoc, Cheng, and codes available in the Dr. Ayala's research group. I had to redefine some objects in my code to be able to pursue the next modeling objectives as:
+		
+	\begin{itemize}
+		\item Have different relaxation parameters for every component
+		\item Have more than one force applying to our components 
+		\item The components also have the propety "pseudopotential"
+
+	\end{itemize}
+
+	I was reading how to model two immiscible components through LBM, and I discover that the treatment of Cheng is quite different (valid, though) from the proposed in Kruger's book. I created a new routine with a different Shan-Chen force implementation (each component uses its own pseudopotential) for immiscible displacement, because I want to be able to simulate a case where I inject a single component that displaces the other, although I just realize that I need to specify the composition of my injecting fluid for all the boundary conditions we have specified. In single component, specifing the pressure is equivalent to specify the density. However, for multi-component, we need to provide the amount of each component at that pressure to be able to have a solvable system.
+	
+	I decided to keep track of all the different options and equations inside the code, and I started to write my own LBM document to explain to myself and future users, what are the equations implemented and the logic behind them. 
+	
+	It has been difficult to balance the time for research, coding, and reading papers where to inspire for research ideas and applications. I am still trying to find the correct point in this semester, as all the courses are kind of related to my thesis, and all deserve the same degree of attention. 
+	
+	\pagebreak
+	
+	\section*{Feb 6, 2022}
+	
+	\subsection*{Things that were done}
+	This week started the full implementation of the multi-relaxation-times collision operator for my LBM model. Despite the first coding stage, I had programmed classes for collisionMRT operator and the lbmParameter object, these two were somehow in conflict, as the Fortran polymorphism is somehow more strict than in C++, so I had to arrange the code to account for generalization in the main routines, who don't know in principle, which type of object are they calling to. I read about LAPACK, a library to handle linear systems in Fortran, that could be useful for other problems and applications using the code in development. 
+	
+	Another advance in this matter was the two-phase flash algorithm that is almost working in C++. The purpose of this code is to have my own library for thermodynamic analysis of mixtures (solve stability, n-phase flash, envelopes, bubble points) that can give insights in how to set a simulation case for the LBM code. The novelity with this code is that is connected with Matplotlib, library from Python, so it can be used any plot command from there in C++. I would like to improve the Subsequent Substitution Method by a Newtonian algorithm using the C++ Library, Eigen, to solve linear systems of equations. 
+		
+	\subsection*{Difficulties}
+	This semester, as particularly intense, has been difficult to balance between study and working times. However, I have managed to take advantage of the homework and classes to enforce my knowledge, especially that related with my field of research and expertise: thermodynamic behavior of mixtures, pore-scale phenomena, scientific-programming, and fluid-flow modeling. I also have come across challenges regarding the object-oriented programming with Fortran. There are plenty resources online, but hardly there is one canonical source as there is for C++. 
+	
+	\subsection*{Work for next week}
+	I will validate the MRT collision operator with the Cheng's codes for single component. After this, I will validate for two components. If I reach this point, I will be able to write the paper that he left in progress, and I can focus on particular problems (applications) and the parallelization with OpenMPI. I will start selecting some papers to delimit the fields where this multiphase model could be applied, as I need to have a goal for the method, so I can take some decisions in advance. As capillary pressure is of our interest, it is worth asking if the 3D implementation is a priority in the research. 
+	
+	Ask for access to the report template.
+	
+	\printbibliography % Be sure to remove access date and months from the .bib file
+\end{document}
