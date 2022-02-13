@@ -82,5 +82,19 @@
 	
 	Ask for access to the report template.
 	
+	\pagebreak
+	\section*{Feb 7 - Feb 12}
+	\subsection*{What was done last week}
+	This week I finished to code the multi-relaxation time collision operator in the LBM code. As this operator implies the multiplication of matrices and vectors, I used the Fortran built-in operator for this purpose, although later on a manually multiplication can be coded to gain computational speed (that is not a priority right now, but I keep saving notes for future improvements). At this point, it is worth mentioning the simulations I am running make use of an cubic equation of state, that was validated months ago, before taking a detour to validate single phase problems with analytical solutions, that I presented before going to the Winter break. The validation cases combine single or multi-component cases with BGK and MRT as collision operator. The results of the previous BGK implementation show a successful match between my model and the Cheng's legacy code (Dr. Ayala's post-doc), for static and oscillating droplets of a single component/multiphase model. The MRT model was successfully implemented, and the static droplet case was validated. However, the case for the oscillating droplet has presented difficulties in terms of model interpretability, and results availability (see difficulties). During the week, I wanted to clarify some ideas that were taking me to different directions. As I am conscious about how important it is to focus on a single task, I tried to discriminate between interesting ideas to pursue later, and the important research aspects that have to be addressed from now. Thus, I will concentrate my efforts on having ready the two component code with MRT and BGK. I still believe in the power of BGK for its simplicity and direct relation to viscosity. Also, I made a preliminary bibliographic review about current applications where LBM is a suitable model. I found an interesting topic, called self-propelled droplets, where acceleration is excerted by surface tension gradients caused by changes in whether surfactant or temperature non-uniform fields. This search is obeying my believe on that concrete applications help to visualize and give shape to the current and future code, at the time it motivates me if the application is currently a hot-spot for research (some times I feel scared by )
+	 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{../../weekly/pics/MRT_StaticDroplet_PRho.png}
+		\caption{Comparison of pressure and density.}
+		\label{fig:val1CMRT}
+	\end{figure}
+	\subsection*{What will be done next week?}
+	\subsection*{Difficulties}
+	
 	\printbibliography % Be sure to remove access date and months from the .bib file
 \end{document}
