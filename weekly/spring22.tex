@@ -301,6 +301,104 @@
 		\end{itemize}
 	\end{frame}
 	
+	
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	
+	\subsection{Report Feb 7 - 2022}
+	\label{}
+	\justifying
+	\begin{frame}
+		\textbf{Report Feb 7 - 2022}\\~\\
+		\begin{itemize}
+			
+			\item BGK and MRT validations
+			\begin{itemize}
+				\item Several cases tested: see the LBM private document
+				\item How to set fluid viscosity with MRT?
+				\item I had to change Cheng's diffuse width.
+			\end{itemize}
+			
+			\item Dr. Mehmani suggestions.
+			\item Questions
+			\begin{itemize}
+				\item Point-distributed parameter and point-centered (?) parameter
+				\item Fluid in tension LBM?
+				\item Motivation. Self-propusion, drop collision, microemulsions: \href{https://www.youtube.com/watch?v=arpGntfrg4s}{link to Youtube}
+			\end{itemize}
+			
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{BGK Validation - Cheng's code}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.3]{pics/BGK_StaticDroplet.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{BGK Validation - Cheng's code}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.3]{pics/BGK_OscDroplet_PRHO.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{BGK Validation - Cheng's code}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.3]{pics/BGK_OscDroplet_VelProf.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{BGK Validation - Cheng's code}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.14]{pics/BGK_VelFieldComparison.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{BGK Validation - Cheng's code}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.14]{pics/OScDroplet_BGK_Axis.png}
+		\end{figure}
+	\end{frame}
+	
+	
+	\begin{frame}{MRT Validation - Cheng's code}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.25]{pics/MRT_StaticDroplet_VelField.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{MRT Validation - Cheng's code}
+		Attached video.
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.25]{pics/MRT_oscillatingAxis.png}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{For analytical solutions}
+		\begin{itemize}
+			\item How to convert a single component droplet surrounded by its vapor, to a droplet surrounded by empty space? Is the frequency of the oscillation the same in both cases.
+			
+			\item Analytical solutions and reported cases:
+			\begin{itemize}
+				\item Oscillating droplet
+				\item Rising bubble (very interesting!)
+				\item Square drop as IC
+				\item Rayleigh-Taylor instability (heavy fluid supported against gravity)
+				\item Induced translation by Marangoni-effect (variable $\sigma$ field)
+				\item Bubble break-up due to variable $\sigma field$
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Actions}
+		\begin{itemize}
+			\item
+		\end{itemize}
+	\end{frame}
+	
+	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\subsection{Meeting with LBM questions}
