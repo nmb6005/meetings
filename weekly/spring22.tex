@@ -470,28 +470,197 @@
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 
-	\subsection{Meeting with LBM questions}
+	\subsection{Weekly meeting - LBM - Feb 24 - 2022}
 	\label{}
 	\justifying
-	\begin{frame}{Meeting with LBM questions}
-		Main topics
+	\begin{frame}{Weekly meeting - LBM}
+		\textbf{Feb 24 - 2022}\\~\\
 		\begin{itemize}
-			\item Short questions:
-			\begin{itemize}
-				\item Molar/mass formulation. Which one should be used for efficiency? 
-			\end{itemize}
-			\item Boundary conditions
-			\begin{itemize}
-				\item Mass increasing when imposing velocity/outflow.
-				\item Over-constraining for fixed P and $\mathbf{u}$ at the same boundary.
-				\item Outflow boundary conditions. Assumptions and implications.
-				\item General treatment for corners 
-				\item Composition for pressure BC at outlet or inlet
-				\item Pseudopotential per component
-			\end{itemize}
+			\item LBM Code - New version (motivation, state, and validation)
+			
+			\item Questions about the LBM formulation
+		
+			\item Paper (Dynamic validations)
 		\end{itemize}
 	\end{frame}
 	
+	\begin{frame}{LBM Code}
+		
+		Motivation: 
+		\begin{itemize}
+			\item 3D version for arbitrary porous media and boundary conditions
+			\item Parallelization
+			\item Possible coupling with other transport equations
+		\end{itemize}
+	
+		~\\\textbf{General description}:Fortran 90 Object Oriented LBM code for multi-component ($N_c$) mixtures. Output in VTK format. Main classes:
+		\begin{itemize}
+			\item Components - Phase - Mixture - Equation of state
+			\item LBM Functions (Parameters - Coll. Operators - Steps) 
+			\item Domain - Global Properties
+			\item Forces - Boundaries
+		\end{itemize}
+		Desired simulation setup is given through input files (parameters, domain, initial conditions).
+	\end{frame}
+	
+	\begin{frame}{Validations}
+		
+		The main validation sources have been: analytical solutions, Cheng's codes, and a priori physics understanding (qualitatively).\\
+		
+		\begin{columns}[T]
+			
+			\column{0.5\textwidth}
+			Single phase:
+			\begin{itemize}
+				\item Channel flow ($\mathbf{F}$ \& $\nabla p$-driven)
+				\item Couette flow (plates)
+				\item Cylinder (turbulent)
+				\item Cavity flow
+				\item Porous medium
+			\end{itemize}
+			
+			\column{0.5\textwidth}
+			Multiphase:
+			\begin{itemize}
+				\item Static droplet
+				\item Oscillation droplet
+				\item Falling droplet
+			\end{itemize}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Single phase validations (quantitative)}
+		\begin{figure}[h]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{pics/channelForceDrivenValidation.png}
+				\caption{$\mathbf{F}$-driven channel flow}
+				\label{fig:sub1}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{pics/cylinderTurbulent.png}
+				\caption{Turbulent flow around cylinder}
+				\label{fig:sub2}
+			\end{subfigure}
+			\caption{Results with direct source for quantitative comparisons.}
+			\label{fig:osci}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Single phase validations (qualitative)}
+		\begin{figure}[h]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{pics/pmVelLowV.png}
+				\caption{Arbitrary porous medium (from real imaging).}
+				\label{fig:sub1}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{pics/cavity.png}
+				\caption{Cavity flow, imposing a velocity on the upper wall.}
+				\label{fig:sub2}
+			\end{subfigure}
+			\caption{Single phase cases qualitatively demonstrating the ability of modeling arbitrary porous media and arbitrary boundary conditions.}
+			\label{fig:osci}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Multiphase single component - Oscillating droplet}
+		\begin{figure}[h]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{pics/BGKOsc.pdf}
+				\caption{BGK}
+				\label{fig:sub1}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{pics/MRTOsc.pdf}
+				\caption{MRT}
+				\label{fig:sub2}
+			\end{subfigure}
+			\caption{Oscillation droplet case. Viscosities are different in each case.}
+			\label{fig:osci}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Ongoing work}
+		\begin{itemize}
+			\item Two-component validation case
+			\item Generalizing the Shan-Chen force at boundary blocks
+			\item Viscosity per phase, to reproduce falling and raising droplet/bubble within LBM velocity ranges (see falling droplet video).
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Questions}
+		\begin{itemize}
+			\item<1> Mass increasing when imposing velocity/outflow.
+			\begin{equation*}
+			\begin{split}
+				f_{i,\text{in}}^{\text{bndry}} = f_{i,\text{in}}^{\text{neighbor}} \, \, \, \text{vs.}\\
+				f_{i,\text{in}}^{\text{bndry}} = f_{\bar{i},\text{in}}^{\text{bndry}} - g(\mathbf{u}_{n}^{\text{neighbor}})
+			\end{split}
+			\end{equation*}
+			\item<1> Over-constraining P and $\mathbf{u}$ with outflow, may solve the increasing density?
+			\item<2> Outflow boundary conditions. Assumptions and implications. How many layers for averaging?
+			\item<2> Density variations in velocity/pressure are common in LBM?
+			\item<3> Is there a general treatment for corners, no matter what the BCs are?
+			\item<3> Pseudopotential per component. Was this tried and what were the difficulties?
+			\item<3> Reason for applying:
+			\begin{equation}
+			\mathbf{u}^{mod} = \mathbf{u} + \frac{\beta \mathbf{F}}{(\tau - 0.5)\psi^2}
+			\end{equation}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Density variations}
+		\begin{columns}
+			\column{0.5\textwidth}
+			\begin{figure}
+				\centering
+				
+				\centering
+				\includegraphics[width=\textwidth]{pics/velDropBox.png}
+				%\caption[]{}    
+				\label{}
+			\end{figure}
+			
+			\column{0.5\textwidth}
+			
+			\begin{figure}
+				\centering
+				
+				\includegraphics[width=0.8\textwidth]{pics/globalDenBox.png}
+				%\caption[]{}   
+				\label{}
+			\end{figure}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{\href{https://www.overleaf.com/project/5f5cfacb13ed640001eeb63d}{\color{green}Paper}}
+		
+		Which are the cases initially thought to serve as validation?\\~\\
+		
+		Current ideas/tasks for dynamic validations:
+		\begin{itemize}
+			\item Young-Laplace equation
+			\item Identify analytical expression for oscillation frequency
+			\item Rayler-Taylor instability (surface waves)
+			\item Rising bubble/falling droplet (easy analytical solution!)
+			\item Impacting droplet
+		\end{itemize}
+	
+	Starting with the Young-Laplace case is straightforward, if this case will go in the paper.
+	\end{frame}
+	
+	\begin{frame}{Discussion}
+		Discussion...
+	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	%---------------------------------------------------------
@@ -501,6 +670,13 @@
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	%---------------------------------------------------------
+	
+	\begin{frame}{Input}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\textwidth]{pics/modelInput.png}
+		\end{figure}
+	\end{frame}
 	
 	\begin{frame}{Discussion}
 		Discussion...
