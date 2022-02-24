@@ -488,15 +488,15 @@
 		
 		Motivation: 
 		\begin{itemize}
-			\item 3D version for arbitrary porous media and boundary conditions
-			\item Parallelization
-			\item Possible coupling with other transport equations
+			\item 3D version for arbitrary domains, forces, and boundary conditions
+			\item Future parallelization
+			\item Coupling with other transport equations
 		\end{itemize}
 	
-		~\\\textbf{General description}:Fortran 90 Object Oriented LBM code for multi-component ($N_c$) mixtures. Output in VTK format. Main classes:
+		~\\\textbf{General description}: Fortran 90, Object Oriented, LBM code for multi-component ($N_c$) mixtures. Output in VTK format. Main classes:
 		\begin{itemize}
 			\item Components - Phase - Mixture - Equation of state
-			\item LBM Functions (Parameters - Coll. Operators - Steps) 
+			\item LBM Functions (Parameters - Coll. Operators) 
 			\item Domain - Global Properties
 			\item Forces - Boundaries
 		\end{itemize}
@@ -505,7 +505,8 @@
 	
 	\begin{frame}{Validations}
 		
-		The main validation sources have been: analytical solutions, Cheng's codes, and a priori physics understanding (qualitatively).\\
+		The main validation sources are: analytical solutions, Cheng's codes, qualitative physics understanding.\\~\\
+
 		
 		\begin{columns}[T]
 			
@@ -555,7 +556,7 @@
 			\begin{subfigure}{.5\textwidth}
 				\centering
 				\includegraphics[width=.9\linewidth]{pics/pmVelLowV.png}
-				\caption{Arbitrary porous medium (from real imaging).}
+				\caption{Arbitrary porous medium (real image).}
 				\label{fig:sub1}
 			\end{subfigure}%
 			\begin{subfigure}{.5\textwidth}
@@ -592,8 +593,9 @@
 	\begin{frame}{Ongoing work}
 		\begin{itemize}
 			\item Two-component validation case
-			\item Generalizing the Shan-Chen force at boundary blocks
-			\item Viscosity per phase, to reproduce falling and raising droplet/bubble within LBM velocity ranges (see falling droplet video).
+			\item Shan-Chen force in agreement with boundary conditions
+			\item Viscosity per component/phase
+			\item Falling and raising droplet/bubble within LBM velocity ranges (see falling droplet video).
 		\end{itemize}
 	\end{frame}
 	
@@ -603,15 +605,15 @@
 			\begin{equation*}
 			\begin{split}
 				f_{i,\text{in}}^{\text{bndry}} = f_{i,\text{in}}^{\text{neighbor}} \, \, \, \text{vs.}\\
-				f_{i,\text{in}}^{\text{bndry}} = f_{\bar{i},\text{in}}^{\text{bndry}} - g(\mathbf{u}_{n}^{\text{neighbor}})
+				f_{i,\text{in}}^{\text{bndry}} = f_{\bar{i},\text{in}}^{\text{bndry}} - g(\mathbf{u}_{n}^{\text{neighbor}}) \,\,\,\,\, \text{    (wall)}
 			\end{split}
 			\end{equation*}
 			\item<1> Over-constraining P and $\mathbf{u}$ with outflow, may solve the increasing density?
 			\item<2> Outflow boundary conditions. Assumptions and implications. How many layers for averaging?
 			\item<2> Density variations in velocity/pressure are common in LBM?
-			\item<3> Is there a general treatment for corners, no matter what the BCs are?
-			\item<3> Pseudopotential per component. Was this tried and what were the difficulties?
-			\item<3> Reason for velocity modification, and which $\tau$ to use in two-phase systems?
+			\item<3> Is there a general treatment for corners for all BC combinations?
+			\item<3> $\Psi(P) \text{ .vs. } \Psi^i(P_i)$. Was this tried and what were the difficulties?
+			\item<3> Velocity modification. Which $\tau$ to use in two-phase systems?
 			\begin{equation}
 			\mathbf{u}^{mod} = \mathbf{u} + \frac{\beta \mathbf{F}}{(\tau - 0.5)\psi^2}
 			\end{equation}
@@ -622,8 +624,6 @@
 		\begin{columns}
 			\column{0.5\textwidth}
 			\begin{figure}
-				\centering
-				
 				\centering
 				\includegraphics[width=\textwidth]{pics/velDropBox.png}
 				%\caption[]{}    
@@ -644,14 +644,14 @@
 	
 	\begin{frame}{\href{https://www.overleaf.com/project/5f5cfacb13ed640001eeb63d}{\color{green}Paper}}
 		
-		Which are the cases initially thought to serve as validation?\\~\\
+		What cases were selected for validation?\\~\\
 		
-		Current ideas/tasks for dynamic validations:
+		Ideas/tasks for dynamic validations:
 		\begin{itemize}
 			\item Young-Laplace equation
-			\item Identify analytical expression for oscillation frequency
-			\item Rayler-Taylor instability (surface waves)
-			\item Rising bubble/falling droplet (easy analytical solution!)
+			\item Find analytical expression for oscillation frequency
+			\item Rayleigh-Taylor instability (surface waves)
+			\item Rising bubble/falling droplet (simple analytical solution in 3D!)
 			\item Impacting droplet
 		\end{itemize}
 	
