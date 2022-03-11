@@ -688,7 +688,7 @@
 			\item Detect the source of the mass increase. Outlet? Inlet?
 			\item Extend column of fluid for the falling droplet simulation
 			\item Repeat the rotating droplet case
-			\item Lambs Book
+			\item Lamb's Book
 			\item Previous paper in the group
 			\item William's experience with boundary conditions
 			\item Which Fortran version is recommended?
@@ -715,6 +715,8 @@
 	\begin{block}{Question}
 		Which papers to upload? Decide first nomenclature?
 	\end{block}
+
+	CODE-YEAR-CATEGORY-NAME-FIRSTAUTHORNAME-JOURNAL
 	\end{frame}
 
 
@@ -735,10 +737,10 @@
 	\end{frame}
 	
 	\begin{frame}{Boundary conditions}
-		Last meeting I raised some questions regarding the combination of boundary conditions. To clarify those points, the following was done:
+		In the previous meeting, I raised some questions regarding the combination of boundary conditions. To clarify those points, the following was done:
 		
 		\begin{itemize}
-			\item A channel with closed boundaries was simulated under three combinations of BC
+			\item A channel with closed boundaries was simulated under three combinations of BC.
 			\item Velocity/Outflow, Velocity/Pressure, and Pressure/Pressure, were tested.
 			\item The velocity profile at two locations, and the fluxes at boundaries were computed\footnote{The fluxes are actually measured half way from the real boundary.}
 		\end{itemize}
@@ -765,7 +767,7 @@
 	
 	\begin{frame}{Boundary conditions}
 		
-		Animation. 
+		Animation.
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.75\textwidth]{pics/channelBCComparision.png}
@@ -788,9 +790,9 @@
 		\begin{itemize}
 			\item Outflow requires some corrections to agree with CBC, Zou-He, William's findings.
 			
-			\item Pressure/Pressure oes not depict a transition of the boundary layer. Positive/negative impact on multiphase flow?
+			\item Pressure/Pressure does not depict a transition of the boundary layer. Positive/negative impact on multiphase flow?
 			
-			\item Velocity/boundary is not conserving mass with current implementations. The effect is considerably reduced interpolating the velocity and applying the moving wall BC.
+			\item Velocity/boundary is not conserving mass with current implementations. The effect is reduced considerably, interpolating the velocity and applying the moving wall BC.
 			
 			\item These cases will be the benchmark for outflow implementations, and will provide the answer if the mass increasing problem is solved by doing the proposed corrections.  
 		\end{itemize}
@@ -798,13 +800,12 @@
 	
 	
 	\begin{frame}{Two-components results}
-		Regarding the two-components implementation (the main objective now to address the dynamic simulations) this was performed:
+		Regarding the two-components implementation (the main objective to address the dynamic simulations) this was performed:
 		
 		\begin{itemize}
 			\item The mixing rule for viscosity was implemented (falling droplet keeps accelerating)
-			\item Programmed initialization of arbitrary composition or density field (was not possible to converge using concentration fields)
+			\item Programmed initialization of arbitrary composition or density fields (concentration fields creates peaks in density profile)
 			\item Corrected some incompatibilities between EoS, type of force, and initialization method.
-			\item Lamb's book
 			\item Two tested cases: static and oscillating droplet
 		\end{itemize}
 	\end{frame}
