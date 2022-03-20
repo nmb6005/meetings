@@ -164,6 +164,24 @@
 	\subsection*{What will be done next week?}
 	I will present two exams this week, and I have to finish a report about the phase behavior model in C++. I plan to focus mostly in these three aspects and include the correction to compute the viscosity based on current composition, as this is important to correct the previous multiphase simulation cases, and to address the 2-components simulation.
 
+	
+	\pagebreak
+	\section*{Feb 28 - Mar 13}
+	\subsection*{What was done last week}
+	During these two weeks, the front where I spent most of the time was the programming of functionalities needed for addressing the two-component multiphase simulations. I programmed the viscosity interpolation based on density, using two given reference viscosities. I tried to use this modification to make the falling droplet case to converge. I was planning to modify the viscosity of the surrounding vapor high enough to equal the gravity force with the drag force, but I have not found the combination of parameters that produces a stabilization with a terminal velocity within the range  valid for LBM. I skipped this difficulty and left this front in stand-by, in order to prioritize the oscillating droplet using two components. For this purpose, I (a) incorporated the initialization based on composition fields, (b) reported the fluxes at boundary nodes to check the mass conservation (strictly speaking, this still is not a material balance criterion), (c) improved the routines computing the topology of the mesh, to use this information for the Shan-Chen force computation (it depends on neighbors' pseudopotential), and (d) run static and oscillation droplets to start the validation process. With these changes, the force is in agreement with the boundary conditions imposed for the flow, and the implementation for immiscible flow, and fluid-solid interactions are in a 50\% of development.
+	
+	\subsection*{Difficulties}
+	I found out that the outflow boundary conditions I implemented have a mistake in their mathematical form. As the boundary conditions and their generality were not the main focus during the code construction, I only tested rigorously the ones more used by the validation cases (pressure, velocity, and periodic). Now, I know where to find the correct mathematical description of such conditions in order to apply them for the multi-component case. However, for the oscillating droplet I can still work with the periodic boundary conditions. A second difficulty was related with computing the net flux across the boundaries, which I computed as:
+	\begin{equation*}
+		\dot{m}_b = \sum_{l(b)} \rho_l (\mathbf{u}_l \cdot \mathbf{n}_l) A_l 
+	\end{equation*}
+	where $l$ stands for a block in the boundary $b$. As the solution for $\rho$ and $\mathbf{u}$ are given at the center of the lattice, this flux is not representative of the real boundary, and a correction for the dynamic variables must be performed. 
+	
+	\subsection*{What will be done next week?}
+	I plan to compare the results of the oscillating droplet with the Cheng's code and his previous paper, and against the analytical solution for the period of oscillation, at the same time I analyze the assumptions behind this equation, and put down the findings during the validation.
+	
+	
+
 	%\pagebreak
 	%\section*{Feb 7 - Feb 12}
 	%\subsection*{What was done last week}
