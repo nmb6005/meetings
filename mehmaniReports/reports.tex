@@ -180,7 +180,44 @@
 	\subsection*{What will be done next week?}
 	I plan to compare the results of the oscillating droplet with the Cheng's code and his previous paper, and against the analytical solution for the period of oscillation, at the same time I analyze the assumptions behind this equation, and put down the findings during the validation.
 	
+	\pagebreak
+	\section*{Mar 14 - Mar 20}
+	\subsection*{What was done last week}
+	The main objective of the week was the validation of the oscillation period. For this purpose, I previously had the main simulation, but still the simulations of static droplets with different radii were missing (to compute the interfacial tension, IFT), and no analysis of the oscillation period was done in the last week. These were the two fronts covered with the following results. The Figure \ref{fig:laplace} shows the validation of the Young-Laplace equation, obtaining a surface tension of 0.12141 in LBM units, and is also shown the LBM simulation of the oscillating droplet, compared with the Cheng's code. There is an offset of 3.6 units in the radius, that is product of the increasing mean diameter, an effect that is not seen in Cheng's results. This effect can be better seen in the Figure \ref{fig:2cOsc}, where the mean radius is computed as $R_e = \sqrt{R_x R_y}$. To obtain the frequency, a Fourier transform was employed, where a peak at 10010 T was obtained. 
+		\begin{figure}[h]
+		\centering
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=1\linewidth]{pics/IFT.pdf}
+			\caption{Young-Laplace validation}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=1\linewidth]{pics/2cOsc.pdf}
+			\caption{Comparison with Cheng.}
+		\end{subfigure}
+		\caption{Young-Laplace and Comparison with Cheng.}
+		\label{fig:laplace}
+	\end{figure}
 	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.5]{pics/fourier.pdf}
+		\caption{Oscillations and evolution of the mean radius. Fourier transform.}
+		\label{fig:2cOsc}
+	\end{figure*}
+	
+	As a summary, the equilibrium radius is equal to 60.59, the interfacial tension to 0.12141, the liquid density to 8.277, and the numerical period equal to 10010 T. Now, to compare against the analytical period, we have the equation:
+	\begin{equation}
+		T_a = 2 \pi \left[ \frac{n (n^2-1) \sigma}{\rho_l R_e^3} \right]^{-0.5}
+	\end{equation}
+	That gives a period of 9989 T, that produces an error of 0.2\%. I found a problem with Cheng's paper, where the exponent of -0.5 is missing. 
+	
+	\subsection*{Difficulties}
+	I may have one problem during the initialization stage. All the simulations are depicting an increase in the droplet radius, so the first oscillations are not centered around the equilibrium value, as if the interface were to accumulate energy at time zero. I am trying to figure out if this is product of the interface size, the method used to locate the interface, or an initialization problem. This effect was not present during the single component case.
+	
+	\subsection*{What will be done next week?}
+	I will work on the problem of the increasing radius to discover what is causing this effect, which I consider critical to keep advancing to other cases. I also need to test the same simulation, activating a correction term of MRT that reduces spurious currents, and that is present in some of the Cheng's simulations.
 
 	%\pagebreak
 	%\section*{Feb 7 - Feb 12}
