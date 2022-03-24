@@ -858,23 +858,197 @@
 		\item Read papers referencing Lamb's equation for analytical comparison
 	\end{itemize}
 	\end{frame}
+
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\subsection{Weekly meeting - LBM - Mar 24 - 2022}
+	\label{}
+	\justifying
+	\begin{frame}{Weekly meeting - LBM}
+		\textbf{Mar 24 - 2022}\\~\\
+		\begin{itemize}
+			
+			\item Dynamic validation: oscillating droplet
+			\item Next dynamic cases: raising bubble - splashing droplet
+			
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Oscillating droplet}
+		\textbf{Indications from the last meeting...}\\~\\
+		\begin{itemize}
+			\item Initialize droplet with different radii
+			\item Find papers referencing Lamb's equation
+		\end{itemize}
+		
+		
+		~\\ Done during these weeks:
+		\begin{enumerate}
+			\item Static simulations to obtain $R_e$ and $\Delta p$, and thus compute $\sigma$
+			\item Dynamic oscillation. $R_e$ was obtained, along with the oscillation period $T_n$.
+		\end{enumerate}
+	
+	\end{frame}
+	
+	\begin{frame}{Static results - Young Laplace}
+		$P_c = \frac{\sigma}{r}$, for a 2D geometry.
+		$\sigma = $ 0.12141. Here, $r = R_e$, the equilibrium radius.
+		
+		\begin{figure}[h]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=1\linewidth]{pics/IFT.pdf}
+				\caption{Young-Laplace validation}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=1\linewidth]{pics/2c_staticRChange.png}
+				\caption{Evolution of $R_e$ for the static cases.}
+			\end{subfigure}
+			\caption{Young Laplace and $R_e$ change due to thermodynamic inconsistency.}
+			\label{fig:laplace}
+		\end{figure}
+		 
+	\end{frame}
+	
+	\begin{frame}{Oscillating droplet}
+		$R_{x,0} = 60, R_{y,0} = 0.9 R_{x,0}$, in a grid of 400x400. $\tau_l = \tau_v = 0.56$, to reduce the viscous dissipation.
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.4]{pics/2cOsc.pdf}
+			\caption{Oscillation of the X axis compared with Cheng's solution.}
+			\label{fig:2cOsc}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Fourier transform}
+		
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=1\linewidth]{pics/fourier.pdf}
+				\caption{Maximum amplitude at $T_n = 10010$.}
+				\label{fig:2cOsc}
+			\end{figure}
+			
+			\column{0.5\textwidth}
+			Analytical solution:
+			\begin{equation}
+			T_a = 2 \pi \left[ \frac{n (n^2-1) \sigma}{\rho_l R_e^3} \right]^{-0.5}
+			\end{equation}
+			
+			Giving a period $T_a = $ 9989. This gives a relative error of 2\%. 
+			
+		\end{columns}
+		
+		
+	\end{frame}
+	
+	\begin{frame}{Conclusions and questions}
+		
+		\begin{itemize}
+			\item<1> The oscillation period has been matched successfully with the analytical solution.
+			\item<1> The first oscillation is masked by a thermodynamic inconsistency, what causes the droplet to increase its radius, at the cost of decreasing the vapor density. This is my hypothesis for the change in equilibrium radius, and not that the initial interface profile is providing additional energy to the system.
+			\item<2-> Things that could be done if further analysis is required:
+			\begin{itemize}
+				\item Calibrate $\beta$ and $\kappa$ to remove the inconsistency (this only would improve the prediction during first oscillation.)
+				\item The jump magnitude of the radius is dependent on the grid size:\\
+				 200x200 42.8 to 43.6 (0.8)\\
+				 300x300 42.8 to 45.3 (2.5).
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Next dynamic cases - Raising bubble}
+				
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			Expectations:
+			\begin{itemize}
+				\item Test two simultaneous forces. Gravity:
+				\begin{equation*}
+					\mathbf{F}_g = \mathbf{g} (1- \frac{<\rho>}{\rho})
+				\end{equation*}
+			\end{itemize}
+			
+			Validations:
+			\begin{itemize}
+				\item Bubble shape as a function of Bond and Reynolds numbers.
+				\item Terminal velocity (Reynolds number).
+			\end{itemize}
+			\column{0.5\textwidth}
+			Implications:
+			\begin{itemize}
+				\item Implement the gravity force
+				\item At the small scale given by the use of $a$ and $b$, how small the gravity turns to be? My preliminary calculation is $\mathbf{g}_{LBM} = 6.31 e-14$, compared with interaction forces of 1e-1.
+			\end{itemize}
+		\end{columns}
+		~\\~\\
+		{\tiny Sankaranarayanan K., Shan X., Kevrekidis I.G., and Sundaresan S. Analysis of drag and virtual mass forces in bubbly suspensions using an implicit formulation of the lattice Botlzmann method.}
+	\end{frame}
+	
+	\begin{frame}{Next dynamic cases - Splashing droplet}
+		
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			Expectations:
+			\begin{itemize}
+				\item Validate the $beta$ model at several density ratios and Reynolds values
+				\item Implement the symmetric BC for the top
+				\item Implement the solid-fluid interaction
+			\end{itemize}
+			
+			Validations:
+			\begin{itemize}
+				\item Cheng's and other published results
+				\item Droplet shape and boundaries
+			\end{itemize}
+			\column{0.5\textwidth}
+			Implications:
+			\begin{itemize}
+				\item Test the solid-fluid interactions (although this has minor effect)
+				\item Test implementation of other BC than periodic for two components.
+			\end{itemize}
+		\end{columns}
+	\end{frame}
+	
+	
+	\begin{frame}{Actions}
+		\begin{itemize}
+			\item
+		\end{itemize}
+	\end{frame}
+
 	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
-	\begin{frame}{template}
-		\textbf{a}\\~\\
+	\begin{frame}{}
+		\textbf{}\\~\\
 		\begin{itemize}
-			\item A
+			\item 
 			\begin{itemize}
-				\item A
+				\item 
 			\end{itemize}
 		\end{itemize}
+	
 	\end{frame}
 	\begin{frame}{}
 		
 	\end{frame}
 		\begin{frame}{Discussion}
-		Discussion...
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			
+			
+			\column{0.5\textwidth}
+			
+		\end{columns}
 	\end{frame}
 	
 
