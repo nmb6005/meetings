@@ -218,7 +218,19 @@
 	
 	\subsection*{What will be done next week?}
 	I will work on the problem of the increasing radius to discover what is causing this effect, which I consider critical to keep advancing to other cases. I also need to test the same simulation, activating a correction term of MRT that reduces spurious currents, and that is present in some of the Cheng's simulations.
-
+	
+	\pagebreak
+	\section*{Mar 21 - Mar 27}
+	\subsection*{What was done last week}
+		The purpose of this week was to present the advances in the validation cases to the Dr. Ayala research group and decide how to continue in the direction of finishing the cases that will go to the paper. To be honest, I realized that I have been working in a dispersed way, where part of my work, focused on simulation, was spent in finding the cause of not matching as I would like, the Cheng's results. Although the analytical solutions have matched really well, I keep thinking that to drop all the legacy codes, I should be able to match the cases that were left by Cheng, or at least explain the differences. Simultaneously, I ran some initial cases for the rising bubble to validate the model under the action of gravity. Before going further in this direction, I need to do a bibliographic review that will be better stated in the last section of the report. 
+		
+	\subsection*{Difficulties}
+	
+	Although I could relax the demand to myself of matching perfectly the Cheng's code, I am still struggling with the droplet increase during the first cycle of oscillations in the multi-component case. I did not experience this effect during single-component simulations, but comparing a very refined simulations (in terms of time resolution), turns out that the increase appears after 1000 time iterations, and only in one of the droplet sides (right). After a while, the left side also increases, and then both are stable. It is worth saying that this difference is about half the size of the diffuse interface, but, although it sounds small, by where the differences are in the codes and the phenomenological nature of this effect\footnote{I am assuming this is not product of numerical errors}, there should be not discrepancy. Regarding the raising droplet, I realized that an uniform force is only valid to model gravity when there are not periodic conditions in the force direction.
+	
+	\subsection*{What will be done next week?}
+	I consider important to pause and make some decisions before taking the next step with more confidence and to avoid the dispersivity feeling. First, I will do a bibliographic review of the oscillating droplet to see how other authors have presented this kind of simulations with LBM or other modeling techniques. Also, I will gather several approaches to include the gravity in the multi-phase approach, where I have found a couple of methods. In summary, this week should be focused on: bibliographic review of droplet oscillations and rising bubbles with multiphase models. Regarding to code, I need help with deciding if it is important to keep looking for the cause of the increasing radius (again, it happens during the first complete oscillation, but I have not read this in other papers). If it is relevant, I need to propose a systematic way to find the reason, because up to now, I have tried many things that have not solved the "problem" and now any other try will increase the entropy of this search.
+	
 	%\pagebreak
 	%\section*{Feb 7 - Feb 12}
 	%\subsection*{What was done last week}
