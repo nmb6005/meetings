@@ -1,0 +1,286 @@
+\documentclass[9pt]{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+
+%% ADDITIONAL NICOLÁS
+\usepackage{ragged2e}
+\usepackage{amssymb}
+\usepackage{subcaption}
+
+\usefonttheme{serif}
+\definecolor{UBCblue}{rgb}{0.01569, 0.11765, 0.25882} % PSU Blue
+\usecolortheme[named=UBCblue]{structure}
+
+%% ADDITIONAL NICOLÁS
+
+
+
+
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[Weekly Reports] %optional
+{PhD in Energy and Mineral Engineering at PSU}
+
+\subtitle{Nicolás's Research - Reports}
+
+\author[Nicolás Bueno] % (optional)
+{Nicolás Bueno\inst{1} \and Advisor: Dr. Ayala\inst{1}}
+
+\institute[EME] % (optional)
+{
+	\inst{1}%
+	Department of Energy and Mineral Engineering\\
+	Penn State University\\
+	\includegraphics[height=1cm]{pics/PSU_EMS.png}
+}
+
+\date[Spring 2022] % (optional)
+{}
+
+%\logo{\includegraphics[height=1cm]{pics/PSU_EMS.png}}
+
+%End of title page configuration block
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+%------------------------------------------------------------
+
+
+\begin{document}
+	
+	%The next statement creates the title page.
+	\frame{\titlepage}
+	
+	%---------------------------------------------------------
+	%This block of code is for the table of contents after
+	%the title page
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents
+	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\justifying
+	\section{Rising droplet}
+	
+	\subsection{Initial setup}
+	\label{}
+	\justifying
+	\begin{frame}[t]{Initial setup}
+		\justifying
+		
+		
+		\begin{columns}[t]
+			
+			\column{0.45\textwidth}
+			\textbf{Considerations}\\~\\
+			\justifying
+			Test the pseudopotential approach for multicomponent partially miscible mixtures, under the action of a second force, as gravity.\\~\\
+			
+			The partition scheme can be proven to work for different Reynolds and Bond (Eotvos) numbers, depicting particular bubble shapes as found by Flit R, Grace JR, Weber M. Bubbles, drops, and particles. New York: Academic Press; 1978. 
+			
+			\begin{equation*}
+			R_e = \frac{\rho_l u_b d_0}{\mu_l} = \frac{u_b d_0}{\nu_l}
+			\end{equation*}
+			\begin{equation*}
+			B_o = \frac{g \Delta \rho d_o^2}{\sigma}
+			\end{equation*}
+			
+			\column{0.45\textwidth}{
+			\justifying
+			
+			}
+			
+			If we fix thermodynamic conditions, $\rho, \Delta \rho, \sigma$ will be fixed. Redifining $R_e$:
+			\begin{equation*}
+				Re = \frac{\sqrt{g d_0} d_0}{\nu_l} =  \frac{\sqrt{g d_0^3}}{\nu_l}
+			\end{equation*}
+			
+			We can sweep the spectrum by fixing $g$ (fixes $B_o$), and moving $\nu_l$ (fixes $R_e$), as:
+			\begin{equation*}
+				\nu_l = c_s^2 (\tau_l - \frac{\Delta t}{2})
+			\end{equation*}
+			Static simulation (first attempt) with:\\ $\Delta \rho $ = 7.59285, $d_o$ = 29.45, gives \\$\Delta P$ = 0.00377616 (with negative value for the liquid). \\$\sigma$ = 0.1112, given that Shan-Chen $G$=-1.0.
+		\end{columns}
+		
+		
+		
+	\end{frame}
+	
+
+
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\begin{frame}{}
+		\textbf{}\\~\\
+		
+		First case (150 x 300)
+		\begin{itemize}
+			\item $g = \vert \mathbf{g}\vert $ = -1e-6. $B_o$ = 0.0592. $\tau_l$ = 2.0, $\nu$ = 0.5. $u_b$ = 0.0121. 
+			\item $R_e^{\text{org}}$ = 0.713. $R_e^{\text{mod}}$ = 0.320. 
+			
+			\item This is spherical regime, and far away from the other regimes according to the Grace's plot. 
+		
+		\end{itemize}
+		
+		Ellipsoid case (150 x 300)
+		\begin{itemize}
+			\item $g = \vert \mathbf{g}\vert $ = -1e-5. $B_o$ = 0.592. $\tau_l$ = 0.51, $\nu$ = 0.0033. $u_b \approx$ = 0.35. 
+			\item $R_e^{\text{org}}$ = 3092. $R_e^{\text{mod}}$ = 151.61
+			\item This simulation is approaching to the Mach velocity limit and a perturbation is moving the bubble from the axis. I decided to open the channel more to avoid the interaction with the wall. I have reasons to belive that the movement beyond the axis is due to whom the corner was assigned to (number of boundary).
+			
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{}
+		Ellipsoid case (300 x 300)
+		\begin{itemize}
+			\item $g = \vert \mathbf{g}\vert $ = -1e-5. $B_o$ = 0.592. $\tau_l$ = 0.51, $\nu$ = 0.0033. $u_b \approx$ = 0.35. 
+			\item $R_e^{\text{org}}$ = 3092. $R_e^{\text{mod}}$ = 151.61
+			
+			\item The ellipse shape of the bubble was better seen in this case, although eventually it moves away from the center. For the most part of the simulation, the ellipsoid maintains, although it is important to understand if the viscosity of the gas phase plays any role in the deformation ("plasticity" of the bubble).
+		\end{itemize}	
+		
+		Dimples case (300 x 300)
+		\begin{itemize}
+			\item $g = \vert \mathbf{g}\vert $ = -2e-3. $B_o$ = 118 $\tau_l$ = 0.72, $\nu$ = 0.07348. $u_b \approx$ = . 
+			\item $R_e^{\text{org}}$ = . $R_e^{\text{mod}}$ = 100
+			\item The gravity value is too high and the method is diverging too soon. Not even with G = -0.1 or g = 1e-4.
+		\end{itemize}	
+	
+		Dimples case (3000 x 3000)
+		\begin{itemize}
+		\item $d_o$ = 300. $g = \vert \mathbf{g}\vert $ = -1e-5. $B_o$ = 61. $\tau_l$ = 0.993, $\nu$ = 0.164 $u_b \approx$ = . 
+		\item $R_e^{\text{org}}$ = . $R_e^{\text{mod}}$ = 100
+		
+		\end{itemize}		
+	\end{frame}
+		\begin{frame}{Discussion}
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			
+			
+			\column{0.5\textwidth}
+			
+		\end{columns}
+	\end{frame}
+	
+
+	%---------------------------------------------------------
+	\section*{Useful frame options}
+	\label{}
+	\justifying
+	\begin{frame}
+		\textbf{Report XXX XX - 202X}\\~\\
+		Main discussion points:
+		\begin{itemize}
+			\item Topic 1
+			\item Topic 2
+		\end{itemize}
+	\end{frame}
+	%---------------------------------------------------------
+
+	%---------------------------------------------------------
+	\begin{frame}
+	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\begin{frame}
+	\end{frame}
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\begin{frame}
+	\end{frame}
+	%---------------------------------------------------------
+		%---------------------------------------------------------
+	%Changing visivility of the text
+	\begin{frame}
+		\frametitle{Sample frame title}
+		This is a text in second frame. For the sake of showing an example.
+		
+		\begin{itemize}
+			\item<1-> Text visible on slide 1
+			\item<2-> Text visible on slide 2
+			\item<3> Text visible on slides 3
+			\item<4-> Text visible on slide 4
+		\end{itemize}
+	\end{frame}
+	
+	%---------------------------------------------------------
+	
+	
+	%---------------------------------------------------------
+	%Example of the \pause command
+	\begin{frame}
+		In this slide \pause
+		
+		the text will be partially visible \pause
+		
+		And finally everything will be there
+	\end{frame}
+	%---------------------------------------------------------
+	
+	%---------------------------------------------------------
+	%Highlighting text
+	\begin{frame}
+		\frametitle{Sample frame title}
+		
+		In this slide, some important text will be
+		\alert{highlighted} because it's important.
+		Please, don't abuse it.
+		
+		\begin{block}{Remark}
+			Sample text
+		\end{block}
+		
+		\begin{alertblock}{Important theorem}
+			Sample text in red box
+		\end{alertblock}
+		
+		\begin{examples}
+			Sample text in green box. The title of the block is ``Examples".
+		\end{examples}
+	\end{frame}
+	%---------------------------------------------------------
+	
+	
+	%---------------------------------------------------------
+	%Two columns
+	\begin{frame}
+		\frametitle{Two-column slide}
+		
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			This is a text in first column.
+			$$E=mc^2$$
+			\begin{itemize}
+				\item First item
+				\item Second item
+			\end{itemize}
+			
+			\column{0.5\textwidth}
+			This text will be in the second column
+			and on a second tought this is a nice looking
+			layout in some cases.
+		\end{columns}
+	\end{frame}
+	%---------------------------------------------------------
+	
+	
+\end{document}
