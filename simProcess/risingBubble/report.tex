@@ -77,10 +77,10 @@
 	\justifying
 	\section{Rising droplet}
 	
-	\subsection{Initial setup}
+	\subsection{Considerations}
 	\label{}
 	\justifying
-	\begin{frame}[t]{Initial setup}
+	\begin{frame}[t]{Considerations}
 		\justifying
 		
 		
@@ -114,18 +114,38 @@
 			\begin{equation*}
 				\nu_l = c_s^2 (\tau_l - \frac{\Delta t}{2})
 			\end{equation*}
-			Static simulation (first attempt) with:\\ $\Delta \rho $ = 7.59285, $d_o$ = 29.45, gives \\$\Delta P$ = 0.00377616 (with negative value for the liquid). \\$\sigma$ = 0.1112, given that Shan-Chen $G$=-1.0.
+				
+			\begin{equation*}
+				\begin{split}
+					g = \frac{B_o \sigma}{\Delta \rho d_o^2}\\
+					\nu_l = \frac{\sqrt{g d_o^3}}{R_e}\\
+					\tau_l = \frac{\nu_l}{c_s^2}+ \frac{\Delta t}{2}
+				\end{split}
+			\end{equation*}
 		\end{columns}
-		
-		
-		
 	\end{frame}
 	
-
+	\subsection{Initial setup}
+	\begin{frame}[t]{Initial setup}
+		\justifying
+		\begin{columns}[t]
+			\column{0.45\textwidth}
+			
+			Domain\\
+			Fluid conditions. Static simulation (first attempt) with:\\ $\Delta \rho $ = 7.59285, $d_o$ = 29.45, gives \\$\Delta P$ = 0.00377616 (with negative value for the liquid). \\$\sigma$ = 0.1112, given that Shan-Chen $G$=-1.0.\\~\\
+			~\\
+			Boundary conditions (this may not be considering the hydrostatic column)\\
+			Parameters\\
+			
+			
+			\column{0.45\textwidth}
+		\end{columns}
+	\end{frame}
 
 	%---------------------------------------------------------
 	%---------------------------------------------------------
-	\begin{frame}{}
+	\subsection{Results}
+	\begin{frame}[t]{Spherical regime}
 		\textbf{}\\~\\
 		
 		First case (150 x 300)
@@ -137,24 +157,26 @@
 		
 		\end{itemize}
 		
+	\end{frame}
+	
+	\begin{frame}[t]{Ellipsoidal case}
 		Ellipsoid case (150 x 300)
 		\begin{itemize}
 			\item $g = \vert \mathbf{g}\vert $ = -1e-5. $B_o$ = 0.592. $\tau_l$ = 0.51, $\nu$ = 0.0033. $u_b \approx$ = 0.35. 
 			\item $R_e^{\text{org}}$ = 3092. $R_e^{\text{mod}}$ = 151.61
-			\item This simulation is approaching to the Mach velocity limit and a perturbation is moving the bubble from the axis. I decided to open the channel more to avoid the interaction with the wall. I have reasons to belive that the movement beyond the axis is due to whom the corner was assigned to (number of boundary).
-			
+			\item This simulation is approaching to the Mach velocity limit and a perturbation is moving the bubble from the axis. I decided to open the channel more to avoid the interaction with the wall. I have reasons to believe that the movement beyond the axis is due to whom the corner was assigned to (number of boundary).
 		\end{itemize}
-	\end{frame}
-
-	\begin{frame}{}
 		Ellipsoid case (300 x 300)
 		\begin{itemize}
 			\item $g = \vert \mathbf{g}\vert $ = -1e-5. $B_o$ = 0.592. $\tau_l$ = 0.51, $\nu$ = 0.0033. $u_b \approx$ = 0.35. 
 			\item $R_e^{\text{org}}$ = 3092. $R_e^{\text{mod}}$ = 151.61
 			
 			\item The ellipse shape of the bubble was better seen in this case, although eventually it moves away from the center. For the most part of the simulation, the ellipsoid maintains, although it is important to understand if the viscosity of the gas phase plays any role in the deformation ("plasticity" of the bubble).
-		\end{itemize}	
-		
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[t]{Dimples}
+			
 		Dimples case (300 x 300)
 		\begin{itemize}
 			\item $g = \vert \mathbf{g}\vert $ = -2e-3. $B_o$ = 118 $\tau_l$ = 0.72, $\nu$ = 0.07348. $u_b \approx$ = . 
@@ -166,20 +188,28 @@
 		\begin{itemize}
 		\item $d_o$ = 300. $g = \vert \mathbf{g}\vert $ = -1e-5. $B_o$ = 61. $\tau_l$ = 0.993, $\nu$ = 0.164 $u_b \approx$ = . 
 		\item $R_e^{\text{org}}$ = . $R_e^{\text{mod}}$ = 100
-		
+		\item Did not run
+	\end{itemize}	
+	Dimples case (3000 x 3000)
+		\begin{itemize}
+			\item $d_o$ = 300. $g = \vert \mathbf{g}\vert $ = -1e-5. $B_o$ = 61. $\tau_l$ = 5.43, $\nu$ = 1.64 $u_b \approx$ = . 
+			\item $R_e^{\text{org}}$ = . $R_e^{\text{mod}}$ = 10
+			\item Did not run
 		\end{itemize}		
 	\end{frame}
-		\begin{frame}{Discussion}
-		\begin{columns}
-			
-			\column{0.5\textwidth}
-			
-			
-			\column{0.5\textwidth}
-			
-		\end{columns}
+
+	\begin{frame}{Discussion}
+	\begin{columns}
+		
+		\column{0.5\textwidth}
+		
+		
+		\column{0.5\textwidth}
+		
+	\end{columns}
 	\end{frame}
-	
+
+
 
 	%---------------------------------------------------------
 	\section*{Useful frame options}
