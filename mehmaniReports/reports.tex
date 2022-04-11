@@ -39,7 +39,7 @@
 			\Large{Spring 2022}
 			
 			\vspace{0.25 cm}
-			\Large{Pennsylvania State University}
+			\Large{The Pennsylvania State University}
 			
 			
 			\vfill
@@ -234,24 +234,26 @@
 	\pagebreak
 	\section*{Mar 28 - Apr 11}
 	\subsection*{What was done last week}
-	I searched for papers 
+	I searched for papers addressing the same type of simulations I have in mind, to get a better idea of how to report my results and what are the main flow characteristics that are analyzed and presented, and compare the LBM approaches with other methods that are used for the same simulation setup. I did this for the oscillating droplet and the rising bubble. 
 	
-	Dr. Ayala proposed a solution to find the reason 
+	I designed some cases for the raising bubble, based on the flow regimes of interests in this problem. There is experimental data showing different bubble shapes, depending on the Reynolds ($R_e = u d_b/\nu$) and Bond ($B_o = g \Delta \rho d^2_b / \sigma$) numbers. Three main shapes are depicted as a function of these numbers: spherical, elliptical, and dimple-shaped. I was able to reproduce the spherical and elliptical regimes (the later eventually moves away from the center axis, showing that there is a non symmetric effect in the code that, although honors the relevant physics, causes an offset in the center of gravity of the system). The dimples were not possible to run, as the gravity force had to be increased to a number that, being simultaneously applied with the Shan-Chen force, creates an instability and the simulation diverges. I tried to increase the bubble size to increase the Bond number, but this implies larger simulation domains and longer runs. A best approach to increase the Bond number will be to play with the thermodynamic setup, to decrease the surface tension predicted by LBM. Dr. Ayala encouraged me to print the asymmetry in the domain of a relevant variable (density, velocity, a distribution function) to find the source of the symmetry breaking, where I did not discard to be product of the high velocity regimes, where the velocities approach to high Mach numbers, and the difference in precision becomes relevant for stability.
 	
-	Homeworks
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.1]{pics/ellipseCompMove.png}
+		\caption{Elliptical regimes after symmetry is broken.}
+		\label{fig:ellipseCompMove}
+	\end{figure*}
 	
-	
+	Finally, as part of a homework for the PNG 518 course, I solved the advection-dominated equation of a solute reacting with the rock, using both Laplace and the Method of Characteristics. I consider this relevant for the Qualifying exam, where I expect questions of this type, and this was one of my concerns weeks ago in the PNG 501 course. 
+	 
 	\subsection*{Difficulties}
+	The difficulties are related with the dimple-shaped regime, where further reading will help to determine how others have modeled the problem using LBM. At a first glance, it looks like others have used the immiscible no-thermodynamic consistent approaches to model the two-phase behavior, what may help to improve stability for higher magnitudes of secondary forces (the thermodynamic consistency may be more sensible to small perturbations). 
 	
-	Family situation 
+	
 	\subsection*{What will be done next week?}
 	
-	Judge
-	
-	Symmetric evaluation
-	
-	Paper reading
-	
+	I signed up to be a judge in a Undergraduate Poster Competition this April 11th, to start familiarizing with other's research and judgment environment. Regarding research, I will evaluate the symmetry breaking that is taking place, and will keep going with paper reading. I will be preparing a presentation in SPH, which was the topic I was assigned in the course EME 521. This is not part of my research, but is a mandatory project, and I consider it relevant to understand how other Lagrangian methods work and find relations with LBM at some point if necessary.
 	
 	
 	
