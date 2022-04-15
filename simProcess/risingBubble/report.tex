@@ -132,10 +132,9 @@
 			\column{0.45\textwidth}
 			
 			Domain: 300x300 mesh (2D)\\
-			Fluid. Single component at 143.055 K. 
+			Fluid: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. $\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109.
+			Initial condition: Spherical droplet with $d_o$ = 30, and $w_o$ = 8.
 			
-			
-			Static simulation (first attempt) with:\\ $\Delta \rho $ = 7.59285, $d_o$ = 29.45, gives \\$\Delta P$ = 0.00377616 (with negative value for the liquid). \\$\sigma$ = 0.1112, given that Shan-Chen $G$=-1.0.\\~\\
 			~\\
 			Boundary conditions: The top and bottom boundaries are PERIODIC. On the left and right boundaries a no-slip condition is imposed. At the corners, where there is a PDF that may belong to two boundaries, the enumeration and assignation of conditions is as follows:
 			\begin{itemize}
@@ -150,9 +149,12 @@
 			
 			\column{0.45\textwidth}
 			
-			Parameters\\
+			Parameters: Shan-Chen $G$=-1.0. \\
 			Beta = 0.2076\\
-			Time = 100000
+			Time = 100000\\
+			
+			~\\
+			Single static simulation:\\ $\Delta \rho $ = 7.59285, $d_s$ = 29.45, \\ $\Delta P$ = 0.00378 ($P_l < 0$). \\$\sigma$ = 0.1112.
 		\end{columns}
 	\end{frame}
 
