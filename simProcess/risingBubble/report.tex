@@ -89,15 +89,16 @@
 			\column{0.45\textwidth}
 			\textbf{Considerations}\\~\\
 			\justifying
-			Test the pseudopotential approach for multicomponent partially miscible mixtures, under the action of a second force, as gravity.\\~\\
 			
-			The partition scheme can be proven to work for different Reynolds and Bond (Eotvos) numbers, depicting particular bubble shapes as found by Flit R, Grace JR, Weber M. Bubbles, drops, and particles. New York: Academic Press; 1978. 
+			Goal: Test the pseudopotential approach for partially misc. mixtures, under the action of a second force.\\~\\
+			
+			Idea: test different flow regimes based on Reynolds and Bond (Eotvos) numbers, and capture particular bubble shapes, as found by Flit R, Grace JR, Weber M. \textit{Bubbles, drops, and particles}. New York: Academic Press; 1978. 
 			
 			\begin{equation*}
-			R_e = \frac{\rho_l u_b d_0}{\mu_l} = \frac{u_b d_0}{\nu_l}
+			R_e = \frac{\rho_l u_b d_b}{\mu_l} = \frac{u_b d_b}{\nu_l}
 			\end{equation*}
 			\begin{equation*}
-			B_o = \frac{g \Delta \rho d_o^2}{\sigma}
+			B_o = \frac{g \Delta \rho d_b^2}{\sigma}
 			\end{equation*}
 			
 			\column{0.45\textwidth}{
@@ -105,9 +106,9 @@
 			
 			}
 			
-			If we fix thermodynamic conditions, $\rho, \Delta \rho, \sigma$ will be fixed. Redifining $R_e$:
+			A thermodynamic state fixes $\rho, \Delta \rho, \sigma$. Redifining $R_e$:
 			\begin{equation*}
-				Re = \frac{\sqrt{g d_0} d_0}{\nu_l} =  \frac{\sqrt{g d_0^3}}{\nu_l}
+				Re = \frac{d_b \sqrt{g d_b} }{\nu_l} =  \frac{\sqrt{g d_b^3}}{\nu_l}
 			\end{equation*}
 			
 			We can sweep the spectrum by fixing $g$ (fixes $B_o$), and moving $\nu_l$ (fixes $R_e$), as:
@@ -117,8 +118,8 @@
 				
 			\begin{equation*}
 				\begin{split}
-					g = \frac{B_o \sigma}{\Delta \rho d_o^2}\\
-					\nu_l = \frac{\sqrt{g d_o^3}}{R_e}\\
+					g = \frac{B_o \sigma}{\Delta \rho d_b^2}\\
+					\nu_l = \frac{\sqrt{g d_b^3}}{R_e}\\
 					\tau_l = \frac{\nu_l}{c_s^2}+ \frac{\Delta t}{2}
 				\end{split}
 			\end{equation*}
@@ -131,12 +132,12 @@
 		\begin{columns}[t]
 			\column{0.45\textwidth}
 			
-			Domain: 300x300 mesh (2D)\\
-			Fluid: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. $\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109.
+			\textbf{Domain}: (!) 300x300 mesh (2D)\\
+			\textbf{Fluid}: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. \\$\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109.\\
 			Initial condition: Spherical droplet with $d_o$ = 30, and $w_o$ = 8.
 			
 			~\\
-			Boundary conditions: The top and bottom boundaries are PERIODIC. On the left and right boundaries a no-slip condition is imposed. At the corners, where there is a PDF that may belong to two boundaries, the enumeration and assignation of conditions is as follows:
+			\textbf{Boundary conditions}: The top and bottom boundaries are PERIODIC. On the left and right boundaries a no-slip condition is imposed. At the corners, where there is a PDF that may belong to two boundaries, the enumeration and assignation of conditions is as follows:
 			\begin{itemize}
 				\item Corner 1 (SW): No-slip (Left)
 				\item Corner 2 (NW): No-slip (Left)
@@ -149,12 +150,12 @@
 			
 			\column{0.45\textwidth}
 			
-			Parameters: Shan-Chen $G$=-1.0. \\
+			\textbf{Parameters}: Shan-Chen $G$=-1.0. \\
 			Beta = 0.2076\\
 			Time = 100000\\
 			
 			~\\
-			Single static simulation:\\ $\Delta \rho $ = 7.59285, $d_s$ = 29.45, \\ $\Delta P$ = 0.00378 ($P_l < 0$). \\$\sigma$ = 0.1112.
+			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.59285, $d_s$ = 29.45, \\ $\Delta P$ = 0.00378 ($P_l < 0$). \\$\sigma$ = 0.1112.
 		\end{columns}
 	\end{frame}
 
