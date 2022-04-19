@@ -1147,9 +1147,17 @@
 		\begin{columns}
 			
 			\column{0.5\textwidth}
-			
+			Search SPH + Porous Media Applications\\
+			Replicate the error case where density decreases but the molecular weight makes the molar density higher.\\
+			\textbf{Note}: the Cahn-Hilliard macroscopic equation can be integrated into Navier-Stokes by multiple forms. Muzammil is working on integrating the solution via external force, and solve one PDF per component. Others, have solved the Cahn-Hilliard via finite-element methods, while solving a single PDF for two components, or solving $n_c-1$ CH to obtain order parameters + 1 PDF to recover NS. Another approach: solve an LBM that recovers CH, and then proceed solving a single PDF for NS.\\
 			
 			\column{0.5\textwidth}
+			Assumptions behind the parachor approximation, also for multiphase mixtures.\\
+			How well-balaned LBM affects scaling. Does it give an extra degree of freedom?\\
+			\textbf{Shan-Chen pseudopotential used in literature to replicate results}\\
+			Compile readings and gravity implementations.\\
+			Read cases in multiphase book.
+			
 			
 		\end{columns}
 	\end{frame}
