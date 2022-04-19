@@ -133,7 +133,7 @@
 			\column{0.45\textwidth}
 			
 			\textbf{Domain}: (!) 300x300 mesh (2D)\\
-			\textbf{Fluid}: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. \\$\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109.\\
+			\textbf{Fluid}: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. \\$\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109. $\rho_r$ = 70.45.\\
 			Initial condition: Spherical droplet with $d_o$ = 30, and $w_o$ = 8.
 			
 			~\\
@@ -156,6 +156,41 @@
 			
 			~\\
 			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.59285, $d_s$ = 29.45, \\ $\Delta P$ = 0.00378 ($P_l < 0$). \\$\sigma$ = 0.1112.
+		\end{columns}
+	\end{frame}
+
+
+	\subsection{Initial setup 2 (Amaya)}
+	\begin{frame}[t]{Initial setup 2 (Amaya)}
+		\justifying
+		\begin{columns}[t]
+			\column{0.45\textwidth}
+			
+			\textbf{Domain}: (!) 160x400 mesh (2D)\\
+			\textbf{Fluid}: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. \\$\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109. $\rho_L/\rho_g$ = 70. $\tau_l$ = 210.5. $\tau_g$ = 0.8. $\mu_l/\mu_g$ =10.\\
+			Initial condition: Spherical droplet with $d_o$ = 40, and $w_o$ = 8.
+			
+			~\\
+			\textbf{Boundary conditions}: Periodic on all boundaries (for static), walls on all boundaries (for dynamic). At the corners, where there is a PDF that may belong to two boundaries, the enumeration and assignation of conditions is as follows:
+			\begin{itemize}
+				\item Corner 1 (SW): No-slip (Left)
+				\item Corner 2 (NW): No-slip (Left)
+				\item Corner 3 (SE): No-slip (Right)
+				\item Corner 4 (NE): No-slip (Right)
+			\end{itemize}
+			
+			
+			
+			
+			\column{0.45\textwidth}
+			
+			\textbf{Parameters}: Shan-Chen $G$=-1.0. \\
+			Beta = 0.2076\\
+			Time = 100000\\
+			
+			~\\
+			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.2 (7.7-0.5), $d_s$ = 40.0, \\ $\Delta P$ = 8.5e-3 - 5.87e-3 = 2.623e-3 \\$\sigma = \Delta P \cdot r$ = 0.05254.
+			$B_o$ =10. Then, $g = \frac{\sigma B_o}{\Delta \rho d^2}$ = 4.5e-5. $\mu_l $ = 0.85, $\nu_l$ = 0.1105. $\tau_l$ = 0.83.  
 		\end{columns}
 	\end{frame}
 
