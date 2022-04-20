@@ -1,4 +1,4 @@
-	\documentclass[9pt]{beamer}
+	\documentclass[8pt]{beamer}
 \usepackage[utf8]{inputenc}
 
 \usetheme{Madrid}
@@ -1164,6 +1164,185 @@
 	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
+	\subsection{LBM Meeting - Apr 22 - 2022}
+	\label{}
+	\justifying
+	\begin{frame}{LBM Meeting}
+		\textbf{Apr 22 - 2022}\\~\\
+		Recap:
+		\begin{itemize}
+			\item The oscillating droplet case was validated against the analytical equation
+			\item The thermodynamic inconsistency usually compromises the vapor density.
+		\end{itemize}
+		
+		Today:
+		\begin{itemize}
+			\item Raising bubble physics
+			\item Related studies
+			\item Simulation setup
+			\item Results
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	\begin{frame}{Raising bubble physics}
+		
+		\begin{columns}[T]
+		
+			\column{0.5\textwidth}
+			
+			\begin{itemize}
+				\item Main properties
+				\begin{itemize}
+					\item Surface tension
+					\item Body forces
+					\item Viscosity and density ratio
+					\item Boundary conditions
+				\end{itemize}
+			
+				\item Bond and Morton numbers fix $R_e = \frac{u_t d_b}{\nu_l}$
+				\begin{equation*}
+				\begin{split}
+				B_o = \frac{g \Delta \rho d_b^2}{\sigma}\\
+				M_o = \frac{g \Delta \rho \mu_l^4}{\sigma^3 
+					\rho_l^2}
+				\end{split}
+				\end{equation*}
+				
+				\item The drag coefficient, $C_D$, function of $R_e$, and defined as: 
+				\begin{equation*}
+				\begin{split}
+				C_D = \frac{4 \Delta \rho g d_b}{3 u_t^2 \rho_l}
+				\end{split}
+				\end{equation*}
+				resulting from a drag and gravity force balance. 
+				\end{itemize}
+		
+			\column{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.2]{pics/shapeRegimes.png}
+				\\{\tiny \justifying Taken from Amaya-Bower L., Lee T. Single bubble rising dynamics for moderate Reynolds number using Lattice Boltzmann Method. Computer and Fluids. 2010.}
+			\end{figure}
+			
+		\end{columns}
+		
+	\end{frame}
+
+	\begin{frame}{Experimental relationship of $C_D$ with $R_e$}
+		
+		The constants may change due to the 2D approximation. 
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.2]{pics/dragRe.png}
+			\\{\tiny \justifying Taken from API Specifications for Oil and Gas Separators and PNG 480 Handout. L. Ayala, H. Emami-M. }
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}[t]{Considerations}
+		\justifying
+		
+		\begin{columns}[T]
+			
+			\column{0.45\textwidth}
+			\textbf{Goal}~\\
+			\justifying
+			
+			Test the pseudopotential approach for partially misc. mixtures, under the action of gravity.\\~\\
+			
+			\textbf{Methodology}~\\
+			Test different flow regimes based on Bond (Eotvos) and Morton numbers. Validate against \textbf{terminal velocities and bubble shapes.}
+			
+			\begin{equation*}
+			R_e = \frac{\rho_l u_b d_b}{\mu_l}
+			\end{equation*}
+			\begin{equation*}
+			B_o = \frac{g \Delta \rho d_b^2}{\sigma} \,\,\,\, 	M_o = \frac{g \Delta \rho \mu_l^4}{\sigma^3 
+				\rho_l^2}
+			\end{equation*}
+			
+			
+			A thermodynamic state fixes $\rho, \Delta \rho, \sigma$. At a given temperature, in a single component case, some values are provided ($\rho, \Delta \rho$) and others can be obtained by simulating the static droplet ($\sigma$). \\
+			
+			\column{0.45\textwidth}{
+				\justifying
+				
+			}
+			
+			\textbf{Procedure}	
+			\begin{itemize}
+				\item Select $B_o$
+				\item Calculate the gravity $g = \frac{B_o \sigma}{\Delta \rho d_b^2}$
+				\item Select $M_o$
+				\item Calculate $\mu_l^4 = \frac{M_o \sigma^3 \rho_l^2}{g \Delta \rho }$
+				\item Select the viscosity ratio
+				\item Calculate $\mu_g = \mu_l * \frac{\mu_g}{\mu_l}$
+			\end{itemize}
+			
+			The LBM parameters are thus fixed:
+
+			\begin{equation*}
+			\begin{split}
+			\tau = \frac{\nu}{c_s^2}+ \frac{\Delta t}{2}
+			\end{split}
+			\end{equation*}
+			
+			\textbf{Try single component and then the multicomponent case.}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Related studies}
+		\textbf{Amaya-Bower L, Taehun L. 2010.}\\~\\
+		\begin{itemize}
+			\item LBM (modified to remove acoustic waves) with Cahn Hilliard (recovered through second PDF).
+			\item Closed domain
+			\item Evaluate dependency to:
+			\begin{itemize}
+				\item Grid resolution. They recommend $d_b$ = 40.
+				\item Domain size. $4d_b$x$9d_b$.
+				\item $\mu$ ratio $>$ 100 to reach $u_t$
+				\item Gravity force implementation. No difference between $-g (\rho-\rho_r) \nabla h$ and $-g \rho \nabla h$. 
+			\end{itemize}  
+		\end{itemize}
+	\end{frame}
+	
+	
+	\begin{frame}[t]{Initial setup 2 (Amaya)}
+		\justifying
+		\begin{columns}[t]
+			\column{0.45\textwidth}
+			
+			\textbf{Domain}: (!) 200x360 mesh (2D)\\
+			\textbf{Fluid}: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. \\$\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109. $\rho_L/\rho_g$ = 70. $\tau_l$ = 210.5. $\tau_g$ = 0.8. $\mu_l/\mu_g$ =10.\\
+			Initial condition: Spherical droplet with $d_o$ = 40, and $w_o$ = 8.
+			
+			~\\
+			\textbf{Boundary conditions}: Periodic on all boundaries (for static), walls on all boundaries (for dynamic). At the corners, where there is a PDF that may belong to two boundaries, the enumeration and assignation of conditions is as follows:
+			\begin{itemize}
+				\item Corner 1 (SW): No-slip (Left)
+				\item Corner 2 (NW): No-slip (Left)
+				\item Corner 3 (SE): No-slip (Right)
+				\item Corner 4 (NE): No-slip (Right)
+			\end{itemize}
+			
+			
+			
+			
+			\column{0.45\textwidth}
+			
+			\textbf{Parameters}: Shan-Chen $G$=-1.0. \\
+			Beta = 0.2076\\
+			Time = 100000\\
+			
+			~\\
+			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.2 (7.7-0.5), $d_s$ = 40.0, \\ $\Delta P$ = 8.5e-3 - 5.87e-3 = 2.623e-3 \\$\sigma = \Delta P \cdot r$ = 0.05254.
+			$B_o$ =10. Then, $g = \frac{\sigma B_o}{\Delta \rho d^2}$ = 4.5e-5. $\mu_l $ = 0.85, $\nu_l$ = 0.1105. $\tau_l$ = 0.83.  
+		\end{columns}
+	\end{frame}
+	
+	%---------------------------------------------------------
+	%---------------------------------------------------------
 	\begin{frame}{}
 		\textbf{}\\~\\
 		\begin{itemize}
@@ -1172,7 +1351,6 @@
 				\item 
 			\end{itemize}
 		\end{itemize}
-	
 	\end{frame}
 	\begin{frame}{}
 		

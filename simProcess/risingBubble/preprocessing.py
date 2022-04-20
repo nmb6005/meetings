@@ -11,13 +11,13 @@ deltaRho = rhoL-rhoG
 deltaP = 8.5e-3-5.87e-3
 sigma = deltaP*rad 
 Bo = 10.0
+Mo = 2e-2
 
+print('Sigma: ', sigma)
 g = sigma*Bo/deltaRho/d**2
 print('Gravity: ', g)
 
-Mo = 2e-2
-
-muL = (sigma**3*rhoL**2*Mo/(g*deltaRho))**(1/4.0)
+muL = np.sqrt(np.sqrt(sigma**3*rhoL**2*Mo/(g*deltaRho)))
 print('Mu L = ', muL)
 
 kinL = muL/rhoL
@@ -38,8 +38,12 @@ print('taoG = ', taoG)
 tn = np.sqrt(d/g)
 print('tn = ', tn)
 
-taoL2 = 8.0
+taoL2 = 2.0
 kinL2 = cssq*(taoL2-0.5)
 muL2 = kinL2*rhoL
 Mo2 = g*deltaRho*muL2**4/(sigma**3*rhoL**2)
-print('Mo2 = ', Mo2)
+print('muL, Mo2 = ', muL2, Mo2)
+
+#Verification
+print('Bo = ', g*deltaRho*d**2/sigma)
+print('Mo = ', g*deltaRho*muL**4/sigma**3/rhoL**2)
