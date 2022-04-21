@@ -698,7 +698,7 @@
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 
-	\section*{Report Feb 28 - 2022}
+	\subsection*{Report Feb 28 - 2022}
 	\label{}
 	\justifying
 	\begin{frame}
@@ -1171,7 +1171,7 @@
 		\textbf{Apr 22 - 2022}\\~\\
 		Recap:
 		\begin{itemize}
-			\item The oscillating droplet case was validated against the analytical equation
+			\item The oscillating droplet case was validated against the analytical solution
 			\item The thermodynamic inconsistency usually compromises the vapor density.
 		\end{itemize}
 		
@@ -1293,10 +1293,10 @@
 	\end{frame}
 	
 	\begin{frame}{Related studies}
-		\textbf{Amaya-Bower L, Taehun L. 2010.}\\~\\
+		\textbf{Amaya-Bower L, Taehun L. 2010.}~\\
 		\begin{itemize}
 			\item LBM (modified to remove acoustic waves) with Cahn Hilliard (recovered through second PDF).
-			\item Closed domain
+			\item Closed domain in 2D and 3D.
 			\item Evaluate dependency to:
 			\begin{itemize}
 				\item Grid resolution. They recommend $d_b$ = 40.
@@ -1305,42 +1305,88 @@
 				\item Gravity force implementation. No difference between $-g (\rho-\rho_r) \nabla h$ and $-g \rho \nabla h$. 
 			\end{itemize}  
 		\end{itemize}
+		~\\
+		\textbf{Sankaranarayanan, K., Shan X., Kevrekidis, I.G., and Sundaresan S. 2002.}~\\
+		\begin{itemize}
+			\item Two-component model. 
+			\item Periodic domain in 3D. $\mathbf{a} = g(1-\frac{\tilde{\rho_r}}{\rho})$
+			\item Contributions to our work:
+			\begin{itemize}
+				\item Uses van der Waals for 1 component and ideal for the second one
+				\item Shows 2D results depicting wiggling by unstable conditions
+				\item Suggests an implicit scheme, that seems to be still local
+				\item Closure problem for upscaling drag between phases
+				\item Stands the difficulty to achieve high $B_o$, while keeping low $M_o$
+			\end{itemize}  
+		\end{itemize}
+	%https://www-sciencedirect-com.ezaccess.libraries.psu.edu/science/article/pii/S0301932222000106#fig0005
+	
+	%https://www-sciencedirect-com.ezaccess.libraries.psu.edu/science/article/pii/S1290072921000466?via%3Dihub
 	\end{frame}
 	
 	
-	\begin{frame}[t]{Initial setup 2 (Amaya)}
+	\begin{frame}[t]{Simulation setup (Amaya)}
 		\justifying
 		\begin{columns}[t]
 			\column{0.45\textwidth}
 			
 			\textbf{Domain}: (!) 200x360 mesh (2D)\\
-			\textbf{Fluid}: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. \\$\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109. $\rho_L/\rho_g$ = 70. $\tau_l$ = 210.5. $\tau_g$ = 0.8. $\mu_l/\mu_g$ =10.\\
+			\textbf{Fluid}: Water at 485.33 K ($T_r$ = 0.75), and $P_r$ = 0.092. \\$\rho_l^0$  = 7.679 (), $\rho_v^0$  = 0.109. $\rho_L/\rho_g$ = 70. $\tau_l$ = 210.5. $\tau_g$ = 0.8. $\mu_l/\mu_g$ =10.\\~\\
 			Initial condition: Spherical droplet with $d_o$ = 40, and $w_o$ = 8.
 			
 			~\\
-			\textbf{Boundary conditions}: Periodic on all boundaries (for static), walls on all boundaries (for dynamic). At the corners, where there is a PDF that may belong to two boundaries, the enumeration and assignation of conditions is as follows:
-			\begin{itemize}
-				\item Corner 1 (SW): No-slip (Left)
-				\item Corner 2 (NW): No-slip (Left)
-				\item Corner 3 (SE): No-slip (Right)
-				\item Corner 4 (NE): No-slip (Right)
-			\end{itemize}
+			\textbf{Boundary conditions}: No-slip condition on all boundaries.
 			
+			~\\
+			\textbf{Parameters}: Shan-Chen $G$=-1.0. \\
+			Beta = 0.9\\
+			Time = 10000 ($\approx 10 \sqrt{\frac{d_b}{g}}$)\\
+			
+			~\\
 			
 			
 			
 			\column{0.45\textwidth}
 			
-			\textbf{Parameters}: Shan-Chen $G$=-1.0. \\
-			Beta = 0.2076\\
-			Time = 100000\\
+		
+			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.2 (7.7-0.5), $d_s$ = 40.0, \\ $\Delta P$ = 8.5e-3 - 5.87e-3 = 2.623e-3 \\$\sigma = \Delta P \cdot r$ = 0.05254.\\
 			
-			~\\
-			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.2 (7.7-0.5), $d_s$ = 40.0, \\ $\Delta P$ = 8.5e-3 - 5.87e-3 = 2.623e-3 \\$\sigma = \Delta P \cdot r$ = 0.05254.
+			A 
+			
 			$B_o$ =10. Then, $g = \frac{\sigma B_o}{\Delta \rho d^2}$ = 4.5e-5. $\mu_l $ = 0.85, $\nu_l$ = 0.1105. $\tau_l$ = 0.83.  
 		\end{columns}
 	\end{frame}
 	
+	\begin{frame}{Preliminary Results}
+		\textbf{}\\~\\
+		\begin{itemize}
+			\item 
+			\begin{itemize}
+				\item 
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Difficulties}
+		\textbf{}\\~\\
+		\begin{itemize}
+			\item Achieve low Morton values (due to restrictions in kinematic viscosity).
+			\begin{itemize}
+				\item 
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+		
+	\begin{frame}{Potential solutions}
+		\textbf{}\\~\\
+		\begin{itemize}
+			\item 
+			\begin{itemize}
+				\item 
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\begin{frame}{}
