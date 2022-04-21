@@ -6,12 +6,13 @@ rhoL = 7.7
 rhoG = 0.5
 d = 40.0
 rad = d/2.0
-viscRatio = 10.0
+viscRatio = 100.0
 deltaRho = rhoL-rhoG
 deltaP = 8.5e-3-5.87e-3
 sigma = deltaP*rad 
-Bo = 10.0
-Mo = 2e-2
+sigma = 0.12141 # 2 component case
+Bo = 10
+Mo = 2e-4
 
 print('Sigma: ', sigma)
 g = sigma*Bo/deltaRho/d**2
@@ -38,7 +39,7 @@ print('taoG = ', taoG)
 tn = np.sqrt(d/g)
 print('tn = ', tn)
 
-taoL2 = 2.0
+taoL2 = 47
 kinL2 = cssq*(taoL2-0.5)
 muL2 = kinL2*rhoL
 Mo2 = g*deltaRho*muL2**4/(sigma**3*rhoL**2)
