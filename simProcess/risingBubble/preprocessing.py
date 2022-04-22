@@ -6,13 +6,14 @@ rhoL = 7.7
 rhoG = 0.5
 d = 40.0
 rad = d/2.0
-viscRatio = 100.0
+viscRatio = 10.0
 deltaRho = rhoL-rhoG
 deltaP = 8.5e-3-5.87e-3
 sigma = deltaP*rad 
+deltaRho = 8.32-0.34
 sigma = 0.12141 # 2 component case
-Bo = 10
-Mo = 2e-4
+Bo = 12
+Mo = 5e-4
 
 print('Sigma: ', sigma)
 g = sigma*Bo/deltaRho/d**2

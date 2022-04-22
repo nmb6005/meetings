@@ -1179,8 +1179,8 @@
 		\begin{itemize}
 			\item Raising bubble physics
 			\item Related studies
-			\item Simulation setup
-			\item Results
+			\item Simulation setup and results (single component)
+			\item Simulation setup and results (multicomponent)
 		\end{itemize}
 	\end{frame}
 	
@@ -1341,54 +1341,119 @@
 			\textbf{Parameters}: Shan-Chen $G$=-1.0. \\
 			Beta = 0.9\\
 			Time = 10000 ($\approx 10 \sqrt{\frac{d_b}{g}}$)\\
-			
 			~\\
 			
 			
-			
+		
 			\column{0.45\textwidth}
 			
 		
 			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.2 (7.7-0.5), $d_s$ = 40.0, \\ $\Delta P$ = 8.5e-3 - 5.87e-3 = 2.623e-3 \\$\sigma = \Delta P \cdot r$ = 0.05254.\\
 			
-			A 
 			
-			$B_o$ =10. Then, $g = \frac{\sigma B_o}{\Delta \rho d^2}$ = 4.5e-5. $\mu_l $ = 0.85, $\nu_l$ = 0.1105. $\tau_l$ = 0.83.  
+			First, the single component case was tested as follows:
+			\begin{enumerate}
+				\item $B_o$ = 1. $M_o$ = 3e-5. $\mu_R$ = 100. 
+				\item $B_o$ = 10. $M_o$ = 2e-2. $\mu_R$ = 10.
+				\item $B_o$ = 10. $M_o$ = 2e-2. $\mu_R$ = 100. 
+				\item $B_o$ = 0.1. $M_o$ = 1e-2. $\mu_R$ = 100.
+				\item $B_o$ = 22. $M_o$ = 8.4e-4. $\mu_R$ = 100. 
+			\end{enumerate}
 		\end{columns}
 	\end{frame}
 	
 	\begin{frame}{Preliminary Results}
-		\textbf{}\\~\\
-		\begin{itemize}
-			\item 
-			\begin{itemize}
-				\item 
-			\end{itemize}
-		\end{itemize}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.2]{pics/risingCompDen.png}
+			\\{\tiny \justifying Bubble shapes}
+		\end{figure}
 	\end{frame}
 
-	\begin{frame}{Difficulties}
+	\begin{frame}{Preliminary Results}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.2]{pics/risingCompVel.png}
+			\\{\tiny \justifying Velocity field}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Difficulties in single phase}
 		\textbf{}\\~\\
 		\begin{itemize}
-			\item Achieve low Morton values (due to restrictions in kinematic viscosity).
-			\begin{itemize}
-				\item 
-			\end{itemize}
+			\item Reach low Morton values (due to restrictions in kinematic viscosity).
+			\item Reach high Bond numbers (high gravity)
+			\item The cap shapes are not being observed, and the ellipsoidal tends to be more triangular.
+			\item Hard to change Bond with fixed $\sigma$. System becomes unstable with other values of $G$.
 		\end{itemize}
 	\end{frame}
 		
+		
+	\begin{frame}{Increasing the Morton number}
+		Trying to make the liquid more viscous (at $B_o$ = 10), seems to not allow the bubble to rise ($M_o$ = 8e6), which later collapses.\\~\\
+		\begin{itemize}
+			\item $\tau_g$ = 0.52. $\tau_l$ = 47
+			\item $\tau_g$ = 2.0. $\tau_l$ = 47 
+			\item $\tau_g$ = 0.92. $\tau_l$ = 4.7 
+		\end{itemize}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.15]{pics/risingCompDen456.png}
+			\\{\tiny \justifying Velocity field}
+		\end{figure}
+	\end{frame}
+
 	\begin{frame}{Potential solutions}
 		\textbf{}\\~\\
 		\begin{itemize}
-			\item 
-			\begin{itemize}
-				\item 
-			\end{itemize}
+			\item Fix MRT parameters
+			\item Consider an implicit scheme
+			\item Compare against the usual Shan-Chen force which may provide better stability 
 		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Multicomponent case - First approach}
+		\textbf{MC case with the beta model}\\~\\
+		Using the same mixture that was used for the oscillating droplet, with a viscosity ratio of 10, two cases were run:
+		\begin{itemize}
+			\item $B_o$ = 10, $M_o$ = 5e-3.
+			\item $B_o$ = 10, $M_o$ = 5e-4.
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Multicomponent case - First approach}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.15]{pics/risingMCComp.png}
+			\\{\tiny \justifying Density and Velocity field}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Difficulties in single phase}
+		\textbf{}\\~\\
+		\begin{itemize}
+			\item Same as in single component
+			\item Reach stable simulations
+			\item Seems that walls are affecting more the shape than in the single component
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Actions}
+		\begin{columns}[T]
+			
+			\column{0.5\textwidth}
+			Possible actions: Immiscible force. Implement periodic BCs with solid nodes in the boundary. 
+			
+			\column{0.5\textwidth}
+			
+		\end{columns}
 	\end{frame}
 
 	%---------------------------------------------------------
 	%---------------------------------------------------------
+	\begin{frame}{}
+		
+	\end{frame}
+	
 	\begin{frame}{}
 		\textbf{}\\~\\
 		\begin{itemize}
