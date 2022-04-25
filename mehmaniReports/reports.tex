@@ -271,8 +271,51 @@
 	\subsection*{What will be done next week?}
 	I will be preparing some exams and works for my classes, but in terms of research, I will be condensing all the information I have gathered (reading, fixed problems, preliminary simulations) in a single presentation, to present it to Dr. Ayala in order to take action and identify what has to be done before meeting with Cheng again, and to show the capabilities of the multiphase model to the Dr. Mehmani research group next week. 
 	
+	\pagebreak
+	\section*{Apr 18 - Apr 24}
+	\subsection*{What was done last week}
+	I summarized the simulation procedure that I was developing during previous weeks, and presented these results to the Dr. Ayala's research group. The case can be presented as:
+	
+	\textbf{Goal}: Test the pseudopotential approach for partially misc. mixtures, under the action of gravity.
+	\textbf{Methodology}: Test different flow regimes based on Bond (Eotvos) and Morton numbers. Validate the \textbf{terminal velocities and bubble shapes} against experimental and simulation data.
+	\begin{equation*}
+		R_e = \frac{\rho_l u_b d_b}{\mu_l}
+	\end{equation*}
+	\begin{equation*}
+		B_o = \frac{g \Delta \rho d_b^2}{\sigma} \,\,\,\, 	M_o = \frac{g \Delta \rho \mu_l^4}{\sigma^3 
+			\rho_l^2}
+	\end{equation*}
+	
+	
+	A thermodynamic state fixes $\rho, \Delta \rho, \sigma$. At a given temperature, in a single component case, some values are provided ($\rho, \Delta \rho$) and others can be obtained by simulating the static droplet ($\sigma$). 
+	
+	\textbf{Procedure}: a) Select $B_o$. b) Calculate the gravity as $g = \frac{B_o \sigma}{\Delta \rho d_b^2}$. c) Select $M_o$. d) Calculate $\mu_l^4 = \frac{M_o \sigma^3 \rho_l^2}{g \Delta \rho }$. e) Select the viscosity ratio f) Calculate $\mu_g = \mu_l * \frac{\mu_g}{\mu_l}$.
+	
+	I followed the procedure for the single-component and multicomponent case, finding the following:
+	\begin{itemize}
+		\item The spherical regime was observed at the $B_o$ number predicted by the experimental studies.
+		\item The ellipsoidal shape gets distorted by the presence of the wall. As the $R_e$ is small, this approaches Stokes flow, where the flow extend to the whole domain and the non slip condition affects the streamlines. However, some studies were able to reproduce the ellipsoidal regime. 
+		\item The current LBM implementation makes prohibitive reaching high $B_o$ numbers, where the spherical cap is formed. That regime may be achieved by increasing the bubble radius (higher computational domain).
+		\item The multicomponent approach with Shan-Chen has less flexibility to play with surface tension, reducing the degrees of freedom, and being prone to instabilities.
+		\item Single component and multicomponent cases have similar features. The multicomponent case tends to be more unstable, but depicts better bubble behaviors, such as bubble splitting.
+	\end{itemize}
+	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[scale=0.2]{pics/risingCompDen.png}
+		\caption{Bubble shapes.}
+	\end{figure*}
+
+	\subsection*{Difficulties}
+	One difficulty was related with designing the simulation cases to avoid creating more than those needed. As we can change many parameters to arrive to the same flow regime, sometimes I found myself loosing track of the cases I ran, or loosing the connection with the previous ones. However, I think the best solution is simply to always write down what will be done, and attach to the plan as much as possible.\\
+	
+	A second difficulty was the crashing of my personal computer. I had bought a simple machine for home-working which currently has Windows in it\footnote{I know, a Mac would have been better, but this was a gaming machine for half of the price!}, and realize that the way I compile my code is not cross-platform. I feel that it is important to learn how to write CMake Files, and use this tool to be able to compile in different OS. I actually enjoy working in Linux, and I find much easier to compile my codes with external libraries in this OS. I have to decide if keep working cross-platform or switching again to Linux, what is not a minor decision as in the future others may be writing code in the current LBM implementation. 
+	
+	\subsection*{What will be done next week?}
+	Including this and next weeks, the following are part of the actions suggested to overcome the current difficulties. First, switch to periodic boundary conditions, using a few (or one) solid block somewhere, or check if the current implementation of gravity ($f_g = g (\rho - \rho_l)$) solved the acceleration of the whole system. The purpose is to see if the ellipsoids can be seen better with peroidic BCs. Second, it is desirable to go back to the original Shan-Chen, which was used in some papers to model the rising bubble. Here, we will check if those results are reproducible and conclude if the ellipsoid problem is product of the proposed Shan-Chen force-splitting scheme. Third, there is a correction to the LBM formulation to eliminate the ideal pressure from the recovered Navier-Stokes equation, what may simplify the expression for the current Shan-Chen force and thus avoid instability problems. I will finish the presentation on Friday for the Dr. Mehmani research group, and conclude some activities before entering to the finals week.
+	
 	%\pagebreak
-	%\section*{Feb 7 - Feb 12}
+	%\section*{ - }
 	%\subsection*{What was done last week}
 	%\subsection*{Difficulties}
 	%\subsection*{What will be done next week?}

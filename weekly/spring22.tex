@@ -861,7 +861,7 @@
 
 	%---------------------------------------------------------
 	%---------------------------------------------------------
-	\subsection{Weekly meeting - LBM - Mar 24 - 2022}
+	\subsection{Weekly meeting - LBM - Mar 24 - 2022}\label{meet:LBM00324}
 	\label{}
 	\justifying
 	\begin{frame}{Weekly meeting - LBM}
@@ -1169,7 +1169,7 @@
 	\justifying
 	\begin{frame}{LBM Meeting}
 		\textbf{Apr 22 - 2022}\\~\\
-		Recap:
+		Recap from last meeting (see \ref{meet:LBM00324}):
 		\begin{itemize}
 			\item The oscillating droplet case was validated against the analytical solution
 			\item The thermodynamic inconsistency usually compromises the vapor density.
@@ -1441,7 +1441,17 @@
 		\begin{columns}[T]
 			
 			\column{0.5\textwidth}
-			Possible actions: Immiscible force. Implement periodic BCs with solid nodes in the boundary. 
+			Possible actions: Immiscible force. Implement periodic BCs with solid nodes in the boundary. ~\\
+			
+			Proposed by the group:
+			\begin{itemize}
+				\item Switch to periodic boundaries
+				\item Use Shan-Chen to reproduce other's results
+				\item Apply well-balanced model with Shan-Chen
+				\item Look for $C_D$ for cylinders, as this is Stokes flow, and its truncation has an impact
+				\item Reduce $d$, increase $g$. 
+				
+			\end{itemize}
 			
 			\column{0.5\textwidth}
 			
