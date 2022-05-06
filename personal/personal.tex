@@ -1,0 +1,125 @@
+\documentclass[8pt]{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+
+%% ADDITIONAL NICOLÁS
+\usepackage{ragged2e}
+\usepackage{amssymb}
+\usepackage{subcaption}
+
+\usefonttheme{serif}
+\definecolor{UBCblue}{rgb}{0.01569, 0.11765, 0.25882} % PSU Blue
+\usecolortheme[named=UBCblue]{structure}
+
+%% ADDITIONAL NICOLÁS
+
+
+
+
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[Personal] %optional
+{Nicolas Bueno Zapata}
+
+\subtitle{Personal Overview}
+
+\author[Nicolás Bueno] % (optional)
+{Nicolás Bueno\inst{1} \and Advisor: Dr. Ayala\inst{1} \and Co-advisor: Dr. Mehmani\inst{1}}
+
+\institute[EME] % (optional)
+{
+	\inst{1}%
+	Department of Energy and Mineral Engineering\\
+	Penn State University\\
+	\includegraphics[height=1cm]{PSU_EMS.png}
+}
+
+\date[Spring 2022] % (optional)
+{}
+
+%\logo{\includegraphics[height=1cm]{pics/PSU_EMS.png}}
+
+%End of title page configuration block
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+%------------------------------------------------------------
+
+
+\begin{document}
+	
+	%The next statement creates the title page.
+	\frame{\titlepage}
+	
+	
+	\justifying
+	
+	
+	\begin{frame}{Where I am from and why I am here?}
+		\begin{columns}[T]
+			
+			\column{0.5\textwidth}
+			
+			\small
+			I was born in Medellin, Colombia.\\~\\
+			
+			My studies:
+			\begin{itemize}
+				\item Petroleum Engineering at Universidad Nacional de Colombia (2012-2017)
+				\item Master in Petroleum Engineering (UNAL) (2017-2019)
+				\item PhD in Energy and Mineral Engineering at PSU (2021-today)
+			\end{itemize}
+			\begin{figure}[h]
+				\centering
+				\begin{subfigure}{0.5\textwidth}
+					\centering
+					\includegraphics[width=1\linewidth]{NBZ_hs.jpg}
+				\end{subfigure}%
+				\begin{subfigure}{.5\textwidth}
+					\centering
+					\includegraphics[width=1\linewidth]{colombia.png}
+				\end{subfigure}
+			\end{figure}
+			
+			\column{0.5\textwidth}
+			
+			
+			I arrived to Penn State after:
+			\begin{itemize}
+				\item A short research internship at the University of Nottingham
+				\item Working with reservoir simulation services
+				\item Changing my mind from industry to academy!
+			\end{itemize}
+			
+			~\\~\\My other interests
+			\begin{itemize}
+				\item Machine learning 
+				\item Playing guitar
+				\item Playing soccer
+			\end{itemize}
+			
+			\begin{figure}[b]
+				\includegraphics[width=0.7\textwidth]{medellin.jpg}
+			\end{figure}
+		\end{columns}
+		
+		
+	\end{frame}
+	
+
+	
+\end{document}
