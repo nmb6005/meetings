@@ -19,6 +19,8 @@
 \setlength{\headheight}{14.49998pt}
 \usepackage{titlesec}
 \titlespacing{\subsection}{1pt}{\parskip}{-\parskip}
+
+\usepackage{enumitem}
 \begin{document}
 	\begin{titlepage}
 		\begin{center}
@@ -314,6 +316,20 @@
 	\subsection*{What will be done next week?}
 	Including this and next weeks, the following are part of the actions suggested to overcome the current difficulties. First, switch to periodic boundary conditions, using a few (or one) solid block somewhere, or check if the current implementation of gravity ($f_g = g (\rho - \rho_l)$) solved the acceleration of the whole system. The purpose is to see if the ellipsoids can be seen better with peroidic BCs. Second, it is desirable to go back to the original Shan-Chen, which was used in some papers to model the rising bubble. Here, we will check if those results are reproducible and conclude if the ellipsoid problem is product of the proposed Shan-Chen force-splitting scheme. Third, there is a correction to the LBM formulation to eliminate the ideal pressure from the recovered Navier-Stokes equation, what may simplify the expression for the current Shan-Chen force and thus avoid instability problems. I will finish the presentation on Friday for the Dr. Mehmani research group, and conclude some activities before entering to the finals week.
 	
+	\pagebreak
+	\section*{Apr 19 - May 8}
+	\subsection*{What was done last week}
+	The last two weeks were used primarily to finish the semester's deliverables and present final exams. From the course in Mathematical Modeling (EME-521), I could grasp some ideas for multiphase models. In particular some relevant references about the Cahn-Hilliard equation, which looks to be the future implementation to the LBM model to better address the problem of thermodynamic inconsistency. I read a highly cited paper in LBM, He X., Doolen G.D., Thermodynamic Foundations of KInetic Theory and Lattice Boltzmann Models for Multiphase Flows. 2001. Journal of Statistical Physics. They propose that the source of inconsistency in the Shan-Chen force is due to considering only the nearest neighbors in the interparticle potential approach. Also, they were aware of the problem of fixed interfacial tension once the force parameter $G$ is fixed. Let's remember that this reduces flexibility to simulate a wider range of flow regimes. From this paper I derived some questions about thermodynamic systems with curved surfaces. Finally, I was preparing the second part of my presentation to the research group, where I could receive some feedback about the content and the way I present. Summarizing the recommendations and my own conclusions from the presentation and past reading:
+	
+	\begin{itemize}[leftmargin=*]
+		\item The derivation of the equilibrium distribution function based on Hermite polynomials, the theory of multiscale expansion to obtain the Navier-Stokes equation from LBM, and the theory of liquids and vapor from a molecular perspective (capillarity), are some of the theoretical fields I may want to cover in the near future to have better tools to propose an improved model in LBM. This includes the theory of Cahn-Hilliard and its solution with the Phase-Field method. 
+		
+		\item Keep only one ellipsoidal regime and try different force implementations (and viscosity rations) to see if the bubble tip (prolonged one) does not appear and the correct shape is observed. 
+	\end{itemize}
+	\subsection*{Difficulties}
+	The difficulty observed this week was no other than the one from previous weeks: the tendency to diverge once I finish some heavy workload such as the courses or final exams. However, as before, the solution seems to be to attach to the plan I had before: keep reading my selected literature about dynamic multiphase modeling with LBM, and keep the plan for the model, as will be mentioned in the next section.
+	\subsection*{What will be done next week?}
+	These weeks I was away from the code, as I was focused on other activities. However, I will go over the code again, to implement the immiscible Shan-Chen force (not consistent, but some papers have modeled successfully the rising bubble with it), and the reproduce some published results before going deeper with the multicomponent Shan-Chen force. 
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}
