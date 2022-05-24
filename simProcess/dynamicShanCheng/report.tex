@@ -15,7 +15,8 @@
 %% ADDITIONAL NICOLÁS
 
 
-
+\newcommand{\locx}{\mathbf{x}}
+\newcommand{\vele}{\mathbf{e}_\alpha}
 
 %------------------------------------------------------------
 %This block of code defines the information to appear in the
@@ -77,7 +78,7 @@
 	\justifying
 	\section{Rising droplet}
 	
-	\subsection{Considerations}
+	\subsection*{Considerations}
 	\label{}
 	\justifying
 	\begin{frame}[t]{Considerations}
@@ -126,7 +127,7 @@
 		\end{columns}
 	\end{frame}
 	
-	\subsection{Initial setup}
+	\subsection*{Initial setup}
 	\begin{frame}[t]{Initial setup}
 		\justifying
 		\begin{columns}[t]
@@ -160,7 +161,7 @@
 	\end{frame}
 
 
-	\subsection{Initial setup 2 (Amaya)}
+	\subsection*{Initial setup 2 (Amaya)}
 	\begin{frame}[t]{Initial setup 2 (Amaya)}
 		\justifying
 		\begin{columns}[t]
@@ -196,7 +197,7 @@
 
 	%---------------------------------------------------------
 	%---------------------------------------------------------
-	\subsection{Results}
+	\subsection*{Results}
 	\begin{frame}[t]{Spherical regime}
 		\textbf{}\\~\\
 		
@@ -250,6 +251,114 @@
 			\item $R_e^{\text{org}}$ = . $R_e^{\text{mod}}$ = 10
 			\item Did not run
 		\end{itemize}		
+	\end{frame}
+
+
+	\section{New forcing scheme}
+	
+	\begin{frame}{Forcing scheme}
+	Taking advantage of the mutual interactions between components, 
+	the pseudopotential is accounting only for attraction between components, while an extra term accounts for the usual repulsion term:
+	\begin{equation*}
+	\begin{split}
+	F_i^\sigma =  - \frac{1}{c_s^2 \delta t} \sum_\alpha  w_\alpha  e_{\alpha,i} [\frac{R_sT}{1-b_m \rho} - c_s^2 ] \rho_\sigma ( \locx + \vele \delta t) \\ - \psi^\sigma \sum_{\sigma_2} G_{\sigma,\sigma_2} \sum_\alpha w_\alpha e_{\alpha,i} \psi^{\sigma_2} ( \locx + \vele \delta t)  
+	\end{split}
+	\end{equation*}
+	
+	Where $\psi$ and $G_{\sigma,\sigma_2}$ are defined as:
+	\begin{equation}
+		\begin{split}
+		\psi^\sigma = \rho^\sigma \sqrt{\frac{a^\sigma}{f(b\rho)}}\\
+		G_{\sigma,\sigma_2} = \frac{2(\varLambda_{\sigma, \sigma_2}-1)}{c_s^2 \delta t} 
+		\end{split}
+	\end{equation}
+	where $f(b\rho)$ is the density-dependent polynomial in the denominator of the attraction term in the cubic equation of state. Here, the terms $a,b$ are given in mass-basis, so proper conversions must be taken care of. 
+	\end{frame}
+
+	\begin{frame}{Taylor Expansion}
+		
+		Generic form:
+		\begin{equation*}
+		F_i = \sum_\alpha T (\locx + \vele \delta t)  w_\alpha \vele
+		\end{equation*}
+		
+		Replacing the Taylor expansion of $T$
+		\begin{equation*}
+		\begin{split}
+		F_i = 
+		T(\mathbf{x}) \sum_\alpha w_\alpha \vele + \partial_j T \delta t \sum_\alpha w_\alpha \vele\vele^j + \frac{\delta t^2}{2} \partial_j \partial_k (T) \sum_\alpha w_\alpha \vele \vele^j \vele^k + \\\frac{\delta t^3}{6} \partial_j \partial_k \partial_l (T) \sum_\alpha w_\alpha \vele \vele^j \vele^k \vele^l 
+		\end{split}
+		\end{equation*}
+		
+		Continuum approach: \begin{equation*}\label{eq:taylorExpansion}
+		\begin{split}
+		F_i = c_s^2 \delta t  \partial_i T  + \frac{c_s^4\delta t^3}{2} \partial_i \partial_{kk} (T) 
+		\end{split}
+		\end{equation*}
+		
+		Resulting pressure;
+		\begin{equation*}\label{eq:pressureLBMPseudoP}
+		\begin{split}
+		p = c_s^2 \sum_\sigma \rho_\sigma + \frac{c_s^2 \delta t}{2} \sum_\sigma \sum_{\sigma_2} G_{\sigma,\sigma_2} \psi_\sigma \psi_{\sigma_2} + \sum_\sigma   (\frac{R_sT}{1-b_m \rho} - c_s^2) \rho_\sigma \\ p =  \frac{R_sT}{(1-b_m \rho)} \rho - \frac{a_m \rho^2}{f(b_m \rho)}
+		\end{split}
+		\end{equation*}
+	\end{frame}
+
+
+	\begin{frame}{Reference}
+		
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			From van der Waals implementation into the phase behavior model (C++):\\~\\
+			
+			Name, mw, pc, tc, acen, vc, shift\\
+			C3 0.044097 615.8 666.05 0.1522 0.0 0.0\\
+			C5 0.044097 488.5 845.80 0.2514 0.0 0.0\\~\\
+			
+			Conditions:\\
+			P = 275.36 psi, T = 192.34 F. z = [0.5, 0.5]\\~\\
+			
+			Results from flash:
+			
+			Densities = 13.5852 lb/ft3, 2.3956 lb/ft3 (4.693187 lu, 0.8275917 lu)\\
+			Fugacities = 906.34 kPa, 604.423 kPa (0.043939432 lu, 0.029302344 lu)\\
+			Liquid composition = [0.36357, 0.63643]\\
+			Gas composition = [0.54527, 0.45473]\\
+			Ki = 1.49975, 0.714505. $\gamma$ = 0.642
+			\column{0.5\textwidth}
+			
+		\end{columns}
+		
+	\end{frame}
+
+
+	\begin{frame}{Results}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/density.png}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Results}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/pressure.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Results}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/massFraction.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Results}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/fugacity.png}
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}{Discussion}
