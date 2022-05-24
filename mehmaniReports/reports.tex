@@ -330,6 +330,40 @@
 	The difficulty observed this week was no other than the one from previous weeks: the tendency to diverge once I finish some heavy workload such as the courses or final exams. However, as before, the solution seems to be to attach to the plan I had before: keep reading my selected literature about dynamic multiphase modeling with LBM, and keep the plan for the model, as will be mentioned in the next section.
 	\subsection*{What will be done next week?}
 	These weeks I was away from the code, as I was focused on other activities. However, I will go over the code again, to implement the immiscible Shan-Chen force (not consistent, but some papers have modeled successfully the rising bubble with it), and the reproduce some published results before going deeper with the multicomponent Shan-Chen force. 
+	
+	\pagebreak
+	\section*{May 9 - May 15}
+	\subsection*{What was done last week}
+	During this week, several code implementations took place, while attempting to obtain a stable simulation of the rising droplet. In this sense, the Shan-Chen force was implemented in its more generic way, accounting for the interaction between all components:
+	\begin{equation*}
+		\mathbf{F}^i (\mathbf{x}) = - \psi_i \sum_j \sum_l G_{i,j} \psi_j (\mathbf{x} + \mathbf{e}_l \Delta t) w_l \mathbf{e}_l \Delta t
+	\end{equation*}
+	This force was validated for a single droplet, employing several pseudo-potentials $\psi$ recommended in literature, and is giving the reported results for the equilibrium densities in the two bulk phases. The reference paper for bubbly flow, proposes a force that keeps the total acceleration of the system equal to zero in periodic domains, $\mathbf{a}_g =  \mathbf{g} (1- \bar{\rho}/\rho)$, where $\bar{\rho}$ is the average density of the system. First simulation attempts show the rising of the bubble using these two forces, but further work on the simulation setup is required. Other improvements were done to reduce some arithmetic operations in the code, generalize the input parameters, and to produce folder-separated outputs, what facilitates the data transferring between computers. Also, the time-stepping was programmed to be set to values different than 1. However, when reduced, the single droplet diffuses and converges to an uniform density map. This may be product of a reduction in the magnitude of the force applied, avoiding the spinodal decomposition of the components. 
+	
+	\subsection*{Difficulties}
+	The gravity force used here, accelerates slightly the liquid phase, proportional to the difference between its density and the average density. So, it is required to initialize the domain with a small gas bubble, to reduce the acceleration of the liquid phase, and improve stability. Finally, I found a convergence of topics that look like the foundations to understand the physics behind the interface behavior. These are the thermodynamic of interfaces (which Dr. Ayala already committed to have a discussion about), calculus of variations, and functional analysis. To be honest, two of the latter are still blurred to me, so I would like to spend part of the summer studying these topics, and so be able to write a well grounded proposal for my qualifying.
+	
+	\subsection*{What will be done next week?}
+	I plan to reproduce the same scenarios than those presented in the reference used for the Shan Chen force, and those presented using the multi-component scheme that was developed by Cheng, which were presented in previous weeks. I will try to convert my implementation to be implicit, although I am not sure about what to do with the streaming step, which is one of the more computationally costly. Besides, I will make a plan for studying for the qualifying exam. I will check the topics to select the relevant ones for me, and start designing a reading routine. 
+	
+	\pagebreak
+	\section*{May 16 - May 22}
+	\subsection*{What was done last week}
+	During the implementation of the Shan-Chen force, I realized that a better connection between the force and the thermodynamic pressure can be done for the multicomponent scheme. The crossed interactions, which are being accounted for in the pseudopotential approach, are equivalent to the crossed interactions in the attraction term in the equation of state-derived pressure. I wrote a new force with two terms, which allows for being Taylor expanded, and arrive to the correct thermodynamic pressure. I have not seen this forcing scheme in papers using several components. In those papers, the pseudopotential per component is given by an extrapolation of the single component correct pseudopotential, which may arrive to an incorrect total pressure:
+	$\sqrt{\frac{2(P_\sigma - c_s^2 \rho_\sigma)}{c_s^2 \delta t }}$
+	
+	I am studying which equation of state is reproduced by this pseudopotential, to show that this does not comply with the correct expression. Simultaneously, I implemented a pseudopotential approach that finally was able to reproduce the shape of a rising bubble in a fully periodic domain. The plan is to use the same simulation setup, but now using the new force approach.
+
+	\subsection*{Difficulties}
+	Reading about thermodynamic consistency, it looks that there are three requirements:a) Taylor expansion must arrive to the correct thermodynamic pressure (in continuous or discrete form). I think this condition is equivalent to the mechanical balance (same pressure in the bulk phases); b) the chemical balance is honored (Maxwell equal area rule for one component) $\int_v^l (p - p_0)d v = 0$; c) the surface tension honors $\int^{\inf}_{-\inf} (p_{xx}-p_{yy}) dL$ (I am approaching to the capillarity theory to understand this restriction).
+	
+	
+	\subsection*{What will be done next week?}
+	I have to retake the plan for studying for the qualifying exam. Regarding the new forcing scheme, as I discussed with Dr. Mehmani, I will implement this force for a 2D and try to identify the main difficulties with the new approach and test the validity of the new model. Also, I will test more (mathematically)  the new approach. In this matter, I consider that the force has two alternatives to be written and each may have different numerical impacts: a) as discussed first, having two terms in the force, accounting for the repulsion and interaction terms, separately; b) include the second term in the summation, in order to write the force as a single term, where the pseudopotential absorbs a new term, and thus the force is still written as 
+	\begin{equation*}
+		\mathbf{F}^i (\mathbf{x}) = - \psi_i \sum_j \sum_l G_{i,j} \psi_j (\mathbf{x} + \mathbf{e}_l \Delta t) w_l \mathbf{e}_l \Delta t
+	\end{equation*}
+	I now consider this is a good point to arrange a meeting with Dr. Ayala, and thus route my actions, attempting for a common purpose (short-term publication). 
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}
