@@ -21,7 +21,7 @@
 %------------------------------------------------------------
 %This block of code defines the information to appear in the
 %Title page
-\title[Weekly Reports] %optional
+\title[Simulation Reports] %optional
 {PhD in Energy and Mineral Engineering at PSU}
 
 \subtitle{Nicolás's Research - Reports}
@@ -304,8 +304,8 @@
 		\end{equation*}
 	\end{frame}
 
-
-	\begin{frame}{Reference}
+	\section{1D comparision of splitting scheme and new scheme}
+	\begin{frame}{Simulation setup}
 		
 		\begin{columns}
 			
@@ -334,6 +334,7 @@
 
 
 	\begin{frame}{Results}
+		The density profile converges to the correct values given by the vdW EoS. The splitting coefficient, with no calibration in $\beta$, compromises the vapor density to under predicted values.
 		\begin{figure}
 			\centering
 			\includegraphics[width=\textwidth]{pics/1dnewForce/density.png}
@@ -341,6 +342,7 @@
 	\end{frame}
 	
 	\begin{frame}{Results}
+		The pressure with the new scheme converges to the correct pressure value. The splitting scheme, as the density of the vapor is lower, the convergence pressure is also lower. Due to the small compressibility of the liquid, to achieve this value of pressure, small changes in density are needed, so the liquid density is not compromised.
 		\begin{figure}
 			\centering
 			\includegraphics[width=\textwidth]{pics/1dnewForce/pressure.png}
@@ -348,6 +350,7 @@
 	\end{frame}
 
 	\begin{frame}{Results}
+		The compositions in both cases do not match with equilibrium values. This is due that the model does not allow for diffusion if the pressure is already in equilibrium. These results suggest that transport is favored to keep the liquid properties are they were initialized, and balances the vapor properties accordingly.
 		\begin{figure}
 			\centering
 			\includegraphics[width=\textwidth]{pics/1dnewForce/massFraction.png}
@@ -355,6 +358,7 @@
 	\end{frame}
 
 	\begin{frame}{Results}
+		Fugacities prove the non chemical-equilibrium in the system.
 		\begin{figure}
 			\centering
 			\includegraphics[width=\textwidth]{pics/1dnewForce/fugacity.png}
@@ -379,8 +383,55 @@
 	\end{columns}
 	\end{frame}
 
+	
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\section{2D rising bubble simulation}
+	\begin{frame}{Simulation setup}
+		\justifying
+		\begin{columns}[t]
+			\column{0.45\textwidth}
+			
+			\textbf{Domain}: 160x400 mesh (2D)\\
+			\textbf{Fluid}: C3 and C5
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				Acentric & Tc & Pc & Mw \\
+				\hline
+				0.1522 & 370 & 42.46 & 0.044097 \\
+				\hline
+				0.2514 & 469.9 & 33.68 & 0.044097 \\
+				\hline
+			\end{tabular}
+		
+			Temperature 306.7 (Tr = 0.83). 
+			
+			Equilibrium conditions:.\\
+			
+			~\\
+			\textbf{Boundary conditions}: Full periodic.
+			\textbf{Initial conditions}: Time 10000. Bubble in thermodynamic equilibrium, $r_0, w_0$ = .
+			
+			
+			
+			\column{0.45\textwidth}
+			Two models were tested: new forcing scheme, and the Sankarana model.
+			
+			\textbf{Parameters}: Shan-Chen $G$=-1.0. \\
+			Beta = 0.2076\\
+			Time = 100000\\
+			
+			~\\
+			\textbf{Single static simulation}:\\ $\Delta \rho $ = 7.59285, $d_s$ = 29.45, \\ $\Delta P$ = 0.00378 ($P_l < 0$). \\$\sigma$ = 0.1112.
+			
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Results}
+	\end{frame}
 
-
+	\begin{frame}
+	\end{frame}
 	%---------------------------------------------------------
 	\section*{Useful frame options}
 	\label{}
@@ -394,7 +445,6 @@
 		\end{itemize}
 	\end{frame}
 	%---------------------------------------------------------
-
 	%---------------------------------------------------------
 	\begin{frame}
 	\end{frame}
