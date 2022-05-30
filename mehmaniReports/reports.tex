@@ -21,6 +21,8 @@
 \titlespacing{\subsection}{1pt}{\parskip}{-\parskip}
 
 \usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage{hyperref}
 \begin{document}
 	\begin{titlepage}
 		\begin{center}
@@ -364,6 +366,40 @@
 		\mathbf{F}^i (\mathbf{x}) = - \psi_i \sum_j \sum_l G_{i,j} \psi_j (\mathbf{x} + \mathbf{e}_l \Delta t) w_l \mathbf{e}_l \Delta t
 	\end{equation*}
 	I now consider this is a good point to arrange a meeting with Dr. Ayala, and thus route my actions, attempting for a common purpose (short-term publication). 
+	
+	\pagebreak
+	\section*{May 23 - May 29}
+	\subsection*{What was done last week}
+	The new scheme was tested in 1D and 2D setups. The highlights, concluded from the 1D simulations, are: a) the new scheme successfully converges to the correct thermodynamic pressure, and the densities both in liquid and vapor converge to the correct values; b) the phase compositions were not correctly predicted by the model, as no information of chemical potentials (nor fugacity) is provided in the model. This explains why the Cheng's splitting model with an extra parameter is required to calibrate the composition, although it is no clear how this parameter should evolve spatially according with pressure variations; c) the imbalance in chemical potential highly depends on the initial compositions; d) the current models do not allow for diffusion between phases after the equilibrium densities have been achieved. I believe part of this failure is due to the physical interpretation of the pseudopotential: the force $f^\sigma_{i}$ is fixed to have the same sign as $-\nabla_i p$, which prevents relative diffusion of the components, and creates some local equilibrium loci, where $p = p^{eos}$. I plan to propose the following form for the force $\nabla p^\sigma = \nabla (\frac{f^\sigma}{\phi^\sigma})$, where $f^\sigma$ is the fugacity of the $\sigma$ component. However, this diverges from the idea of the Shan-Chen force, where it was desired to provide the thermodynamic information through the cubic equation of state and the local compositions, as a proxy for fugacity. 
+	
+	Additionally, I ran 2D simulations of rising bubbles using the new forcing scheme, and the non-consistent model of  Sankaranarayanan (herein "Sankara", which treats the first component as a van der Waals model, and the second as an ideal gas). The new scheme is not as stable as the Sankara model, which allows for using high gravity values. The new scheme was run only for low gravity values, and shows the same triangular shapes that were presented in past simulations, that do not form the ellipse while rising.  
+	
+	\begin{wrapfigure}{r}{0.4\textwidth}
+		\caption{Sankara model shows the expected behavior.}
+		\includegraphics[width=0.4\textwidth]{pics/risingSankara.png}
+	\end{wrapfigure}
+	
+	Finally, I started to design a study plan for the qualifying, also considering the single course I am going to enroll in, to strengthen the abilities I will need for my research, and complete the requirements for the minor in Computational Science. Thus, I plan to take the qualifying with Mathematics and Thermodynamics as main topics (Transport Phenomena may be a good option too). In terms of courses, the full list would be:
+	
+	\begin{itemize}[nosep]
+		\item CSE 551 - Numerical solution of ODE
+		\item CSE 555 - Numerical optimization techniques
+		\item CSE 557 - Concurrent Matrix Computation
+		\item EE 556 - Graphs, algorithms, and neural networks
+		\item MATH 523 - Numerical analysis I
+		\item METEO 526 - Numerical weather prediction
+		\item STAT 500, 505, 511. Applied statistics. Applied multivariate statistical analysis. Regression analysis and modeling. 
+	\end{itemize}
+	Other interesting options are: EMCH 560: Finite Element Analysis, MATH 501: Real analysis. AERSP 508: Foundations in Fluid Mechanics (does not count for the Minor).
+	
+	\subsection*{Difficulties}
+	Realizing that none of the current models allow for diffusion if the correct pressure is achieved at a different composition, further analysis is required to include the fugacity gradients into the Shan Chen force. However, this drive the research towards the free-energy model or suggest that it would be better to develop a solution for the phase-field problem.
+	
+	\subsection*{What will be done next week?}
+	I will start by reading and solving problems for the the qualifying exam, in the Mathematics and Thermodynamics areas. Regarding the proposal, I consider I have enough material (bibliography and results) to start writing an interesting proposal, where the only missing aspect would be the application of the model to solve a current problem (like CO$_2$ sequestration, or battery designing). Simultaneously, meanwhile considering the courses to take next semester, there is one course at Penn State (which will not be offered in Fall) teaching high-performance computing aspects, including parallel computing and GPU computing. The course seems to be fully available (\href{https://psuastro528.github.io/}{here}), and now that more time is available, looks like a good time to cover this kind of material. Following the same ideal, Real Analysis may be a good option too (\href{https://www.youtube.com/playlist?list=PL0E754696F72137EC}{maybe here?}), in order to gain the foundations for a future interest in functional analysis. My expectation is not to become an expert in this topic, but gain the understanding to understand some derivations and procedures that I may encounter in physics-related bibliography, and take that background with me, as soon as possible, for my future academic career. 
+	
+	In a slower pace, I will try to use the concept of partial pressure $x^\sigma p^\sigma = \frac{f^\sigma}{\phi^\sigma}$ as the driving force in a naive implementation that may drive to the correct thermodynamic pressure ($\sum x^\sigma p^\sigma = p^{eos}$) while accounting for the gradients in fugacity. However, I want to further analyze the qualitative results of the Sankara model to understand why it produces such stable results, even when gravity and spinodal decomposition are taking place at the same time.
+	
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}
