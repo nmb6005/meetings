@@ -400,6 +400,19 @@
 	
 	In a slower pace, I will try to use the concept of partial pressure $x^\sigma p^\sigma = \frac{f^\sigma}{\phi^\sigma}$ as the driving force in a naive implementation that may drive to the correct thermodynamic pressure ($\sum x^\sigma p^\sigma = p^{eos}$) while accounting for the gradients in fugacity. However, I want to further analyze the qualitative results of the Sankara model to understand why it produces such stable results, even when gravity and spinodal decomposition are taking place at the same time.
 	
+	\pagebreak
+	\section*{May 30 - June 5}
+	\subsection*{What was done last week}
+	This week was predominately used for creating a study plan for preparing the Qualifying exam during the next two months. As discussed with both, Dr. Ayala and Dr. Mehmani, the two topics, Mathematics and Thermodynamics, are the most suitable areas for my background. In order to keep my research productivity, I have decided to address an additional topic: the free-energy formulation of LBM, which is the next step after the Shan-Chen force, to produce a thermodynamic consistent-force (although is more expensive computationally). This will allow for a comparison to find the reasons of fugacity divergence in the two bulk phases, using the Shan-Chen force. I will spend approximately 2/3 of my working time on studying the three aforementioned areas (of this time, 2/5 on each qualifying topic, and 1/5 on the free-energy theory), and 1/3 on improving the current code and organize the simulation results in a formal presentation to explain systematically the current stage of my research. I will postpone the following studies for after the qualifying exam: Cahn-Hilliard theory, Phase-field method, Irreversible Thermodynamics (Onsager's theory), and Real analysis. I would like to read about FEM, but because it is highly probable I will take that course next semester, I will focus on the mandatory reading areas. I already started this schedule, preparing a pragmatic summary of every topic (collecting the basic theory or theorems, to be able to solve probable problems that will appear in the exam). 
+	
+	Regarding research, I did not advance in the thermodynamic consistency, but took a step back to collect previous results in a presentation yet to be finished. I watched the InterPore presentations related with LBM, and found some groups focused on similar topics I am working now, that deserve to be followed to understand main discrepancies and similarities. 
+	
+	\subsection*{Difficulties}
+	A very specific difficulty was related with my PBM (Phase-behavior module). The pressure-composition plot is a very useful and used diagram to understand binary mixtures. To produce such plots in a smart way, it is required to create a routine for computing the saturation pressure at a given temperature. I implemented a Newtonian method to achieve this purpose, but it is being unstable and only converges for very particular compositions and temperatures. This plot is relevant, because LBM can reconstruct it and works as validation showing two dimensions (pressure and composition).
+	
+	\subsection*{What will be done next week?}
+	I will follow my studying schedule and make adjustments as necessary. Also, I am going to debug my PBM to improve the convergence of the method. 
+	
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}
