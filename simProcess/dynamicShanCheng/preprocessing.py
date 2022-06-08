@@ -2,24 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 cssq = 1.0/3.0
-rhoL = 7.7
-rhoG = 0.5
-d = 40.0
+rhoL = 5.77
+rhoG = 2.18
+d = 54.0
 rad = d/2.0
-viscRatio = 10.0
+viscRatio = 100.0
 deltaRho = rhoL-rhoG
-deltaP = 8.5e-3-5.87e-3
+deltaP = 0.00274
 sigma = deltaP*rad 
-deltaRho = 8.32-0.34
-sigma = 0.12141 # 2 component case
-Bo = 12
-Mo = 5e-4
+Bo = 10.0
+Mo = 1e3
 
 print('Sigma: ', sigma)
 g = sigma*Bo/deltaRho/d**2
 print('Gravity: ', g)
 
-muL = np.sqrt(np.sqrt(sigma**3*rhoL**2*Mo/(g*deltaRho)))
+muL = np.sqrt(np.sqrt((sigma**3)*(rhoL**2)*Mo/(g*deltaRho)))
 print('Mu L = ', muL)
 
 kinL = muL/rhoL
