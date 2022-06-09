@@ -15,7 +15,8 @@
 %% ADDITIONAL NICOLÁS
 
 
-
+\newcommand{\locx}{\mathbf{x}}
+\newcommand{\vele}{\mathbf{e}_\alpha}
 
 %------------------------------------------------------------
 %This block of code defines the information to appear in the
@@ -1912,12 +1913,212 @@
 		
 		Today:
 		\begin{itemize}
-			\item Sankaranarayanan (Sankarana) scheme
+			\item Sankaranarayanan (Sankarana) scheme and rising bubble revisited
 			\item Comparison with splitting coefficient
-			\item Simulation setup and results (single component)
-			\item Simulation setup and results (multicomponent)
+			\item New force scheme with no splitting coefficient
 		\end{itemize}
 	\end{frame}
+
+	\begin{frame}[t]{Sankaranarayanan}
+		In literature, many articles refer to this model to simulate bubbly flow with LBM. The model uses two components, where:
+		
+		\begin{equation}
+			F_i^\sigma = - \psi^\sigma(\locx) \sum_{\sigma_2} G_{\sigma,\sigma_2} \sum_\alpha \psi^{\sigma_2} ( \locx + \vele \delta t)  w_\alpha \vele
+		\end{equation}
+		where:
+		\begin{equation*}
+			\psi^{(1)} (\rho) = \rho, \, \, \,  \psi^{(2)} (\rho) = \sqrt{\frac{\rho}{1-b\rho} - a \rho^2 - \rho}
+		\end{equation*}
+		where the authors claim that component 2 follows a van der Waals-type EoS, while the first one is an ideal gas law.
+		
+		This produces the pressure equation:
+		\begin{equation}\label{eq:pressureLBMPseudoP}
+			\begin{split}
+			p = c_s^2 \rho + \frac{c_s^2 \delta t}{2} \sum_\sigma \sum_{\sigma_2} G_{\sigma,\sigma_2} \psi_\sigma \psi_{\sigma_2} 
+			\end{split}
+		\end{equation}
+		In the model, the interaction parameters can represent either attraction or repulsion.
+		
+		\begin{alertblock}{Important remark}
+			This scheme is not thermodynamic consistent, but was able to represent hydrodynamics and forces in opposite directions.
+		\end{alertblock}
+	\end{frame}
+
+	\begin{frame}{Simulation setup}
+		\justifying
+		\begin{columns}[t]
+			\column{0.45\textwidth}
+			
+			\textbf{Domain}: 160x400 mesh (2D)\\
+			\textbf{Fluid}: C3 and C5
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				Acentric & Tc & Pc & Mw \\
+				\hline
+				0.1522 & 370 & 42.46 & 0.044097 \\
+				\hline
+				0.2514 & 469.9 & 33.68 & 0.072150 \\
+				\hline
+			\end{tabular}
+		
+			Temperature 306.7 K (Tr = 0.83). 
+			
+			Equilibrium conditions: \\
+			$\rho_l, \rho_v$ (lbm/ft3) = 31.89, 1.86. \\
+			$mw_l, mw_v$ (g/mol) = 61.95, 51.88. \\
+			$\bar{\rho}_\text{ratio}$ = 14.32.\\ 
+			$K_1, K_2$ = 1.987, 0.436. $\gamma$ = 0.574. \\
+			
+			.\\
+			
+			~\\
+			\textbf{Boundary conditions}: Full periodic.
+			\textbf{Initial conditions}: Bubble in equilibrium, $r_0, w_0$ = 24, 10.
+			
+			
+			
+			\column{0.45\textwidth}
+			Each model requires a different initialization close to equilibrium ~\\
+			(if this is not achieved, see video).\\~\\
+			
+			\textbf{Parameters}:\\
+			Sankarana: Attraction $\sigma=2$, and repulsion between $\sigma=1, \sigma=2$ . \\
+			Beta = 0.5\\
+			Time = 1e4 (static), 1e5 (dynamic)\\
+			
+			
+			
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}[t]{Results Sankarana}
+		Initialization: $\rho_l$ = 5.75, $\rho_v$ = 2.17. $z_{1,l}$ = 0.98, $z_{1,v}$ = 0.48. $r_e$ = 24.5, $w$ = 5.0.\\~\\
+
+		Static results:\\
+		$\rho_l$ = 5.77, $\rho_v$ = 2.18. $z_{1,l}$ = 0.98, $z_{1,v}$ = 0.53. For $r_e$ = 27, $\Delta p = \frac{\sigma}{r}$ = 0.00274. $\sigma$ = 0.074.
+
+		\begin{equation*}
+			\begin{split}
+			B_o = \frac{g \Delta \rho d_b^2}{\sigma} = 141.465e3 \cdot g\\
+			M_o = \frac{g \Delta \rho \mu_l^4}{\sigma^3 \rho_l^2} = \frac{g \Delta \rho \nu_l^4 \rho_l^2}{\sigma^3} = 294.952e3 \cdot g \cdot \nu^4_l
+			\end{split}
+		\end{equation*}
+	\end{frame}
+
+	\begin{frame}{Dynamic results with Sankarana}
+		
+	\end{frame}
+
+
+	\begin{frame}{Dynamic results with splitting coefficient}
+		
+	\end{frame}
+
+
+	\begin{frame}{New scheme based on the Sankarana ideas}
+
+		Mass-basis cubic equation of state:
+		\begin{equation*}
+			p = \frac{R_sT}{(1-b_m \rho)} \rho - \frac{a_m \rho^2}{f(b_m \rho)}
+		\end{equation*}
+
+		where the mixture parameters are defined as:
+		\begin{equation*}
+			a_m = \sum_\sigma \sum_{\sigma_2} \chi_\sigma \chi_{\sigma_2} \sqrt{a_\sigma a_{\sigma_2}} (1-\varLambda_{\sigma, \sigma_2}) \; \; \; \; \; a_m \rho^2 = \sum_\sigma \sum_{\sigma_2} \rho_\sigma  \rho_{\sigma_2} \sqrt{a_\sigma a_{\sigma_2}} (1-\varLambda_{\sigma, \sigma_2})
+		\end{equation*}
+
+		Finally, the pressure equation takes the convenient form:
+		\begin{equation}
+			p = \frac{R_sT}{(1-b_m \rho)} \rho - \sum_\sigma \sum_{\sigma_2} \rho_\sigma  \sqrt{\frac{a_\sigma}{f(b_m \rho)} } \rho_{\sigma_2} \sqrt{\frac{a_{\sigma_2}}{f(b_m \rho)} }   (1-\varLambda_{\sigma, \sigma_2})
+		\end{equation}
+
+		That resembles closely the pressure equation recovered with pseudo-potentials in the equation \ref{eq:pressureLBMPseudoP}.
+
+		\begin{equation*}\label{eq:newPseudopotential}
+			\psi(\rho_\sigma) = \rho_\sigma \sqrt{\frac{a_\sigma}{f(b_m \rho_m)}} \; \; \; \; b_m \rho_m = \sum_\sigma b_\sigma \rho_\sigma
+		\end{equation*}
+		
+		and the interaction between components is exactly given by:
+		\begin{equation*}
+			G_{\sigma,\sigma_2} = \frac{2(\varLambda_{\sigma, \sigma_2}-1)}{c_s^2 \delta t} 
+		\end{equation*}
+	
+	\end{frame}
+
+	\begin{frame}{Final force expression}
+		\begin{equation}
+			F_i^\sigma = ... - \frac{1}{c_s^2 \delta t} \sum_\alpha  w_\alpha \vele [\frac{R_sT}{1-b_m \rho} \rho_\sigma - c_s^2 \rho_\sigma ] ( \locx + \vele \delta t) 
+		\end{equation}
+	\end{frame}
+	
+
+	\begin{frame}{Simulation setup}
+		
+		\begin{columns}
+			
+			\column{0.5\textwidth}
+			From van der Waals implementation into the phase behavior model (C++):\\~\\
+			
+			Name, mw, pc, tc, acen, vc, shift\\
+			C3 0.044097 615.8 666.05 0.1522 0.0 0.0\\
+			C5 0.044097 488.5 845.80 0.2514 0.0 0.0\\~\\
+			
+			Conditions:\\
+			P = 275.36 psi, T = 192.34 F. z = [0.5, 0.5]\\~\\
+			
+			Results from flash:
+			
+			Densities = 13.5852 lb/ft3, 2.3956 lb/ft3 (4.693187 lu, 0.8275917 lu)\\
+			Fugacities = 906.34 kPa, 604.423 kPa (0.043939432 lu, 0.029302344 lu)\\
+			Liquid composition = [0.36357, 0.63643]\\
+			Gas composition = [0.54527, 0.45473]\\
+			Ki = 1.49975, 0.714505. $\gamma$ = 0.642
+			\column{0.5\textwidth}
+			
+		\end{columns}
+		
+	\end{frame}
+
+
+	\begin{frame}{Results}
+		The density profile converges to the correct values given by the vdW EoS. The splitting coefficient, with no calibration in $\beta$, compromises the vapor density to under predicted values.
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/density.png}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Results}
+		The pressure with the new scheme converges to the correct pressure value. The splitting scheme, as the density of the vapor is lower, the convergence pressure is also lower. Due to the small compressibility of the liquid, to achieve this value of pressure, small changes in density are needed, so the liquid density is not compromised.
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/pressure.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Results}
+		The compositions in both cases do not match with equilibrium values. This is due that the model does not allow for diffusion if the pressure is already in equilibrium. These results suggest that transport is favored to keep the liquid properties are they were initialized, and balances the vapor properties accordingly.
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/massFraction.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Results}
+		Fugacities prove the non chemical-equilibrium in the system.
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/fugacity.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Results}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{pics/1dnewForce/forceX.png}
+		\end{figure}
+	\end{frame}
+
 
 	%---------------------------------------------------------
 	%---------------------------------------------------------
