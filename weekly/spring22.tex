@@ -1907,15 +1907,16 @@
 		\textbf{June 10 - 2022}\\~\\
 		Recap from last meeting (see \ref{meet:LBM00422}):
 		\begin{itemize}
-			\item The splitting coef. did not provide stable simulations for a rising bubble. Possible reasons
+			\item The splitting coef. did not provide stable simulations for a rising bubble. Possible reasons:
 				\begin{itemize}
-					\item Closed domain was used. 
-					\item Incorrect setup for initial conditions
+					\item Interaction with walls in closed domain
+					\item Incorrect initial conditions
 				\end{itemize}
-			\item Main from last meeting: reproduce bubbly flow with simpler model and compare
+			\item Main task from last meeting: reproduce bubbly flow with simpler model and compare
+			\item The paper aims to test the scheme under dynamic conditions
 		\end{itemize}
 		
-		Today:
+		~\\Today:
 		\begin{itemize}
 			\item Sankaranarayanan (Sankarana) scheme and rising bubble revisited
 			\item Comparison with splitting coefficient
@@ -1924,32 +1925,7 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Objective}
-		General goal: Test the splitting coefficient scheme under dynamic conditions. \\
-		
-		What has been done so far:
-		
-		\begin{itemize}
-			\item Implemented multicomponent LBM code for $n_c$ components and $n_f$ forces 
-			\item Validated the implementation for single phase conditions (analytical solutions)
-			\item Validated the splitting scheme in multiphase conditions: 
-			\begin{itemize}
-				\item Droplet oscillations
-				\item \textbf{Rising bubble}
-			\end{itemize}
-		\end{itemize}
 
-		Specific objectives:
-		\begin{itemize}
-			\item Writing the manuscript presenting the splitting scheme along with MRT 
-			\item Present 2/3 dynamic scenarios 
-			\item Find the conditions where the model is suitable
-			\item Write the findings, and particularly, suitability and limitations
-		\end{itemize}
-
-		~\\
-		Let's now analyze what was found for the rising bubble case.
-	\end{frame}
 	
 	\begin{frame}[t]{Sankaranarayanan}
 		In literature, many articles refer to this model to simulate bubbly flow with LBM. The model uses two components with a force defined by:
@@ -2003,7 +1979,7 @@
 			$\bar{\rho}_\text{ratio}$ = 14.3.\\ 
 			$K_1, K_2$ = 2.49, 0.25. $\gamma$ = 0.5744. \\~\\
 			\textbf{Boundary conditions}: Full periodic.
-			\textbf{Initial conditions}: Bubble in equilibrium, $r_0, w_0$ = 24, 10 lu.
+			\textbf{Initial conditions}: Bubble in equilibrium, $r_0, w_0$ = 24, 5 lu.
 			
 			
 			\column{0.45\textwidth}
@@ -2033,7 +2009,6 @@
 			Sankarana:\\~\\
 			Initialization: $\rho_l$ = 5.75, $\rho_v$ = 2.17. ~\\
 			$x_{1,l}$ = 0.02, $x_{1,v}$ = 0.52. ~\\
-			$r_e$ = 24.5, $w$ = 5.0.\\~\\
 
 			Static results:\\
 			$\rho_l$ = 5.77, $\rho_v$ = 2.17. $x_{1,l}$ = 0.02, $x_{1,v}$ = 0.47. For $r_e$ = 27, $\Delta p = \frac{\sigma}{r}$ = 0.00274. $\sigma$ = 0.074.
@@ -2048,7 +2023,6 @@
 			Splitting Coefficient Scheme:\\~\\
 			Initialization: $\rho_l$ = 8.069, $\rho_v$ = 0.1157. ~\\
 			$x_{1,l}$ = 0.234, $x_{1,v}$ = 0.750. ~\\
-			$r_e$ = 24.5, $w$ = 5.0.\\~\\
 
 			Static results:\\
 			$\rho_l$ = 8.07, $\rho_v$ = 0.358. $x_{1,l}$ = 0.234, $x_{1,v}$ = 0.58. For $r_e$ = 25.1, $\Delta p = \frac{\sigma}{r}$ = 0.00285. $\sigma$ = 0.072.
@@ -2068,13 +2042,50 @@
 
 	\end{frame}
 
-	\begin{frame}{Dynamic results with Sankarana}
+	\begin{frame}[t]{Dynamic results with Sankarana}
+		\begin{columns}
+			\column{0.25\textwidth}
+			Spherical:
+			\begin{figure}
+				\centering
+				\includegraphics[width=1.0\textwidth]{pics/bubbles/spherical1st.png}
+			\end{figure}
+			
+			\column{0.25\textwidth}
+			Ellipsoidal
+			\begin{figure}
+				\centering
+				\includegraphics[width=1.0\textwidth]{pics/bubbles/ellipsoidal1st.png}
+			\end{figure}
 		
+			\column{0.25\textwidth}
+			Cap:
+			\begin{figure}
+				\centering
+				\includegraphics[width=1.0\textwidth]{pics/bubbles/dimple1st.png}
+			\end{figure}
+		\end{columns}
+		
+		~\\~\\Animations that provide further insight:
+		\begin{itemize}
+			\item Spinodal decomposition and rising (small square) (spinodalAndDimple.mp4)
+			\item Rising in long channel (channelSankaraRissing.mp4)
+			\item Bubbly flow under gravity (bubblyFlowSCIM.mp4)
+			\item Spinodal decomposition and coalescence (coallescence.avi)
+			\item Dependence on initial conditions (bubbleComparisonSankaInit and bubbleComparisonVWInit)
+		\end{itemize}
 	\end{frame}
 
-
+	\begin{frame}{Direction of the cohesion force}
+		\begin{figure}
+			\includegraphics[width=\textheight]{pics/bubbles/forceProfileSankSplit.png}
+		\end{figure}
+	\end{frame}
 	\begin{frame}{Dynamic results with splitting coefficient}
-		
+		\begin{figure}
+			\centering
+			\includegraphics[width=1.0\textwidth]{pics/bubbles/comparisonSphElp.png}
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}{Observations}
@@ -2086,6 +2097,7 @@
 				\item The model allows for counterflow of components (force in opposite directions)
 				\item It adapts to the hydrodynamic conditions, depicting the correct shapes (see shape diagrams).
 				\item The model is not thermodynamic consistent and makes no sense that every component obeys a different law (EoS).
+				
 			\end{itemize}
 
 			\column{0.45\textwidth}
@@ -2097,6 +2109,7 @@
 				\item Unstable. This is fixed by $u^{mod}_i = u_i + \frac{\beta F_i}{\tau - 0.5}$, but fugacities start to deviate.
 			\end{itemize}
 		\end{columns}
+		~\\~\\About boundary conditions: reference density has to be constantly corrected, or velocity reset is required
 	\end{frame}
 
 	\begin{frame}{Partial conclusions}
@@ -2105,7 +2118,7 @@
 			\item The Sankaranarayanan model should be used to extract qualitative features, and adapt those in a dynamic splitting coefficient
 			\item For the paper purposes, a different scenario should be simulated:
 			\begin{itemize}
-				\item Droplet splash against wall 
+				\item Droplet splash
 				\item Rayleigh-Taylor instability  
 			\end{itemize}
 			\item Implement a free energy-based scheme (in any of its flavors) may elucidate in the correct splitting expression
@@ -2171,10 +2184,10 @@
 			
 			Results from flash:
 			
-			Densities = 13.5852 lb/ft3, 2.3956 lb/ft3 (4.693187 lu, 0.8275917 lu)\\
-			Fugacities = 906.34 kPa, 604.423 kPa (0.043939432 lu, 0.029302344 lu)\\
-			Liquid composition = [0.36357, 0.63643]\\
-			Gas composition = [0.54527, 0.45473]\\
+			Densities = 13.5852 lb/ft3, 2.3956 lb/ft3 (4.693187 lu, 0.8275917 lu)\\~\\
+			Fugacities = 906.34 kPa, 604.423 kPa (0.043939432 lu, 0.029302344 lu)\\~\\
+			Liquid composition = [0.36357, 0.63643]\\~\\
+			Gas composition = [0.54527, 0.45473]\\~\\
 			Ki = 1.49975, 0.714505. $\gamma$ = 0.642
 			\column{0.5\textwidth}
 			
@@ -2221,8 +2234,42 @@
 			\includegraphics[width=\textwidth]{pics/1dnewForce/forceX.png}
 		\end{figure}
 	\end{frame}
-
-
+	
+	\begin{frame}{Summary}
+		General goal: Test the splitting coefficient scheme under dynamic conditions. \\
+		
+		What has been done so far:
+		
+		\begin{itemize}
+			\item Implemented multicomponent LBM code for $n_c$ components and $n_f$ forces 
+			\item Validated the implementation for single phase conditions (analytical solutions)
+			\item Validated the splitting scheme in multiphase conditions: 
+			\begin{itemize}
+				\item Droplet oscillations
+				\item \textbf{Rising bubble}
+			\end{itemize}
+		\end{itemize}
+		
+		Specific objectives:
+		\begin{itemize}
+			\item Writing the manuscript presenting the splitting scheme along with MRT 
+			\item Present 2/3 dynamic scenarios 
+			\item Find the conditions where the model is suitable
+			\item Write the findings, and particularly, suitability and limitations
+		\end{itemize}
+		
+		~\\
+		Let's now analyze what was found for the rising bubble case.
+	\end{frame}
+	
+	\begin{frame}{Actions to take}
+		\begin{itemize}
+			\item Design new simulation cases with no additional forces
+			\item Start writing current findings (aiming to the paper)
+			\item Others...
+		\end{itemize}
+	\end{frame}
+	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\begin{frame}{}

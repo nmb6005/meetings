@@ -6,9 +6,16 @@ rhoG = 2.19
 rad = 27.9
 deltaP = 0.00274
 
-Bo = 1e2
-Mo = 1e5
-viscRatio = 100.0
+
+
+# Unstable SKIRTED
+Bo = 1.5e2
+Mo = 1e3
+viscRatio = 10.0
+
+Bo = 1.5e2
+Mo = 1e6
+viscRatio = 10.0
 
 cssq = 1.0/3.0
 deltaRho = rhoL-rhoG
