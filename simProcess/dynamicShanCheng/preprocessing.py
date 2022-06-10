@@ -1,17 +1,19 @@
 import numpy as np 
 import matplotlib.pyplot as plt
 
-cssq = 1.0/3.0
-rhoL = 5.77
-rhoG = 2.18
-d = 54.0
-rad = d/2.0
-viscRatio = 100.0
-deltaRho = rhoL-rhoG
+rhoL = 5.8
+rhoG = 2.19
+rad = 27.9
 deltaP = 0.00274
+
+Bo = 1e2
+Mo = 1e5
+viscRatio = 100.0
+
+cssq = 1.0/3.0
+deltaRho = rhoL-rhoG
 sigma = deltaP*rad 
-Bo = 10.0
-Mo = 1e3
+d = rad*2.0
 
 print('Sigma: ', sigma)
 g = sigma*Bo/deltaRho/d**2
@@ -37,12 +39,6 @@ print('taoG = ', taoG)
 
 tn = np.sqrt(d/g)
 print('tn = ', tn)
-
-taoL2 = 47
-kinL2 = cssq*(taoL2-0.5)
-muL2 = kinL2*rhoL
-Mo2 = g*deltaRho*muL2**4/(sigma**3*rhoL**2)
-print('muL, Mo2 = ', muL2, Mo2)
 
 #Verification
 print('Bo = ', g*deltaRho*d**2/sigma)

@@ -1907,8 +1907,12 @@
 		\textbf{June 10 - 2022}\\~\\
 		Recap from last meeting (see \ref{meet:LBM00422}):
 		\begin{itemize}
-			\item The splitting coef. did not provide stable simulations of rising bubbles in closed domain
-			\item There was a need for reproducing results of rising bubbles
+			\item The splitting coef. did not provide stable simulations for a rising bubble. Possible reasons
+				\begin{itemize}
+					\item Closed domain was used. 
+					\item Incorrect setup for initial conditions
+				\end{itemize}
+			\item Main from last meeting: reproduce bubbly flow with simpler model and compare
 		\end{itemize}
 		
 		Today:
@@ -1916,11 +1920,39 @@
 			\item Sankaranarayanan (Sankarana) scheme and rising bubble revisited
 			\item Comparison with splitting coefficient
 			\item New force scheme with no splitting coefficient
+			\item Next direction
 		\end{itemize}
 	\end{frame}
 
+	\begin{frame}{Objective}
+		General goal: Test the splitting coefficient scheme under dynamic conditions. \\
+		
+		What has been done so far:
+		
+		\begin{itemize}
+			\item Implemented multicomponent LBM code for $n_c$ components and $n_f$ forces 
+			\item Validated the implementation for single phase conditions (analytical solutions)
+			\item Validated the splitting scheme in multiphase conditions: 
+			\begin{itemize}
+				\item Droplet oscillations
+				\item \textbf{Rising bubble}
+			\end{itemize}
+		\end{itemize}
+
+		Specific objectives:
+		\begin{itemize}
+			\item Writing the manuscript presenting the splitting scheme along with MRT 
+			\item Present 2/3 dynamic scenarios 
+			\item Find the conditions where the model is suitable
+			\item Write the findings, and particularly, suitability and limitations
+		\end{itemize}
+
+		~\\
+		Let's now analyze what was found for the rising bubble case.
+	\end{frame}
+	
 	\begin{frame}[t]{Sankaranarayanan}
-		In literature, many articles refer to this model to simulate bubbly flow with LBM. The model uses two components, where:
+		In literature, many articles refer to this model to simulate bubbly flow with LBM. The model uses two components with a force defined by:
 		
 		\begin{equation}
 			F_i^\sigma = - \psi^\sigma(\locx) \sum_{\sigma_2} G_{\sigma,\sigma_2} \sum_\alpha \psi^{\sigma_2} ( \locx + \vele \delta t)  w_\alpha \vele
@@ -1929,10 +1961,11 @@
 		\begin{equation*}
 			\psi^{(1)} (\rho) = \rho, \, \, \,  \psi^{(2)} (\rho) = \sqrt{\frac{\rho}{1-b\rho} - a \rho^2 - \rho}
 		\end{equation*}
-		where the authors claim that component 2 follows a van der Waals-type EoS, while the first one is an ideal gas law.
 		
-		This produces the pressure equation:
-		\begin{equation}\label{eq:pressureLBMPseudoP}
+		The authors claim second component follows a van der Waals-type EoS, while the first one an ideal gas law. Such model produces the pressure equation:
+
+		\begin{equation}
+			\label{eq:pressureLBMPseudoP}
 			\begin{split}
 			p = c_s^2 \rho + \frac{c_s^2 \delta t}{2} \sum_\sigma \sum_{\sigma_2} G_{\sigma,\sigma_2} \psi_\sigma \psi_{\sigma_2} 
 			\end{split}
@@ -1940,7 +1973,7 @@
 		In the model, the interaction parameters can represent either attraction or repulsion.
 		
 		\begin{alertblock}{Important remark}
-			This scheme is not thermodynamic consistent, but was able to represent hydrodynamics and forces in opposite directions.
+			This scheme is not thermodynamic consistent, but was able to represent \textbf{hydrodynamics} and forces pointing to \textbf{opposite directions}.
 		\end{alertblock}
 	\end{frame}
 
@@ -1950,59 +1983,89 @@
 			\column{0.45\textwidth}
 			
 			\textbf{Domain}: 160x400 mesh (2D)\\
-			\textbf{Fluid}: C3 and C5
-			\begin{tabular}{|c|c|c|c|}
+
+			\textbf{Fluid}:
+			\begin{tabular}{|c|c|c|c|c|}
 				\hline
-				Acentric & Tc & Pc & Mw \\
+				Name & $\omega$ & Tc & Pc & Mw \\
 				\hline
-				0.1522 & 370 & 42.46 & 0.044097 \\
+				C3 & 0.152 & 370 & 42.46 & 0.0441 \\
 				\hline
-				0.2514 & 469.9 & 33.68 & 0.072150 \\
+				C5 & 0.251 & 470 & 33.68 & 0.0722 \\
 				\hline
 			\end{tabular}
 		
-			Temperature 306.7 K (Tr = 0.83). 
+			Temperature = 306.7 K (Tr = 0.83). \\
 			
-			Equilibrium conditions: \\
-			$\rho_l, \rho_v$ (lbm/ft3) = 31.89, 1.86. \\
-			$mw_l, mw_v$ (g/mol) = 61.95, 51.88. \\
-			$\bar{\rho}_\text{ratio}$ = 14.32.\\ 
-			$K_1, K_2$ = 1.987, 0.436. $\gamma$ = 0.574. \\
-			
-			.\\
-			
-			~\\
+			Equilibrium conditions \\(equimolar, 60 psi): \\
+			$\rho_l, \rho_v$ (lbm/ft3) = 37.5, 0.54. \\
+			$mw_l, mw_v$ (g/mol) = 62.8, 48.9. \\
+			$\bar{\rho}_\text{ratio}$ = 14.3.\\ 
+			$K_1, K_2$ = 2.49, 0.25. $\gamma$ = 0.5744. \\~\\
 			\textbf{Boundary conditions}: Full periodic.
-			\textbf{Initial conditions}: Bubble in equilibrium, $r_0, w_0$ = 24, 10.
-			
+			\textbf{Initial conditions}: Bubble in equilibrium, $r_0, w_0$ = 24, 10 lu.
 			
 			
 			\column{0.45\textwidth}
-			Each model requires a different initialization close to equilibrium ~\\
-			(if this is not achieved, see video).\\~\\
+			Each model requires a different initialization (close to its equilibrium) ~\\
+			(otherwise, spinodal decomposition appears).\\~\\
 			
 			\textbf{Parameters}:\\
-			Sankarana: Attraction $\sigma=2$, and repulsion between $\sigma=1, \sigma=2$ . \\
-			Beta = 0.5\\
+			Sankarana: Attraction and repulsion G: $G_{11}=0, G_{12}=1, G_{22}=-1$\\
+			$\beta$ = 1.0 (prevent further decomposition)\\
 			Time = 1e4 (static), 1e5 (dynamic)\\
 			
-			
+			\begin{equation*}
+				\begin{split}
+				B_o = \frac{g \Delta \rho d_b^2}{\sigma}\\
+				M_o = \frac{g \Delta \rho \mu_l^4}{\sigma^3 \rho_l^2} = \frac{g \Delta \rho \nu_l^4 \rho_l^2}{\sigma^3}\\
+				\nu_v = \nu_l \cdot \underbrace{\frac{\mu_v}{\mu_l}}_{\mu \text{ ratio inv.}} \cdot \frac{\rho_l}{\rho_v}
+				\end{split}
+			\end{equation*}
 			
 		\end{columns}
 	\end{frame}
 
-	\begin{frame}[t]{Results Sankarana}
-		Initialization: $\rho_l$ = 5.75, $\rho_v$ = 2.17. $z_{1,l}$ = 0.98, $z_{1,v}$ = 0.48. $r_e$ = 24.5, $w$ = 5.0.\\~\\
+	\begin{frame}[t]{Static Results}
 
-		Static results:\\
-		$\rho_l$ = 5.77, $\rho_v$ = 2.18. $z_{1,l}$ = 0.98, $z_{1,v}$ = 0.53. For $r_e$ = 27, $\Delta p = \frac{\sigma}{r}$ = 0.00274. $\sigma$ = 0.074.
+		\begin{columns}[t]
+			\column{0.45\textwidth}
+			Sankarana:\\~\\
+			Initialization: $\rho_l$ = 5.75, $\rho_v$ = 2.17. ~\\
+			$x_{1,l}$ = 0.02, $x_{1,v}$ = 0.52. ~\\
+			$r_e$ = 24.5, $w$ = 5.0.\\~\\
 
-		\begin{equation*}
-			\begin{split}
-			B_o = \frac{g \Delta \rho d_b^2}{\sigma} = 141.465e3 \cdot g\\
-			M_o = \frac{g \Delta \rho \mu_l^4}{\sigma^3 \rho_l^2} = \frac{g \Delta \rho \nu_l^4 \rho_l^2}{\sigma^3} = 294.952e3 \cdot g \cdot \nu^4_l
-			\end{split}
-		\end{equation*}
+			Static results:\\
+			$\rho_l$ = 5.77, $\rho_v$ = 2.17. $x_{1,l}$ = 0.02, $x_{1,v}$ = 0.47. For $r_e$ = 27, $\Delta p = \frac{\sigma}{r}$ = 0.00274. $\sigma$ = 0.074.
+			\begin{equation*}
+				\begin{split}
+				B_o = 141 465 \cdot g \, \, \, \, \, M_o = 294 952 \cdot g \cdot \nu^4_l\\
+				\nu_v = 0.02645 \nu_l 
+				\end{split}
+			\end{equation*}
+
+			\column{0.45\textwidth}
+			Splitting Coefficient Scheme:\\~\\
+			Initialization: $\rho_l$ = 8.069, $\rho_v$ = 0.1157. ~\\
+			$x_{1,l}$ = 0.234, $x_{1,v}$ = 0.750. ~\\
+			$r_e$ = 24.5, $w$ = 5.0.\\~\\
+
+			Static results:\\
+			$\rho_l$ = 8.07, $\rho_v$ = 0.358. $x_{1,l}$ = 0.234, $x_{1,v}$ = 0.58. For $r_e$ = 25.1, $\Delta p = \frac{\sigma}{r}$ = 0.00285. $\sigma$ = 0.072.
+			\begin{equation*}
+				\begin{split}
+				B_o = 67 481 \cdot g \, \, \, \, \, M_o = 6976 \cdot g \cdot \nu^4_l\\
+				\nu_v = 0.2254 \nu_l
+				\end{split}
+			\end{equation*}
+
+		\end{columns}
+
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.15]{pics/shapeRegimes.png}
+		\end{figure}
+
 	\end{frame}
 
 	\begin{frame}{Dynamic results with Sankarana}
@@ -2014,12 +2077,47 @@
 		
 	\end{frame}
 
+	\begin{frame}{Observations}
+
+		\begin{columns}[t]
+			\column{0.45\textwidth}
+			About the Sankaranarayanan model:
+			\begin{itemize}
+				\item The model allows for counterflow of components (force in opposite directions)
+				\item It adapts to the hydrodynamic conditions, depicting the correct shapes (see shape diagrams).
+				\item The model is not thermodynamic consistent and makes no sense that every component obeys a different law (EoS).
+			\end{itemize}
+
+			\column{0.45\textwidth}
+			About Splitting coefficient:
+			\begin{itemize}
+				\item Both components are forced to move in the same direction (no matter current conditions)
+				\item Once phase pressure is reached, components are \textit{trapped} and can not diffuse 
+				\item Interaction of splitting coefficient with external forces seems to violate hydrodynamics
+				\item Unstable. This is fixed by $u^{mod}_i = u_i + \frac{\beta F_i}{\tau - 0.5}$, but fugacities start to deviate.
+			\end{itemize}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Partial conclusions}
+		\begin{itemize}
+			\item The splitting coefficient requires a major revision for modeling rising bubbles 
+			\item The Sankaranarayanan model should be used to extract qualitative features, and adapt those in a dynamic splitting coefficient
+			\item For the paper purposes, a different scenario should be simulated:
+			\begin{itemize}
+				\item Droplet splash against wall 
+				\item Rayleigh-Taylor instability  
+			\end{itemize}
+			\item Implement a free energy-based scheme (in any of its flavors) may elucidate in the correct splitting expression
+			\item The work on rising bubble allowed to identify current limitations that can be later exploited 
+		\end{itemize}
+	\end{frame}
 
 	\begin{frame}{New scheme based on the Sankarana ideas}
 
 		Mass-basis cubic equation of state:
 		\begin{equation*}
-			p = \frac{R_sT}{(1-b_m \rho)} \rho - \frac{a_m \rho^2}{f(b_m \rho)}
+			p = \frac{R_sT}{(1-b_m \rho)} \rho - \frac{a_m \rho^2}{f(b_m \rho)} = c_s^2 \rho + \frac{c_s^2 \delta t}{2} \sum_\sigma \sum_{\sigma_2} G_{\sigma,\sigma_2} \psi_\sigma \psi_{\sigma_2} 
 		\end{equation*}
 
 		where the mixture parameters are defined as:
@@ -2046,8 +2144,13 @@
 	\end{frame}
 
 	\begin{frame}{Final force expression}
-		\begin{equation}
-			F_i^\sigma = ... - \frac{1}{c_s^2 \delta t} \sum_\alpha  w_\alpha \vele [\frac{R_sT}{1-b_m \rho} \rho_\sigma - c_s^2 \rho_\sigma ] ( \locx + \vele \delta t) 
+
+		Force divided into two terms (attraction and repulsion): 
+		
+		\begin{equation}\begin{split}
+			F_i^\sigma = - \psi^\sigma(\locx) \sum_{\sigma_2} G_{\sigma,\sigma_2} \sum_\alpha \psi^{\sigma_2} ( \locx + \vele \delta t)  w_\alpha \vele\\
+			 - \frac{1}{c_s^2 \delta t} \sum_\alpha  w_\alpha \vele [\frac{R_sT}{1-b_m \rho} \rho_\sigma - c_s^2 \rho_\sigma ] ( \locx + \vele \delta t) 
+		\end{split}
 		\end{equation}
 	\end{frame}
 	
