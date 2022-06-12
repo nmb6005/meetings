@@ -413,6 +413,20 @@
 	\subsection*{What will be done next week?}
 	I will follow my studying schedule and make adjustments as necessary. Also, I am going to debug my PBM to improve the convergence of the method. 
 	
+	\pagebreak
+	\section*{June 6 - June 12}
+	\subsection*{What was done last week}
+	A new meeting with Dr. Ayala's group (including some collaborators from other universities) was held this week to present the recent advances from our group. I presented the rising bubble simulation, and some partial conclusions extracted from the results. The most remarkable one, is the ability of the Sanakarana model (not thermdynamically-consistent, but hydrodynamically-consistent\footnote{I mean by this, that the Sankarana model represents the correct bubble shapes.}) to allow components to go in opposite directions, a feature that is not possible in the splitting coefficient scheme. The periodic boundaries were suitable to reproduce the bubble shapes, although there is still a small acceleration of the liquid phase, which sometimes shows instabilities if the liquid density does not reach a steady value\footnote{If the scheme is Galilean invariant, subtracting the maximum velocity at each time step may be plausible to improve stability}. Then, we have reached a qualitatively limit for what the splitting coefficient can simulate. As the main objective here is to write a paper about the multicomponent LBM, before definitely fixing the splitting scheme, I will address some other simulations where the scheme may be more suitable (droplet splash against a wall, Rayleigh-Taylor instability) which have not secondary forces acting on the fluid. However, the new splitting scheme, which I wrote before as an improvement to this scheme, the participants agreed that it could be the starting point for developing a definite splitting scheme accounting for fugacity gradients, without entering too much thermodynamic information as in the free-energy model or Cahn-Hilliard equation.
+	
+	(PBM related\footnote{Phase behavior model}) I corrected the algorithm for finding saturation points and it is now generalized to look for temperature or pressure saturation points, and for both, dew and bubble point conditions. However, and as it is stated in current books about thermodynamics, there is still no a definite solution for not seed-dependent algorithms for locating saturation points. 
+		
+	\subsection*{Difficulties}
+	I was struggling a bit with dispersivity and finding the correct mindset to address the different activities I have on my list now. However, this was partially caused by the meeting I had on Friday, for which I needed to prepare the material. 
+	
+	\subsection*{What will be done next week?}
+	I will keep going with the study plan (which I already started previously) for the qualifying exam. Also, I will start writing the structure for the splitting coefficient paper, and grab from here some thoughts for the written part of the qualifying. Depending on the advances, I will start setting up 
+	the simulation of a droplet splashing against a wall. 	
+	
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}

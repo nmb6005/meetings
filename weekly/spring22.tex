@@ -2109,7 +2109,12 @@
 				\item Unstable. This is fixed by $u^{mod}_i = u_i + \frac{\beta F_i}{\tau - 0.5}$, but fugacities start to deviate.
 			\end{itemize}
 		\end{columns}
-		~\\~\\About boundary conditions: reference density has to be constantly corrected, or velocity reset is required
+		~\\~\\
+		\begin{itemize}
+			\item About boundary conditions: reference density has to be constantly corrected, or velocity reset is required
+			\item About numerical stability: how to reduce $\delta t$ without affecting the force magnitude (otherwise, density gradient is not supported)
+		\end{itemize}
+		
 	\end{frame}
 
 	\begin{frame}{Partial conclusions}
@@ -2265,8 +2270,8 @@
 	\begin{frame}{Actions to take}
 		\begin{itemize}
 			\item Design new simulation cases with no additional forces
-			\item Start writing current findings (aiming to the paper)
-			\item Others...
+			\item Write current findings (aiming to the paper)
+			\item Start the free energy development
 		\end{itemize}
 	\end{frame}
 	
