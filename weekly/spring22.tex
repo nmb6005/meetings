@@ -17,7 +17,7 @@
 
 \newcommand{\locx}{\mathbf{x}}
 \newcommand{\vele}{\mathbf{e}_\alpha}
-
+\newcommand{\kronecker}{\delta_{\alpha \beta}}
 %------------------------------------------------------------
 %This block of code defines the information to appear in the
 %Title page
@@ -2272,6 +2272,141 @@
 			\item Design new simulation cases with no additional forces
 			\item Write current findings (aiming to the paper)
 			\item Start the free energy development
+		\end{itemize}
+	\end{frame}
+	
+	
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\subsection{Report - June 15 - 2022}
+	\label{}
+	\justifying
+	\begin{frame}{}
+		\textbf{June 15 - 2022}\\~\\
+		Discussion topics:
+		\begin{itemize}
+			\item Free energy theory and implementation (see procedure)
+			\begin{itemize}
+				\item Mathematical procedure
+				\item Questions about pressure tensor approach
+				\item Thermodynamic properties as tensor quantities
+			\end{itemize}
+			\item Code sharing (and new branch for free energy)
+			\begin{itemize}
+				\item Code shared with Muzammil
+				\item Code running in Windows (setup time: 1.5 h)
+				\item Code efficiency: 3 times slower than Cheng's code, with no printing
+				
+			\end{itemize}
+			\item Paper (update): splash case running
+			\item Qualifying (update)
+			\item Actions (to be defined)
+		\end{itemize}
+		
+	\end{frame}
+	
+	\begin{frame}[t]{Free energy theory}
+		Continuity and Navier-Stokes equation:
+		\begin{equation*}
+			\begin{split}
+			\partial_t \rho + \partial_\alpha (\rho u_\alpha) = 0\\
+			\rho \partial_t u_\alpha  + \rho u_\beta \partial_\beta (u_\alpha) = \partial_\beta \sigma_{\alpha\beta} + \rho f_\alpha +  \color{red} f^s_\alpha
+			\end{split}
+		\end{equation*}
+		
+	where the stress tensor is defined as:
+	\begin{equation*}
+			\sigma_{\alpha\beta} = -p \kronecker + \lambda \partial_\gamma u_\gamma \kronecker + \mu (\partial_\beta u_\alpha + \partial_\alpha u_\beta)
+	\end{equation*}
+	
+	According with Currie's book \footnote{Fundamentals in Fluid Mechanics}, a mechanical pressure, "accounting only for the translational energy of the molecules", can be defined as $\bar{p} = \sum_\alpha \sigma_{\alpha\alpha} /3$. The thermodynamic pressure (which account for all energy modes, including intermolecular attraction) and the mechanical pressure are related by:
+	\begin{equation*}
+		p - \bar{p} = (\lambda + \frac{2}{3}) \nabla \cdot u = K  \partial_\gamma u_\gamma
+	\end{equation*}
+	
+	However, this result does not account for the surface tension force $\color{red} f^s_\alpha$. It is probable then, that this relationship needs to be redefined. It is argued that $K=0$ for monoatomic gases, which do not have vibrational or rotational energy modes (although they do not claim that they still may have intermolecular attraction). In that case $\lambda = -\frac{2}{3}$, modifying the stress tensor. As this term did not arise in the CE expansion, should we include it in $\sigma_{\alpha\beta}$? The only case where both expressions converge, is where we have an incompressible fluid ($\nabla \cdot u = \partial_\gamma u_\gamma = 0 $) or a static fluid. Q: \color{red} How does surface tension affect the mechanical pressure?
+	
+	\end{frame}
+	
+	\begin{frame}[t]{Surface tension force}
+		Derivation of the surface tension contribution to the stress tensor: 
+		\begin{equation*}
+			\begin{split}
+				{\color{red} f^s_\alpha} = k \rho \partial_\alpha \partial_\gamma \partial_\gamma \rho = k  \partial_\alpha (\rho \partial_\gamma \partial_\gamma \rho) - k (\partial_\alpha \rho) \partial_\gamma \partial_\gamma \rho\\
+					 {\color{red} f^s_\alpha} = k  \partial_\alpha (\rho \partial_\gamma \partial_\gamma \rho) - [ k \partial_\gamma (\partial_\alpha \rho \cdot  \partial_\gamma \rho) - k (\partial_\gamma \rho) \partial_\alpha \partial_\gamma \rho  ]\\
+					 {\color{red} f^s_\alpha} = k  \partial_\alpha (\rho \partial_\gamma \partial_\gamma \rho) - k \partial_\gamma (\partial_\alpha \rho \cdot  \partial_\gamma \rho) + \frac{k}{2} \partial_\alpha (\partial_\gamma \rho)^2
+			\end{split}
+		\end{equation*}
+		If the parameter $k$ is considered to be uniform, and we switch the dummy $\gamma$ by a new dummy\footnote{$\beta$ is interchangeable with $\alpha$ in the term that accompanies $\kronecker$ delta.} $\beta$, the force can be expressed as a divergence: 
+		\begin{equation*}
+			\begin{split}
+			 {\color{red} f^s_\alpha} = \partial_\beta [\frac{k}{2}(\partial_\gamma \rho)^2 + k \rho \partial_\gamma \partial_\gamma \rho ] \kronecker - \partial_\beta [k \partial_\alpha \rho \partial_\beta \rho] =
+			  {\color{red} \partial_\beta [A_{\alpha\beta} \kronecker - B_{\alpha\beta}]} 
+			\end{split}
+		\end{equation*}
+		Thus, the stress tensor, embedding the surface tension, is redifined as:
+		
+		\begin{equation*}
+			\sigma_{\alpha\beta} = -p \kronecker + \lambda \partial_\gamma u_\gamma \kronecker + \mu (\partial_\beta u_\alpha + \partial_\alpha u_\beta) \color{red} + A_{\alpha\beta} \kronecker - B_{\alpha\beta}
+		\end{equation*}
+		 
+		 And the pressure tensor, excluding the symmetric gradient, and excluding $ \color{red} \lambda \partial_\gamma u_\gamma \kronecker$:
+		 \begin{equation*}
+		 	P_{\alpha\beta} = (p - \frac{k}{2}(\partial_\gamma \rho)^2 - k \rho \partial_\gamma \partial_\gamma \rho) \kronecker + k \partial_\alpha \rho \partial_\beta \rho  \color{red} = (p-A_{\alpha\beta}) \kronecker + B_{\alpha\beta}
+		 \end{equation*}
+	 	Q: Should we include $ \color{red} \lambda \partial_\gamma u_\gamma \kronecker$ in this definition? What is the nature of ${\color{red} f^s_\alpha} = k \rho \partial_\alpha \partial_\gamma \partial_\gamma \rho$?
+	\end{frame}
+	
+	\begin{frame}[t]{Gibbs-Duhem}
+		\begin{equation*}
+			SdT - V dp + \sum N_k d\mu_k = 0
+		\end{equation*}
+		which at constant temperature becomes:
+		\begin{equation*}
+			\begin{split}
+				dp = \sum \bar{\rho}_k  d\mu_k  \rightarrow \partial_\alpha p = \sum \bar{\rho}_k  \partial_\alpha \mu_k
+			\end{split}
+		\end{equation*}
+	This relates the local variations (assuming local thermodynamic equilibrium for these equations to be valid) of two-scalar quantities, $p$, and $\mu_k$. 
+	
+	\begin{equation*}
+		\begin{split}
+		\partial_\beta P_{\alpha\beta} = (\partial_\beta p - \partial_\beta A_{\alpha\beta} ) \kronecker + \partial_\beta B_{\alpha\beta} = \partial_\alpha p - \partial_\beta ( A_{\alpha\beta} \kronecker  - B_{\alpha\beta} )\\
+		\partial_\beta P_{\alpha\beta} = \sum \bar{\rho}_k  \partial_\alpha \mu_k - \partial_\beta ( A_{\alpha\beta} \kronecker  - B_{\alpha\beta} )
+		\end{split}
+	\end{equation*}
+	
+	The divergence of the pressure tensor has two contributions. One, due to the chemical potential gradient, and a second one, due to the divergence of the tensor produced by the force $f^s_\alpha$.
+	
+	Let's contrast with what was presented in the previous meeting: $\partial_\beta P_{\alpha\beta} = \sum \bar{\rho}_k  \partial_\alpha \mu^m_k$.
+	~\\~\\
+	
+	This expression however, has an implicit redefinition for the chemical potential $\mu^m_k$, that now must includes two terms: bulk and the interface contribution.However, such definition does not explain rigorously (to me at least) how the two scalar quantities $p, \mu_k$ were transformed into tensor quantities ($d P_{\alpha\beta} = \sum \bar{\rho}_k d\mu_{\alpha\beta,k}$).
+	\end{frame}
+	
+	\begin{frame}{Gibbs-Duhem}
+		\begin{figure}
+			\includegraphics[width=\textwidth]{pics/pressureTensorDraw.png}
+		\end{figure}
+	
+		Q: How to define correctly the directionality (anistropy) of some thermodynamic properties (which are supposed to be scalar) in our procedure? (Some papers discuss tensor notation for the free energy). 
+	\end{frame}
+	
+	\begin{frame}{Other concerns}
+		\begin{itemize}
+			\item The parameter $k$ has to be uniform for us to be allowed to introduce it into the derivative $f^s_\alpha = \partial_\beta...$. With the inclusion of a parameter per component, and due to compositional gradients, should we apply the recipe again to account for these gradients in the pressure tensor?
+			
+			\item In the continuum assumption, the properties have to be defined for thermodynamics to apply. However, some regions in the cubic EoS lead to negative compressibilities (violating thermodynamics, because they are not equilibrium states). Along the interface, eventually those states will be reached. Does the pressure tensor (which arised from $\nabla p - f^s$) produce correct pressures that lead to correct thermodynamic properties (local and scalar) along the interface? How can we define then thermodynamic properties in regions where some conditions are violated? Along the interface, how to define a local pressure that relates to other (scalar) local thermodynamic variables?
+			
+			\item If to correct for the interface, we make use of a pressure tensor, don't we need also to define tensor thermodynamic variables?
+			
+		\end{itemize}
+	
+		This questions do not stop me from implementing the equations from Kruger's book and Muzammil's procedure. These are more to preserve rigorosity. 
+	\end{frame}
+	\begin{frame}{Actions}
+		\begin{itemize}
+			\item Here...
 		\end{itemize}
 	\end{frame}
 	
