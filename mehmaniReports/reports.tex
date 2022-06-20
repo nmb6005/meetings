@@ -427,6 +427,36 @@
 	I will keep going with the study plan (which I already started previously) for the qualifying exam. Also, I will start writing the structure for the splitting coefficient paper, and grab from here some thoughts for the written part of the qualifying. Depending on the advances, I will start setting up 
 	the simulation of a droplet splashing against a wall. 	
 	
+	\pagebreak
+	\section*{June 13 - June 19}
+	\subsection*{What was done last week}
+	During this week I could not avoid starting the droplet splash case. One of the reasons for this was my greed for testing the two component case with mixed boundary conditions (wall + periodic), and to test some topology-related arrays I coded during last weeks. These arrays set the lattices connectivity through the discrete velocity set and through boundaries (taking care of their type). Turned out that I had a mistake which was overwriting some connections, causing the mass to appear in certain spots of the domain (this does not compromises the validity of previous valiations, as this was ocurring only for non-periodic boundaries, and after a recent modification to topology arrays). 
+
+	\begin{wrapfigure}{r}{0.5\textwidth}
+		\caption{Topology correction. The exact interface may differ because I used different parameters }
+		\includegraphics[width=0.5\textwidth]{pics/correctedSplah.png}
+	\end{wrapfigure}
+
+
+	I kept stuyding thermodynamics (thermodynamic relations, entropy balances, entropy generation and irreversibility) and mathematics (solutions for 1st and 2nd order ODE, mass-spring systems). Along the way, I started to formulate\footnote{Follow the mathematical procedure shown in books} the free energy form of the multicomponent LBM, to start implementing it and comparing against Shan Chen to finally understand the discrepancies and needs. I could follow the procedure, although some questions arised (see Spring Report). 
+	
+
+	\subsection*{Difficulties}
+	Addressing the problem of deriving a pressure tensor from the joint of the thermodynamic pressure and the surface tension force, it was clear to me how an artificial tensor is created by manipulating correctly the gradient operator that describe the surface tension force ($f^s_\alpha = k \rho \partial_\alpha \partial_\gamma \partial_\gamma \rho (\text{ or: }k \rho \nabla \Delta \rho)$). Later on, the pressure tensor divergence is related with the gradient of chemical potential ($\nabla \mu$). However, the chemical potential has two contributions, one from the bulk pressure (the $\mu$ defined by equilibrium thermodynamics), and a second contribution from the interface. Here, not rigorous differentiation between them is made, as the chemical potential from the bulk has a direct relationship with fugacity (whose expression is known for local pressure and composition), but the one arising from the interface has a particular form, and depends directly on the equation used for the interface free energy. Although I understand the process, I do not fully agree with the arguments that convert the local chemical potentials into tensors. If a different expression is chosen for the interface free energy, a new \textit{total} $\mu$ have to be derived, but the local chemical potential remains the same.
+
+	I finished comparing my results with Cheng's results, who already had the droplet splash simulation solved. Although minor differences were found, I do not know if they worth to be further reduced (see Figure \ref{fig:splashCheng}). To the best of my knowledge, the differences are product of: a) Not treating solid boundaries as periodic for thermodynamic-force purposes, b) Accumulative differences in float precision.
+	
+
+	\subsection*{What will be done next week?}
+	I will keep going with the material required for the qualifying, and will start plugging all the results from the static simulations, rising bubbles, and droplet splash, into a paper draft. 
+
+	\begin{figure}[h]
+		\centering
+		\caption{Droplet splash comparison between mine and Cheng's code.}
+		\includegraphics[width=0.8\textwidth]{pics/splashMineCheng.png}
+		\label{fig:splashCheng}
+	\end{figure}
+
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}
