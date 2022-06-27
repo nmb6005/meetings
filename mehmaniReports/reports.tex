@@ -457,6 +457,22 @@
 		\label{fig:splashCheng}
 	\end{figure}
 
+	\pagebreak
+	\section*{June 20 - June 26}
+	\subsection*{What was done last week}
+	A dedicated Git repository was created for writing the first paper. I like this approach instead of Overleaf, as both text and simulation results can coexist there, it is easier to upload figure modifications to the paper, changes can be tracked easier, and every contributor can use its favorite text editor. This paper concludes the Cheng's work on the splitting coefficient, although the results are being generated with the new LBM code (the results are now identical to those obtained by Cheng, after I found the reason for the discrepancies\footnote{Writing the mathematical formulation, I realized I was using a force per component where I should had used the force over the phase.}). So, I started the draft with an introduction, the mathematical formulation, including a definite nomenclature for LBM (to by consistent with all possible subscripts in LBM), and some figures of the results I have got.    
+
+	As proposed by Dr. Ayala, I finished a first version of a Git tutorial, whose purpose is to teach the basics of it, aiming to incoming students who may want to use the new version of the LBM code. This tutorial also includes a short explanation on how to use my LBM code, where I present the main keywords of the input file, and the instructions to run a new case are given.
+	
+	Finally, I optimized the code as much as I could, having as a benchmark the Cheng's version, who used to compile the code with all the input variables defined before compilation. The new code is a mixture between a priori definitions (as the size of the grid, and the number of components) and some free parameters that sometimes require calibration after successive simulations, where the compilation step in deed slows down the process. However, this can be discussed later to improve the current performance. Currently, the code is taking 1.5 times longer than that of Cheng, for the droplet impacting against the wall\footnote{Before optimization, with allocatable arrays, it was taking 3 times.}. 
+
+	\subsection*{Difficulties}
+	It was hard to decide what variables should go in the input file, where dynamic allocation is required and increases flexibility, and which ones should be placed in a Fortran module before compilation. Discussion with other potential users may be useful. During testing, I run again the porous media case, validating that it is giving the same results than those obtained months ago. However, only PERIODIC, or WALL(stationary or moving wall) boundary conditions can be applied now to multicomponent systems. So, I could not run a two component case imposing the safe PRESSURE condition in one of the boundaries. 
+
+
+	\subsection*{What will be done next week?}
+	I will be programming the pressure and symmetric boundary conditions generalized for multiple components, in order to unlock the porous media case, which could be of interest for the paper. 
+
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}
