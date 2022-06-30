@@ -2412,8 +2412,96 @@
 	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
+	\subsection{Report - June 30 - 2022}
+	\label{}
+	\justifying
 	\begin{frame}{}
+		\textbf{June 30 - 2022}\\~\\
+		Discussion topics:
+		\begin{itemize}
+			\item Qualifying questions and Proposal: What problem do we see unsolved in physics that is feasible for our LBM model. 
+			\item Paper: generating the output for the oscillation case. Writing the procedure. Bottle-neck: Pressure boundary condition for additional cases of interest (evaporating channel, or porous media).
+			\item Research: free-energy implementation, code optimization, code sharing process, Git tutorial
+		\end{itemize}
+	\end{frame}
 	
+	\begin{frame}[t]{Qualifying questions}
+	 \begin{itemize}
+	 	\item If quantum mechanics predicts vibrating particles at $T$ = 0 to not violate the Heisenberg uncertainty principle, is this not a violation of the third law that assigns zero entropy at $T$=0?
+	 	\item Is it necessary to assume that two equilibrium states are connected through an irreversible path? Is a fundamental assumption?
+	 	\item Relationship between fundamental differential ():
+	 	\begin{equation}
+	 		\begin{split}
+	 			dU = Td_e S - p dV + \mu^k d_e N^k\\
+	 			dU = Td S - p dV + \mu^k (d_e N^k + d_i N^k) \\ dU = Td S - p dV + \mu^k d_e N^k - T d_i S \\
+	 			dU = T d_e S - p dV + \mu^k d_e N^k 
+	 		\end{split}
+	 	\end{equation}
+ 		and the Legendre transformations:
+ 		\begin{equation}
+ 			\begin{split}
+ 				dF  = dU - TdS - SdT = Td S - p dV + \mu^k d_e N^k - T d_i S - TdS - SdT =\\ - S dT - p dV + \mu^k d_e N^k - T d_i S\\
+ 				dF  = T d_e S - p dV + \mu^k d_e N^k - TdS - SdT = -S dT - p dV + \mu^k d_e N^k - T d_i S 
+ 			\end{split}
+ 		\end{equation}
+ 		What is the standard way of defining $dU$ and redefining transformations?
+	 \end{itemize}
+	\end{frame}
+	
+	\begin{frame}[t]{Qualifying questions}
+		\begin{itemize}
+			\item Can we affirm that always the molecules at the surface have more free energy than the bulk, even if the free-energy is not monotonically increasing?
+			\item $Td_i S = \sigma dA$. How can we know the nature of a form of energy? (reversible or irreversible)
+			\item System at constant $T, V, N^k$ has entropy constant? Not energy?
+			\item Should I memorize all the kind of equations with name of mathematicians? 
+			\begin{equation*}
+				\begin{split}
+					\text{Laplace: } \Delta f = 0\\
+					\text{Euler: } 	\rho \partial_t u_\alpha  + \rho u_\beta \partial_\beta (u_\alpha) = - \partial_\beta p\kronecker + \rho g_\alpha\\
+					\text{Burger: } \rho \partial_t u_\alpha  + \rho u_\beta \partial_\beta (u_\alpha) = \mu \partial_\beta (\partial_\beta u_\alpha + \partial_\alpha u_\beta)\\
+					\text{Burger: } \partial_t u_\alpha  + u_\beta \partial_\beta (u_\alpha) = \nu \partial_\beta (\partial_\beta u_\alpha + \partial_\alpha u_\beta)\\
+					\text{Poisson: } \Delta f = y
+				\end{split}
+			\end{equation*}
+		\item Green's functions and use?
+		\item Proposal. I just plan a discussion to where to aim in the writing I am about to start.
+		\item Chemical potential of non-ideal mixtures based on fugacity or activity definitions. 
+		\end{itemize}
+	\end{frame}
+		
+	\begin{frame}[t]{Paper}
+		Things to be done: relates free energy with chemical and mechanical equilibrium under which Shan-Chen consistency is evaluated. Check more Cheng's slides (they are in order, but not the content necessarily). Nomenclature defined. Problems with pressure BC.
+	\end{frame}
+
+	\begin{frame}[t]{Research}
+		Part of the time spent this week was on optimizing the code and arranging it to be easily shared. Installing everything for a new user, these were the difficulties:
+		\begin{itemize}
+			\item I was too open to other's preferences for coding. Later I saw that is someone is new, them will need more backing, and it is easier to provide if I am the one deciding which tools to use. If it is someone experienced with already preferences for programming, will figure out easier how to setup the code. 
+			
+			\item Gradient routine is ready. 50\% Laplacian routine. Free energy is about 50\% (the framework was almost ready to receive it. Laplacian and gradients were missing, and correct fugacity calculation). 
+			
+			\item What was fixed: connectivity was wrong for cases with mixed BC (walls and periodic). Velocity modification was wrong (using wrong force). Arrays size is predefined at compilation time. Printing is modular.  
+			
+			\item Problem with pressure boundary condition and others that need density at the boundary (we need to differentiate inlets from outlets). 
+			
+			\item Free corners seems to work better being assigned to the outflow than to the wall. 
+			
+			\item Free energy for non-uniform systems (Cahn -Hilliard) at 50\%. 
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Others}
+		Still not feeling like working at my optimal conditions (too many things in my head? blurred objectives?). I have too many compartments for my advances and thoughts. 
+	\end{frame}
+	
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\subsection{}
+	\label{}
+	\justifying
+	\begin{frame}{}
+		\textbf{Month day - 2022}\\~\\
+		Discussion topics:
 	\end{frame}
 	
 	\begin{frame}{}
