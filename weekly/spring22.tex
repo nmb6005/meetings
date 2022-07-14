@@ -2535,7 +2535,43 @@
 			\item Start proposal and send a first version next week. Functional modification for the solid presence, both for molecular interaction and curvature alteration. Just keep two applications to not be expansive and better sell the idea in the proposal.
 		\end{itemize}
 	\end{frame}
+	
+	
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\subsection{Report - July 14 - 2022}
+	\label{}
+	\justifying
+	\begin{frame}{}
+		\textbf{July 14 - 2022}\\~\\
+		Relevant topics:
+		\begin{itemize}
+			\item Qualifying (proposal): I finished the first version of the proposal, using as a basis our conundrum of thermodynamic consistency with LBM, but proposal a correct interaction with the solid, to validate different experimental observations and to be in agreement with other analytical results from similar theories. Apart from the references cited in the draft, here is my reading plan:
+			\begin{itemize}
+				\item Jin, Z., Firoozabadi, A. (2016). Thermodynamic modeling of phase behavior in Shale media. SPE.
+				\item Rauter, M. T., Galteland, O., Erdős, M., Moultos, O. A., Vlugt, T. J. H., Schnell, S. K., Bedeaux, D., Kjelstrup, S. (2020). Two-phase equilibrium conditions in nanopores. Nanomaterials.
+				\item Liu, C., Wu, H. (2019). An Energetic Variational Approach for the Cahn–Hilliard Equation with Dynamic Boundary Condition: Model Derivation and Mathematical Analysis. Archive for Rational Mechanics and Analysis.
+			\end{itemize}
 		
+			\item Qualifying (math and thermo): Covered the solution of coupled ODEs, linear algebra problems (column, row, null spaces, not cuadratic systems of $Ax =b$ problems), starting the Laplace transforms for PDE solutions. In Thermo, studying the derivation of different relationships (Helmholtz equation, Gibbs-Duhem and its use for chemical potential calculations) and the results implied by the assumption of ideal gas and other PVT relationships, upon $C_p - C_v$, $\partial U/ \partial V$, and other important properties.
+			\item Advancing with SARI credits, which I must complete (some of them) before August. 
+			
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{}
+		\textbf{July 14 - 2022}\\~\\
+		Relevant topics:
+		\begin{itemize}
+			\item Free energy: Muzammil programmed the well-balanced collision operator in a secondary Fortran code, and we together pasted it into the current LBM program, obtaining correct qualitative results (density profiles look similar to the Matlab version). He was able to run the code in the Windows machine and I think he is planning to validate soon other cases, comparing against the previous results from Matlab.
+			
+			\item Important regarding the code: the optimization was achieved by translating the arrays to the static memory (allocating at compilation time). However, in cases of 1000x1000 lattices and beyond, the executable is exceeding a limit size of about 2 GB (this I think is natural, because statisc memory is limited), what forces us to partially go back to the dynamic allocation scheme, at least for some arrays. This (minor) problem only limits the size of the domain.
+			
+			\item Paper: 1. In ran a new case for the oscillations, to test if the deviations from Lamb's equation for droplets higher than 60 lu was due to the domain/diameter ratio. Turns out that running the 80 radius case with extended domain did not decrease the deviation. I am trying to find the correct argument for explaining this. For now, the Lamb's assumptions break down for bubbles higher than 60 lu.
+			
+			\item Paper: 2. I ran some initial cases for the droplet hitting the wall, at different Weber and Reynolds numbers. This needs more work, but the cases are running correctly for most of the conditions. I prefer to keep working on this before stating what conditions are not being stable. 
+		\end{itemize}
+	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\subsection{}
