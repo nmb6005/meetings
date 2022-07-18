@@ -12,6 +12,10 @@
 \definecolor{UBCblue}{rgb}{0.01569, 0.11765, 0.25882} % PSU Blue
 \usecolortheme[named=UBCblue]{structure}
 
+\usepackage{hyperref}
+\usepackage{cleveref}
+\crefname{figure}{Fig.}{Figs.}
+\crefname{equation}{Eq.}{Eqs.}
 %% ADDITIONAL NICOLÁS
 
 
@@ -2572,6 +2576,78 @@
 			\item Paper: 2. I ran some initial cases for the droplet hitting the wall, at different Weber and Reynolds numbers. This needs more work, but the cases are running correctly for most of the conditions. I prefer to keep working on this before stating what conditions are not being stable. 
 		\end{itemize}
 	\end{frame}
+
+	%---------------------------------------------------------
+	%---------------------------------------------------------
+	\subsection{Report July 21 - 2022}
+	\label{}
+	\justifying
+	\begin{frame}{}
+		\textbf{July 21 - 2022}\\~\\
+		Discussion topics:
+		\begin{itemize}
+			\item Questions about interface thermodynamics
+			\item Proposal review
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Interface thermodynamics}
+		\begin{itemize}
+			\item Is $\sigma = \frac{d \mathbf{F}}{d \mathbf{l}}$ a directional property for a given geometrical setup\footnote{See slide 9, "surface tension forces"}? Rotates direction of $d \mathbf{l}$\footnote{Force is tangential to interface and normal to the perimeter.}. I can not see how $\sigma$ is isotropic when tension is not coming from all directions. 
+			\item If $\sigma$ is a macroscopic property, how can we determine its uniformity across\footnote{Is it more appropriate to use along?} the interface
+			
+			\item Slide 10. Confusing: we draw a curve AROUND point X. If the calculation is 3D, why there are not two unitary/tangential vectors? The sentence at the end should be written in a form that suggests that existence of $\sigma$ causes $\Delta p$. Now, to me, there is not causality in the nature of the two forces.
+			
+			\item Slide 11. If $dl$ goes along the perimeter, what it means $dl \sin \alpha$? Again, the tensor nature of $\sigma$ confuses me. After solving this, I would say it is more appropriate an integration along $\pi$ with less terms. Slide 12. Missing dot product between $\mathbf{e_n} \cdot d\mathbf{S}$? Does this justify avoiding directionality of $F_n$? Possible typo about "this downward". 
+			
+			\item If Laplace's internal pressure $K$ is the cohesive pressure $p_\text{coh} = a/\bar{v}$, and internal pressure is $K + \sigma k_t$, why this does not match?:
+			
+			\begin{equation*}
+				\begin{split}
+				p_i = p_o + \sigma k_t\\
+				\frac{RT}{\bar{v}_i-b} - \frac{a}{\bar{v}_i^2} = \frac{RT}{\bar{v}_o-b} - \frac{a}{\bar{v}_o^2} + \sigma k_t\\
+				\frac{RT}{\bar{v}_i-b} - K_i = \frac{RT}{\bar{v}_o-b} - K_o + \sigma k_t
+				\end{split}
+			\end{equation*}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Interface thermodynamics}
+		\begin{itemize}
+			\item In PNG 520, $p = p_k - p_{att}$. However, redefined in the slides $p = p_k - p_{coh}$, where $p_{coh} = p_{att} + p_{rep}$. Are these repulsion through potentials but not necessarily to small separations (see slide 21)? What it means $p_{coh}>> p $ in liquids ($p_{coh} >>> p_k/2$)?
+			
+			\item Would help to add Helmholtz equation in slides 19 and 21.
+			
+			\item I still have not this clear: is $\sigma dA$ an irreversible or a reversible term? In slide 25, write that invariability of curvature with deformation will be explained further (last sentence).
+			\item Slide 35, no transparent definitions of the fundamental differential. Why are not those terms accounted for in the $\sigma dA$ term? Why $dk_1$ and not anything else?
+			
+			\item Now, my problem again in slide 37. These definitions show surface tension as a scalar, as involves only bulk thermodynamic properties.
+			
+			\item Slide 40. Misleading plot. I did not fully understand it, and conventions missing. Typo about ABSORBED?
+			
+			\item Can we say: air bubbles/emulsions are more stable with surfactants as the $\sigma$ represents the penalty when density gradients exist, so the penalty is lower at low $\sigma$ in the total free energy? Marangoni, gradients in tensor or scalar?
+			
+			\item Slide 44. If experimental $p^{sat}$ are for flat interfaces, how to avoid having bubbles during boiling that causes the Kelvin's effect? Statement is said before being demonstrated. Confusing point?
+			
+			\item Slide 46. Can we prove that $\mu^\alpha = \mu^\beta$ for any arbitrary curve?
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[t]{Interface thermodynamics}
+		\begin{itemize}
+			\item Slide 47. What is a supersaturated vapor? A stable vapor at conditions where it should be liquid? Final paragraph, is there a minimum droplet radius for a particular dew point?
+			
+			\item Slide 51. Typo $v^L$ instead of $\mu^L$. Say before taking the differential, that density ratio and $\sigma$ variations will be neglected. Why is it better to assume incompressibility than ideality + incompressibility? Is it better because we are putting the correct vapor density? Is not explicit in T. 
+			
+			\item Slide 52. Capillary condensation. I found some sentences opposite to what was described before. Is there a typo in the central equation (minus should be plus)? See final paragraph: if vapor is in the concave side, why is the pressure of the vapor reduced? We are analyzing a dew point, aren't we?
+			
+			\item Slide 55. First problem: is not Gibbs minimizing free energy, even under the sharp interface approach, somehow considering the interactions through adsorption?
+			
+			\item Just clarifying... is mean-field theory the same as molecular theory of capillarity?
+		\end{itemize}
+	\end{frame}
+
+
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\subsection{}
