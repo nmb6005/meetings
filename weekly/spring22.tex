@@ -2593,20 +2593,19 @@
 	
 	\begin{frame}{Interface thermodynamics}
 		\begin{itemize}
-			\item Is $\sigma = \frac{d \mathbf{F}}{d \mathbf{l}}$ a directional property for a given geometrical setup\footnote{See slide 9, "surface tension forces"}? Rotates direction of $d \mathbf{l}$\footnote{Force is tangential to interface and normal to the perimeter.}. I can not see how $\sigma$ is isotropic when tension is not coming from all directions. 
-			\item If $\sigma$ is a macroscopic property, how can we determine its uniformity across\footnote{Is it more appropriate to use along?} the interface
+			\item Is $\sigma = \frac{d \mathbf{F}}{d \mathbf{l}}$ a directional property for a given geometrical setup\footnote{See slide 9, "surface tension forces"}? Does $\sigma$ rotate vector $d \mathbf{l}$\footnote{Force is tangential to interface and normal to the perimeter.}. Why is $\sigma$ isotropic if the tension is not coming from all directions? If $\sigma$ is a macroscopic property, how can it be uniform across\footnote{Is it more appropriate to use along?} the interface?
 			
 			\item Slide 10. Confusing: we draw a curve AROUND point X. If the calculation is 3D, why there are not two unitary/tangential vectors? The sentence at the end should be written in a form that suggests that existence of $\sigma$ causes $\Delta p$. Now, to me, there is not causality in the nature of the two forces.
 			
-			\item Slide 11. If $dl$ goes along the perimeter, what it means $dl \sin \alpha$? Again, the tensor nature of $\sigma$ confuses me. After solving this, I would say it is more appropriate an integration along $\pi$ with less terms. Slide 12. Missing dot product between $\mathbf{e_n} \cdot d\mathbf{S}$? Does this justify avoiding directionality of $F_n$? Possible typo about "this downward". 
+			\item Slide 11. If $dl$ goes along the perimeter, what it means $dl \sin \alpha$? Again, the tensor nature of $\sigma$ confuses me. After solving this, I would say it is more appropriate an integration up to $\pi$ with less terms. Slide 12. Missing dot product between $\mathbf{e_n} \cdot d\mathbf{S}$? Does this justify avoiding directionality of $F_n$? Possible typo about "this downward". 
 			
-			\item If Laplace's internal pressure $K$ is the cohesive pressure $p_\text{coh} = a/\bar{v}$, and internal pressure is $K + \sigma k_t$, why this does not match?:
+			\item If Laplace's internal pressure $K$ is the cohesive pressure $p_\text{coh} = a/\bar{v}^2$, and internal pressure is $K + \sigma k_t$, why this does not match?:
 			
 			\begin{equation*}
 				\begin{split}
 				p_i = p_o + \sigma k_t\\
 				\frac{RT}{\bar{v}_i-b} - \frac{a}{\bar{v}_i^2} = \frac{RT}{\bar{v}_o-b} - \frac{a}{\bar{v}_o^2} + \sigma k_t\\
-				\frac{RT}{\bar{v}_i-b} - K_i = \frac{RT}{\bar{v}_o-b} - K_o + \sigma k_t
+				\frac{RT}{\bar{v}_i-b} - K_i = \frac{RT}{\bar{v}_o-b} - K_o + \sigma k_t  \approx K_o = K_i + \sigma k_t
 				\end{split}
 			\end{equation*}
 		\end{itemize}
@@ -2614,11 +2613,12 @@
 	
 	\begin{frame}{Interface thermodynamics}
 		\begin{itemize}
-			\item In PNG 520, $p = p_k - p_{att}$. However, redefined in the slides $p = p_k - p_{coh}$, where $p_{coh} = p_{att} + p_{rep}$. Are these repulsion through potentials but not necessarily to small separations (see slide 21)? What it means $p_{coh}>> p $ in liquids ($p_{coh} >>> p_k/2$)?
+			\item In PNG 520, $p = p_k - p_{att}$. However, redefined in the slides $p = p_k - p_{coh}$, where $p_{coh} = p_{att} + p_{rep}$. Is this repulsion caused by negative interactions and not necessarily because  of short-distance repulsion (see slide 21)? What it means $p_{coh}>> p $ in liquids ($p_{coh} >>> p_k/2$)?
 			
 			\item Would help to add Helmholtz equation in slides 19 and 21.
 			
-			\item I still have not this clear: is $\sigma dA$ an irreversible or a reversible term? In slide 25, write that invariability of curvature with deformation will be explained further (last sentence).
+			\item I still do not understand: is $\sigma dA$ an irreversible or a reversible term? In slide 25, write: the curvature invariability when deforming the surface, will be explained further (last sentence).
+			
 			\item Slide 35, no transparent definitions of the fundamental differential. Why are not those terms accounted for in the $\sigma dA$ term? Why $dk_1$ and not anything else?
 			
 			\item Now, my problem again in slide 37. These definitions show surface tension as a scalar, as involves only bulk thermodynamic properties.
@@ -2637,7 +2637,7 @@
 		\begin{itemize}
 			\item Slide 47. What is a supersaturated vapor? A stable vapor at conditions where it should be liquid? Final paragraph, is there a minimum droplet radius for a particular dew point?
 			
-			\item Slide 51. Typo $v^L$ instead of $\mu^L$. Say before taking the differential, that density ratio and $\sigma$ variations will be neglected. Why is it better to assume incompressibility than ideality + incompressibility? Is it better because we are putting the correct vapor density? Is not explicit in T. 
+			\item Slide 51. Typo $v^L$ instead of $\mu^L$. Say, before taking the differential, that density ratio and $\sigma$ variations will be neglected. Why is it better to assume incompressibility than ideality + incompressibility? Is it better because we are putting the correct vapor density? It is not explicit in T. 
 			
 			\item Slide 52. Capillary condensation. I found some sentences opposite to what was described before. Is there a typo in the central equation (minus should be plus)? See final paragraph: if vapor is in the concave side, why is the pressure of the vapor reduced? We are analyzing a dew point, aren't we?
 			
@@ -2647,7 +2647,19 @@
 		\end{itemize}
 	\end{frame}
 
-
+	\begin{frame}[t]{Proposal review}
+		I wrote a first version of the proposal. I have been reading the following:
+		\begin{itemize}
+			\item Rowlinson book to address the theory of continuum density profile
+			\item LBM articles using Shan-Chen and surface force to account for confinement
+			\item Found some references on Cahn-Hilliard and DFT (Firoozabadi). Some of them very complex.
+			
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Information sharing}
+		Teams will be to share items. Bibliography in Drive. Shared Teams with Dr. Mehmani for weekly reports.
+	\end{frame}
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\subsection{}
