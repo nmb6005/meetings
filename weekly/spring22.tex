@@ -2586,9 +2586,62 @@
 		\textbf{July 21 - 2022}\\~\\
 		Discussion topics:
 		\begin{itemize}
-			\item Questions about interface thermodynamics
+			\item Changes to the sharing and reporting methodology
+			\item Fluid-solid interaction implemented
 			\item Proposal review
+			\item Questions about interface thermodynamics
 		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Changes to the sharing and reporting methodology}
+		I have found inefficiencies in the way I comment on papers and upload them to Teams. I propose using Teams only to upload final versions of documents or sharing items whose tracking is not important. This is:
+		
+		\begin{itemize}
+			\item My bibliography is constantly updated into Drive (easier for me). I will add a link in Teams going to the Drive folder.
+			\item I will ask Dr. Mehmani to share with you the folder where I upload weekly reports for him. I plan to keep that practice of writing a brief summary of the week, which helps me clarifying the activities for the next days. 
+			\item The weekly slides will help to have an expanded discussion of particular topics, with plots or more extensive explanations.
+		\end{itemize}
+		
+	\end{frame}
+	
+	\begin{frame}{Fluid-solid interaction}
+		
+		I implemented the fluid-solid interaction, $F_{fs,\alpha} = - G_{fs} \sum_i w_i e_{i,\alpha} $, obtaining coherent results for a gas bubble, both in contact with a hydrophobic and a hydrophilic surface. Results for a single-component case:
+		
+		\begin{figure}[h]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=1\linewidth]{pics/solidForce.png}
+				\caption{Hydrophilic solid.}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=1\linewidth]{pics/solidForce2.png}
+				\caption{Hydrophobic solid.}
+			\end{subfigure}
+			\caption{Gas bubble interacting with a solid.}
+		\end{figure}	
+	
+		With this result, I believe we are ready to try replicate the Xuanqing results, as long as the cubic equation of state is suitable for noble gases, as the code is also ready to handle arbitrary porous media.  
+	\end{frame}
+	
+	
+	\begin{frame}[t]{Proposal review}
+		I wrote a first version of the proposal. I have been reading the following:
+		\begin{itemize}
+			\item Rowlinson book to address the theory of a continuous density profile
+			\item LBM articles using Shan-Chen and surface force to account for confinement
+			\item Found some references on Cahn-Hilliard and DFT (Firoozabadi). Some of them are very complex.
+		\end{itemize}
+		
+		I felt a little bit lost about justifying the importance of solid-fluid interactions for some industrial processes, beyond shale production, but mostly, because justifying implies finding new readings about different research areas, what takes more effort and time. Example:
+		
+		\begin{examples}
+			In the context of CO$_2$ sequestration, the interaction of components with the solid is also important, where the cap rock at the top of the reservoir is assumed to have pores narrow enough to seal the reservoir and make the capillary forces much higher than the gravity force, preventing the gas to leak to the surface\footnote{Cite about CO2 sequestration}
+		\end{examples}
+		
+		It seems incorrect mentioning phenomenology that is hypothesized, because can not be easily justified.
 	\end{frame}
 	
 	\begin{frame}{Interface thermodynamics}
@@ -2647,19 +2700,9 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[t]{Proposal review}
-		I wrote a first version of the proposal. I have been reading the following:
-		\begin{itemize}
-			\item Rowlinson book to address the theory of continuum density profile
-			\item LBM articles using Shan-Chen and surface force to account for confinement
-			\item Found some references on Cahn-Hilliard and DFT (Firoozabadi). Some of them very complex.
-			
-		\end{itemize}
-	\end{frame}
 	
-	\begin{frame}{Information sharing}
-		Teams will be to share items. Bibliography in Drive. Shared Teams with Dr. Mehmani for weekly reports.
-	\end{frame}
+	
+	
 	%---------------------------------------------------------
 	%---------------------------------------------------------
 	\subsection{}

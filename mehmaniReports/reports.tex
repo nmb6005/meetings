@@ -505,6 +505,33 @@
 	\subsection*{What will be done next week?}
 	I will finish the qualifying material covering thermodynamics (1$^{st}$ book) and start practicing solving PDEs with Laplace transforms. I want to keep reading the book of J.W. Rowlinson about the theory of capillarity, but I will connect with the book \textit{Principles of condensed matter physics / P.M. Chaikin, T.C. Lubensky}, as Rowlinson is not very detailed in some explanations. The whole purpose of this reading is to understand the molecular theory that gives rise to the Cahn-Hilliard equation, and see how the presence of a solid impacts the definition of the free energy functional.
 	
+	\pagebreak
+	\section*{July 18 - July 21}
+	\subsection*{What was done last week}
+	I did a bibliographic review about the use of the lattice Boltzmann method addressing fluids in confinement. I read two very interesting studies that: a) match experimental adsorption data and connects LBM with the density functional theory (DFT), b) use models that are thermodynamically inconsistent (Shan-Chen models) and the long-range\footnote{I am confused if at macroscopic scale, saying short-range interactions mean terms depending on local variables, while long-range interactions are those interacting with nearest-neighbors.} solid force $F_{fs,\alpha} = - G_{fs} \sum_i w_i e_{i,\alpha} $, with direction $i$ being one pointing towards a solid node. I programmed this force in my LBM code, and is giving expected results, although a more precise validation should be used, comparing for example, against the droplet contact angle of some single-component reported results. 
+	
+	\begin{figure*}[h]
+		\centering
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=1\linewidth]{pics/solidForce.png}
+			\caption{Hydrophilic solid.}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=1\linewidth]{pics/solidForce2.png}
+			\caption{Hydrophobic solid.}
+		\end{subfigure}
+		\caption{Gas bubble interacting with a solid.}
+	\end{figure*}
+	My reading work was focused on these books: Molecular theory of capillarity (J.W. Rowlinson), Modern Thermodynamics (for the Qualifying), and the mentioned LBM papers. I organized all my references in Mendeley, and I will be using a single folder for all my bibliography, which I think facilitate reusing the bibliography for all the type of writings.  
+	
+	\subsection*{Difficulties}
+	When writing the proposal, I missed showing evidence for the importance of fluid-solid interactions and gas adsorption, particularly, for CO$_2$ sequestration technique. I started to collect some evidence, although that goes a little bit beyond my field (molecular simulations), so my reading was a bit more shallow compared with the other papers. I do not know if this is a usual practice, of if I am doing something wrong not going deep enough. 
+	
+	\subsection*{What will be done next week?}
+	I did not have the time this week to study on Laplace transforms, so I will take over that topic again. I will be delivering an updated version of the proposal with the appropriate references.
+	
 	%\pagebreak
 	%\section*{ - }
 	%\subsection*{What was done last week}
